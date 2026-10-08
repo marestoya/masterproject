@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien\model">
+      <UniqueIdentifier>{224903a4-9fd3-41d5-868c-bbadfd73532d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\parametrization">
+      <UniqueIdentifier>{4eb86319-35c0-4266-9feb-463c7fc31738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\cost">
+      <UniqueIdentifier>{5d9546d1-71f9-4a6b-8339-4243a137f386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\model">
+      <UniqueIdentifier>{f2900c52-b0cc-40a8-b765-7b1f83fb08a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\cost">
+      <UniqueIdentifier>{5e43549c-2fe6-4e46-98fc-1f78bb5f990a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\parametrization">
+      <UniqueIdentifier>{511a8bb3-5100-40a5-9e77-4f5fd64f54ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\external">
+      <UniqueIdentifier>{c8d166c1-b242-4abe-844c-6d107e155096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\programs">
+      <UniqueIdentifier>{b0d014d3-e627-4bd1-9528-22abb617810a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\programs">
+      <UniqueIdentifier>{786a3ec3-5540-4f9a-b339-501acf253140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\input">
+      <UniqueIdentifier>{8a8941ea-dea7-419f-99b6-fc4e9fbe4a74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\input">
+      <UniqueIdentifier>{0b557a2b-a899-40bd-b720-2b33910fe5c6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\model\Assignment.h">
+      <Filter>Headerdateien\model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model\Command.h">
+      <Filter>Headerdateien\model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parametrization\GlobalExplicit.h">
+      <Filter>Headerdateien\parametrization</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parametrization\GlobalImplicit.h">
+      <Filter>Headerdateien\parametrization</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parametrization\ImplicitExhaustive.h">
+      <Filter>Headerdateien\parametrization</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parametrization\ImplicitNM.h">
+      <Filter>Headerdateien\parametrization</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parametrization\LocalParametrization.h">
+      <Filter>Headerdateien\parametrization</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cost\CostMatrix.h">
+      <Filter>Headerdateien\cost</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cost\CostModel.h">
+      <Filter>Headerdateien\cost</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model\Parameter.h">
+      <Filter>Headerdateien\model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parametrization\ParametrizationMethod.h">
+      <Filter>Headerdateien\parametrization</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model\Program.h">
+      <Filter>Headerdateien\model</Filter>
+    </ClInclude>
+    <ClInclude Include="AssignmentResult.h">
+      <Filter>Headerdateien\model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\external\json.hpp">
+      <Filter>Headerdateien\external</Filter>
+    </ClInclude>
+    <ClInclude Include="include\programs\LaboratoryPrograms.h">
+      <Filter>Headerdateien\programs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\InputParameters.h">
+      <Filter>Headerdateien\input</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\model\Assignment.cpp">
+      <Filter>Quelldateien\model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\Command.cpp">
+      <Filter>Quelldateien\model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\Parameter.cpp">
+      <Filter>Quelldateien\model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\Program.cpp">
+      <Filter>Quelldateien\model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cost\CostMatrix.cpp">
+      <Filter>Quelldateien\cost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cost\CostModel.cpp">
+      <Filter>Quelldateien\cost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parametrization\ParametrizationMethod.cpp">
+      <Filter>Quelldateien\parametrization</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parametrization\GlobalExplicit.cpp">
+      <Filter>Quelldateien\parametrization</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parametrization\GlobalImplicit.cpp">
+      <Filter>Quelldateien\parametrization</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parametrization\ImplicitExhaustive.cpp">
+      <Filter>Quelldateien\parametrization</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parametrization\ImplicitNM.cpp">
+      <Filter>Quelldateien\parametrization</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parametrization\LocalParametrization.cpp">
+      <Filter>Quelldateien\parametrization</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\AssignmentResult.cpp">
+      <Filter>Quelldateien\model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\programs\LaboratoryPrograms.cpp">
+      <Filter>Quelldateien\programs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\InputParameters.cpp">
+      <Filter>Quelldateien\input</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
