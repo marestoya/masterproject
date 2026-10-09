@@ -61,6 +61,8 @@ Program getPrepareSolution()
 }
 
 
+//TODO: Here implement the actual robot execution
+
 // --------------------------------------------------
 // Execution functions
 // --------------------------------------------------
