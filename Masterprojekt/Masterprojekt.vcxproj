@@ -28,6 +28,7 @@
     <ClInclude Include="include\model\Command.h" />
     <ClInclude Include="include\model\Parameter.h" />
     <ClInclude Include="include\model\Program.h" />
+    <ClInclude Include="include\model\ProgramInstantiator.h" />
     <ClInclude Include="include\parametrization\GlobalExplicit.h" />
     <ClInclude Include="include\parametrization\GlobalImplicit.h" />
     <ClInclude Include="include\parametrization\ImplicitExhaustive.h" />
@@ -46,6 +47,7 @@
     <ClCompile Include="src\model\Command.cpp" />
     <ClCompile Include="src\model\Parameter.cpp" />
     <ClCompile Include="src\model\Program.cpp" />
+    <ClCompile Include="src\model\ProgramInstantiator.cpp" />
     <ClCompile Include="src\parametrization\GlobalExplicit.cpp" />
     <ClCompile Include="src\parametrization\GlobalImplicit.cpp" />
     <ClCompile Include="src\parametrization\ImplicitExhaustive.cpp" />

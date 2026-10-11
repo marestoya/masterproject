@@ -96,6 +96,9 @@
     <ClInclude Include="include\input\InputParameters.h">
       <Filter>Headerdateien\input</Filter>
     </ClInclude>
+    <ClInclude Include="include\model\ProgramInstantiator.h">
+      <Filter>Headerdateien\model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\model\Assignment.cpp">
@@ -145,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="src\input\InputParameters.cpp">
       <Filter>Quelldateien\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\ProgramInstantiator.cpp">
+      <Filter>Quelldateien\model</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

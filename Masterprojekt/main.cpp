@@ -1,3 +1,4 @@
+
 #include <cmath>
 #include <exception>
 #include <iostream>
@@ -5,69 +6,42 @@
 #include <vector>
 
 #include "model/Parameter.h"
+#include "model/Program.h"
 #include "model/AssignmentResult.h"
 
 #include "cost/CostModel.h"
 #include "cost/CostMatrix.h"
 
 #include "parametrization/LocalParametrization.h"
-#include "parametrization/ImplicitExhaustive.h"
-#include "parametrization/GlobalImplicit.h"
+#include "model/ProgramInstantiator.h"
 
-
-void printResult(
-    const std::string& methodName,
-    const AssignmentResult& result)
+void printProgram(const Program& program)
 {
-    std::cout << "\n========== " << methodName
-        << " ==========\n";
+    std::cout << "\nProgram: " << program.name
+        << " (ID: " << program.id << ")\n";
+
+    for (const Parameter& parameter : program.parameters)
+    {
+        std::cout << "  Parameter ID: " << parameter.id
+            << ", Type: " << parameter.type
+            << ", Color: " << parameter.color
+            << "\n";
+    }
+}
+
+void printAssignments(const AssignmentResult& result)
+{
+    std::cout << "\n ASSIGNMENTS \n";
 
     for (const Assignment& assignment : result.assignments)
     {
-        std::cout
-            << "Input parameter "
-            << assignment.inputParameterId
-            << " -> Program parameter "
-            << assignment.programParameterId
-            << ", Cost: "
-            << assignment.cost
+        std::cout << "Input " << assignment.inputParameterId
+            << " -> Program " << assignment.programParameterId
+            << ", Cost: " << assignment.cost
             << "\n";
     }
 
-    std::cout << "Total cost: "
-        << result.totalCost
-        << "\n";
-}
-
-void printCostMatrix(const CostMatrix& costMatrix)
-{
-    std::cout << "\n COST MATRIX \n";
-
-    std::cout << "Rows = program parameters\n";
-    std::cout << "Columns = input parameters\n\n";
-
-    for (std::size_t i = 0;
-        i < costMatrix.getRowCount();
-        ++i)
-    {
-        for (std::size_t j = 0;
-            j < costMatrix.getColumnCount();
-            ++j)
-        {
-            const auto& cost = costMatrix.getCost(i, j);
-
-            if (cost.has_value())
-            {
-                std::cout << cost.value() << "\t";
-            }
-            else
-            {
-                std::cout << "X\t";
-            }
-        }
-
-        std::cout << "\n";
-    }
+    std::cout << "Total cost: " << result.totalCost << "\n";
 }
 
 
@@ -75,8 +49,12 @@ int main()
 {
     try
     {
+        Program program;
 
-        std::vector<Parameter> programParameters =
+        program.id = 1;
+        program.name = "Laboratory Program";
+
+        program.parameters =
         {
             {1, "container", "red"},
             {2, "mug", "blue"},
@@ -90,52 +68,41 @@ int main()
             {103, "stirrer", "yellow"}
         };
 
+        std::cout << "ORIGINAL PROGRAM\n";
+        printProgram(program);
+
         CostModel costModel;
         CostMatrix costMatrix(
-            programParameters,
+            program.parameters,
             inputParameters,
             costModel
         );
 
-        printCostMatrix(costMatrix);
 
         LocalParametrization local;
-        ImplicitExhaustive exhaustive;
-        GlobalImplicit hungarian;
-
-        AssignmentResult localResult =
+        AssignmentResult assignmentResult =
             local.parametrize(
                 costMatrix,
-                programParameters,
+                program.parameters,
                 inputParameters
             );
 
-        AssignmentResult exhaustiveResult =
-            exhaustive.parametrize(
-                costMatrix,
-                programParameters,
-                inputParameters
-            );
+        printAssignments(assignmentResult);
 
-        AssignmentResult hungarianResult =
-            hungarian.parametrize(
-                costMatrix,
-                programParameters,
-                inputParameters
-            );
 
-        printResult("LOCAL PARAMETRIZATION", localResult);
+        ProgramInstantiator instantiator;
 
-        printResult(
-            "EXHAUSTIVE PARAMETRIZATION",
-            exhaustiveResult
+        Program updatedProgram = instantiator.instantiate(
+            program,
+            inputParameters,
+            assignmentResult
         );
 
-        printResult(
-            "HUNGARIAN ALGORITHM",
-            hungarianResult
-        );
-      
+
+        std::cout << "\nUPDATED PROGRAM\n";
+        printProgram(updatedProgram);
+        
+        
     }
     catch (const std::exception& e)
     {
