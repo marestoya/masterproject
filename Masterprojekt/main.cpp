@@ -1,70 +1,147 @@
-
+#include <cmath>
+#include <exception>
 #include <iostream>
+#include <string>
 #include <vector>
+
+#include "model/Parameter.h"
+#include "model/AssignmentResult.h"
 
 #include "cost/CostModel.h"
 #include "cost/CostMatrix.h"
+
 #include "parametrization/LocalParametrization.h"
 #include "parametrization/ImplicitExhaustive.h"
+#include "parametrization/GlobalImplicit.h"
+
+
+void printResult(
+    const std::string& methodName,
+    const AssignmentResult& result)
+{
+    std::cout << "\n========== " << methodName
+        << " ==========\n";
+
+    for (const Assignment& assignment : result.assignments)
+    {
+        std::cout
+            << "Input parameter "
+            << assignment.inputParameterId
+            << " -> Program parameter "
+            << assignment.programParameterId
+            << ", Cost: "
+            << assignment.cost
+            << "\n";
+    }
+
+    std::cout << "Total cost: "
+        << result.totalCost
+        << "\n";
+}
+
+void printCostMatrix(const CostMatrix& costMatrix)
+{
+    std::cout << "\n COST MATRIX \n";
+
+    std::cout << "Rows = program parameters\n";
+    std::cout << "Columns = input parameters\n\n";
+
+    for (std::size_t i = 0;
+        i < costMatrix.getRowCount();
+        ++i)
+    {
+        for (std::size_t j = 0;
+            j < costMatrix.getColumnCount();
+            ++j)
+        {
+            const auto& cost = costMatrix.getCost(i, j);
+
+            if (cost.has_value())
+            {
+                std::cout << cost.value() << "\t";
+            }
+            else
+            {
+                std::cout << "X\t";
+            }
+        }
+
+        std::cout << "\n";
+    }
+}
+
 
 int main()
 {
-    CostModel costModel;
-
-    std::vector<Parameter> programParameters =
+    try
     {
-        {1, "container", "red"},
-        {2, "mug", "blue"},
-        {3, "stirrer", "yellow"}
-    };
 
-    std::vector<Parameter> inputParameters =
-    {
-        {1, "tallMug", "green"},
-        {2, "mug", "blue"},
-        {3, "stirrer", "yellow"}
-    };
+        std::vector<Parameter> programParameters =
+        {
+            {1, "container", "red"},
+            {2, "mug", "blue"},
+            {3, "stirrer", "yellow"}
+        };
 
-    CostMatrix matrix(
-        programParameters,
-        inputParameters,
-        costModel
-    );
+        std::vector<Parameter> inputParameters =
+        {
+            {101, "tallMug", "green"},
+            {102, "mug", "blue"},
+            {103, "stirrer", "yellow"}
+        };
 
-    LocalParametrization local;
-    ImplicitExhaustive exhaustive;
+        CostModel costModel;
+        CostMatrix costMatrix(
+            programParameters,
+            inputParameters,
+            costModel
+        );
 
-    AssignmentResult localResult = local.parametrize(
-        matrix, programParameters, inputParameters
-    );
+        printCostMatrix(costMatrix);
 
-    AssignmentResult exhaustiveResult = exhaustive.parametrize(
-        matrix, programParameters, inputParameters
-    );
+        LocalParametrization local;
+        ImplicitExhaustive exhaustive;
+        GlobalImplicit hungarian;
 
-    std::cout << "Local Parametrization:\n";
+        AssignmentResult localResult =
+            local.parametrize(
+                costMatrix,
+                programParameters,
+                inputParameters
+            );
 
-    for (const Assignment& assignment : localResult.assignments)
-    {
-        std::cout << "Input " << assignment.inputParameterId
-            << " -> Program " << assignment.programParameterId
-            << ", Cost: " << assignment.cost << '\n';
+        AssignmentResult exhaustiveResult =
+            exhaustive.parametrize(
+                costMatrix,
+                programParameters,
+                inputParameters
+            );
+
+        AssignmentResult hungarianResult =
+            hungarian.parametrize(
+                costMatrix,
+                programParameters,
+                inputParameters
+            );
+
+        printResult("LOCAL PARAMETRIZATION", localResult);
+
+        printResult(
+            "EXHAUSTIVE PARAMETRIZATION",
+            exhaustiveResult
+        );
+
+        printResult(
+            "HUNGARIAN ALGORITHM",
+            hungarianResult
+        );
+      
     }
-
-    std::cout << "Total cost: "
-        << localResult.totalCost << "\n\n";
-
-    std::cout << "Global Implicit Exhaustive:\n";
-
-    for (const Assignment& assignment : exhaustiveResult.assignments)
+    catch (const std::exception& e)
     {
-        std::cout << "Input " << assignment.inputParameterId
-            << " -> Program " << assignment.programParameterId
-            << ", Cost: " << assignment.cost << '\n';
+        std::cerr << "\nERROR: " << e.what() << "\n";
+        return 1;
     }
-
-    std::cout << "Total cost: "
-        << exhaustiveResult.totalCost << '\n';
 
     return 0;
 }
