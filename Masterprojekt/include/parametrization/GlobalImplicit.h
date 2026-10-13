@@ -1,16 +1,13 @@
 #pragma once
 
-#include "cost/CostMatrix.h"
-#include "model/AssignmentResult.h"
+#include "parametrization/ParametrizationMethod.h"
 
-#include <vector>
-
-class GlobalImplicit
+class GlobalImplicit : public ParametrizationMethod
 {
 public:
-	AssignmentResult parametrize(
-		const CostMatrix& costMatrix,
-		const std::vector<Parameter>& programParameters,
-		const std::vector<Parameter>& inputParameters
-	) const;
+    AssignmentResult parametrize(
+        const CostMatrix& costMatrix,
+        const std::vector<Parameter>& programParameters,
+        const std::vector<Parameter>& inputParameters
+    ) const override;
 };

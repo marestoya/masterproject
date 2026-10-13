@@ -11,42 +11,56 @@ Program ProgramInstantiator::instantiate(
 {
     Program instantiatedProgram = program;
 
+    for (ParameterSlot& slot : instantiatedProgram.parameters)
+    {
+        slot.parameters.clear();
+    }
+
     for (const Assignment& assignment : assignmentResult.assignments)
     {
-        const auto inputIt = std::find_if(
+        auto input = std::find_if(
             inputParameters.begin(),
             inputParameters.end(),
-            [&assignment](const Parameter& parameter)
+            [&](const Parameter& parameter)
             {
                 return parameter.id == assignment.inputParameterId;
             }
         );
 
-        if (inputIt == inputParameters.end())
+        if (input == inputParameters.end())
         {
             throw std::runtime_error(
-                "Program instantiation failed: input parameter not found"
+                "Assignment references an unknown input parameter!"
             );
         }
 
-        const auto programIt = std::find_if(
+        auto slot = std::find_if(
             instantiatedProgram.parameters.begin(),
             instantiatedProgram.parameters.end(),
-            [&assignment](const Parameter& parameter)
+            [&](const ParameterSlot& candidate)
             {
-                return parameter.id == assignment.programParameterId;
+                return candidate.id == assignment.programParameterId;
             }
         );
 
-        if (programIt == instantiatedProgram.parameters.end())
+        if (slot == instantiatedProgram.parameters.end())
         {
             throw std::runtime_error(
-                "Program instantiation failed: program parameter not found"
+                "Assignment references an unknown program slot!"
             );
         }
 
-        programIt->type = inputIt->type;
-        programIt->color = inputIt->color;
+        slot->parameters.push_back(*input);
+    }
+
+    for (const ParameterSlot& slot : instantiatedProgram.parameters)
+    {
+        if (slot.parameters.empty())
+        {
+            throw std::runtime_error(
+                "Assignment result leaves a program slot empty!"
+            );
+        }
     }
 
     return instantiatedProgram;

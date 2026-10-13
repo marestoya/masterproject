@@ -9,10 +9,10 @@ Program getSetUpExperiment()
         1,
         "Set Up Experiment",
         {
-            {1, "beaker", "red"},
-            {2, "testTube", "blue"},
-            {3, "thermometer", "silver"},
-            {4, "stirrer", "yellow"}
+             {1, {{1, "beaker", "red"}}},
+            {2, {{2, "testTube", "blue"}}},
+            {3, {{3, "thermometer", "silver"}}},
+            {4, {{4, "stirrer", "yellow"}}}
         }
     };
 }
@@ -24,9 +24,9 @@ Program getStoreSamples()
         2,
         "Store Samples",
         {
-            {1, "sampleTube", "red"},
-            {2, "sampleTube", "blue"},
-            {3, "storageBox", "white"}
+           {1, {{1, "sampleTube", "red"}}},
+            {2, {{2, "sampleTube", "blue"}}},
+            {3, {{3, "storageBox", "white"}}}
         }
     };
 }
@@ -38,10 +38,10 @@ Program getSynthesize()
         3,
         "Synthesize",
         {
-            {1, "powder", "red"},
-            {2, "liquid", "blue"},
-            {3, "container", "glass"},
-            {4, "stirrer", "silver"}
+            {1, {{1, "powder", "red"}}},
+            {2, {{2, "liquid", "blue"}}},
+            {3, {{3, "container", "glass"}}},
+            {4, {{4, "stirrer", "silver"}}}
         }
     };
 }
@@ -53,9 +53,9 @@ Program getPrepareSolution()
         4,
         "Prepare Solution",
         {
-            {1, "powder", "green"},
-            {2, "waterBottle", "blue"},
-            {3, "beaker", "glass"}
+           {1, {{1, "powder", "green"}}},
+            {2, {{2, "waterBottle", "blue"}}},
+            {3, {{3, "beaker", "glass"}}}
         }
     };
 }
