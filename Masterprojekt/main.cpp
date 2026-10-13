@@ -15,6 +15,7 @@
 #include "parametrization/LocalParametrization.h"
 #include "parametrization/GlobalImplicit.h"
 #include "parametrization/ImplicitExhaustive.h"
+#include "parametrization/GlobalExplicit.h"
 #include "model/ProgramInstantiator.h"
 
 void printProgram(const Program& program)
@@ -36,8 +37,6 @@ void printProgram(const Program& program)
     }
 }
 
-
-
 void printAssignments(const AssignmentResult& result)
 {
     std::cout << "\nASSIGNMENTS\n";
@@ -53,9 +52,6 @@ void printAssignments(const AssignmentResult& result)
 
     std::cout << "Total cost: " << result.totalCost << '\n';
 }
-
-
-
 
 void runParametrization(
     const ParametrizationMethod& method,
@@ -115,7 +111,6 @@ int main()
 
         };
 
-
         std::cout << "ORIGINAL PROGRAM\n";
         printProgram(program);
 
@@ -127,6 +122,26 @@ int main()
 
 		ImplicitExhaustive exhaustive;
 		runParametrization(exhaustive, program, inputParameters);
+
+        GlobalExplicit explicitMethod;
+
+        std::vector<Assignment> userAssignments =
+        {
+            {101, 1, 2.0},
+            {102, 2, 0.0},
+            {103, 3, 0.0} 
+        };
+
+        std::cout << "\nGLOBAL EXPLICIT \n";
+
+        AssignmentResult explicitResult =
+            explicitMethod.applyUserAssignments(
+                program,
+                inputParameters,
+                userAssignments
+            );
+
+        printAssignments(explicitResult);
         
     }
     catch (const std::exception& e)

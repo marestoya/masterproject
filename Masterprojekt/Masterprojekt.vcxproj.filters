@@ -84,9 +84,6 @@
     <ClInclude Include="include\model\Program.h">
       <Filter>Headerdateien\model</Filter>
     </ClInclude>
-    <ClInclude Include="AssignmentResult.h">
-      <Filter>Headerdateien\model</Filter>
-    </ClInclude>
     <ClInclude Include="include\external\json.hpp">
       <Filter>Headerdateien\external</Filter>
     </ClInclude>
@@ -97,6 +94,9 @@
       <Filter>Headerdateien\input</Filter>
     </ClInclude>
     <ClInclude Include="include\model\ProgramInstantiator.h">
+      <Filter>Headerdateien\model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model\AssignmentResult.h">
       <Filter>Headerdateien\model</Filter>
     </ClInclude>
   </ItemGroup>

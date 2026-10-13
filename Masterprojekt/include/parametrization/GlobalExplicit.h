@@ -1,3 +1,16 @@
 #pragma once
-//I dont need an actual implementation, just a function to convert the user mapping into and assingment
-//TODO: do this once the UI is done
+
+#include "model/Program.h"
+#include "model/Assignment.h"
+#include "model/AssignmentResult.h"
+#include <vector>
+
+class GlobalExplicit
+{
+public:
+    AssignmentResult applyUserAssignments(
+        const Program& program,
+        const std::vector<Parameter>& inputParameters,
+        const std::vector<Assignment>& userAssignments
+    ) const;
+};

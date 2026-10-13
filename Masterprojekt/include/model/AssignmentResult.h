@@ -7,5 +7,5 @@
 struct AssignmentResult
 {
     std::vector<Assignment> assignments;
-    double totalCost;
+    double totalCost = 0.0;
 };
