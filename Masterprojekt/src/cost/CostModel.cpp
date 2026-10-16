@@ -65,7 +65,7 @@ std::optional<double> CostModel::calculateCost(
 		: 0.0;
 
     return typeWeight * typeCost.value()
-        + colorWeight * colorCost;
+        + colorWeight * colorCost + numberCost;
 }
 
 std::optional<double> CostModel::calculateTypeCost(

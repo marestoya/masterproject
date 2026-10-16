@@ -46,6 +46,12 @@
     <Filter Include="Quelldateien\input">
       <UniqueIdentifier>{0b557a2b-a899-40bd-b720-2b33910fe5c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\tests">
+      <UniqueIdentifier>{d375fde0-8a37-4011-9d88-4a85e5734d72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\tests">
+      <UniqueIdentifier>{1cff2b9f-62a9-45e7-8d60-8849f2808597}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\model\Assignment.h">
@@ -98,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="include\model\AssignmentResult.h">
       <Filter>Headerdateien\model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tests\ParametrizationTests.h">
+      <Filter>Headerdateien\tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,5 +161,11 @@
     <ClCompile Include="src\model\ProgramInstantiator.cpp">
       <Filter>Quelldateien\model</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\ParametrizationTests.cpp">
+      <Filter>Quelldateien\tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vcpkg.json" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,8 @@
+{
+  "name": "masterprojekt",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "dlib",
+    "nlohmann-json"
+  ]
+}

@@ -11,11 +11,6 @@ Program ProgramInstantiator::instantiate(
 {
     Program instantiatedProgram = program;
 
-    for (ParameterSlot& slot : instantiatedProgram.parameters)
-    {
-        slot.parameters.clear();
-    }
-
     for (const Assignment& assignment : assignmentResult.assignments)
     {
         auto input = std::find_if(
@@ -50,17 +45,14 @@ Program ProgramInstantiator::instantiate(
             );
         }
 
-        slot->parameters.push_back(*input);
-    }
-
-    for (const ParameterSlot& slot : instantiatedProgram.parameters)
-    {
-        if (slot.parameters.empty())
+        if (slot->parameters.size() == 1 &&
+            slot->parameters.front().id == assignment.programParameterId)
         {
-            throw std::runtime_error(
-                "Assignment result leaves a program slot empty!"
-            );
+            slot->parameters.clear();
         }
+
+        slot->parameters.push_back(*input);
+    
     }
 
     return instantiatedProgram;

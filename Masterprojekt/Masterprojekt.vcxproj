@@ -36,6 +36,7 @@
     <ClInclude Include="include\parametrization\LocalParametrization.h" />
     <ClInclude Include="include\parametrization\ParametrizationMethod.h" />
     <ClInclude Include="include\programs\LaboratoryPrograms.h" />
+    <ClInclude Include="include\tests\ParametrizationTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -55,6 +56,10 @@
     <ClCompile Include="src\parametrization\LocalParametrization.cpp" />
     <ClCompile Include="src\parametrization\ParametrizationMethod.cpp" />
     <ClCompile Include="src\programs\LaboratoryPrograms.cpp" />
+    <ClCompile Include="src\tests\ParametrizationTests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vcpkg.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

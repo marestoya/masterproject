@@ -8,6 +8,7 @@
 #include "model/Parameter.h"
 #include "model/Program.h"
 #include "model/AssignmentResult.h"
+#include "model/ProgramInstantiator.h"
 
 #include "cost/CostModel.h"
 #include "cost/CostMatrix.h"
@@ -16,47 +17,15 @@
 #include "parametrization/GlobalImplicit.h"
 #include "parametrization/ImplicitExhaustive.h"
 #include "parametrization/GlobalExplicit.h"
-#include "model/ProgramInstantiator.h"
+#include "parametrization/ImplicitNM.h"
 
-void printProgram(const Program& program)
-{
-    std::cout << "\nProgram: " << program.name
-        << " (ID: " << program.id << ")\n";
-
-    for (const ParameterSlot& slot : program.parameters)
-    {
-        std::cout << "  Slot ID: " << slot.id << '\n';
-
-        for (const Parameter& parameter : slot.parameters)
-        {
-            std::cout << "    Parameter ID: " << parameter.id
-                << ", Type: " << parameter.type
-                << ", Color: " << parameter.color
-                << '\n';
-        }
-    }
-}
-
-void printAssignments(const AssignmentResult& result)
-{
-    std::cout << "\nASSIGNMENTS\n";
-
-    for (const Assignment& assignment : result.assignments)
-    {
-        std::cout << "Input " << assignment.inputParameterId
-            << " -> Program slot "
-            << assignment.programParameterId
-            << ", Cost: " << assignment.cost
-            << '\n';
-    }
-
-    std::cout << "Total cost: " << result.totalCost << '\n';
-}
+#include "tests/ParametrizationTests.h"
 
 void runParametrization(
     const ParametrizationMethod& method,
     const Program& program,
-    const std::vector<Parameter>& inputParameters)
+    const std::vector<Parameter>& inputParameters,
+    bool useNumber)
 {
     CostModel costModel(false);
     const std::vector<Parameter> programParameters =
@@ -67,24 +36,40 @@ void runParametrization(
         costModel
     );
 
-    AssignmentResult assignmentResult = method.parametrize(
+   /* AssignmentResult assignmentResult = method.parametrize(
         costMatrix,
         programParameters,
         inputParameters
     );
 
-    printAssignments(assignmentResult);
+    printAssignments(assignmentResult);*/
 
     ProgramInstantiator instantiator;
-
+    AssignmentResult testResult;
+    testResult.assignments = {
+        {101, 1, 0.0},  
+        {102, 1, 1.0}  
+    };
     Program updatedProgram = instantiator.instantiate(
         program,
         inputParameters,
-        assignmentResult
+        testResult
     );
 
-    std::cout << "\nUPDATED PROGRAM\n";
-    printProgram(updatedProgram);
+    std::cout << "\n--- Program Instantiation Test ---\n";
+
+    for (const ParameterSlot& slot : updatedProgram.parameters)
+    {
+        std::cout << "Slot " << slot.id << ":\n";
+
+        for (const Parameter& parameter : slot.parameters)
+        {
+            std::cout << "  Parameter ID: " << parameter.id
+                << ", Type: " << parameter.type
+                << ", Color: " << parameter.color
+                << '\n';
+        }
+    }
 }
 
 
@@ -92,56 +77,7 @@ int main()
 {
     try
     {
-        Program program;
-
-        program.id = 1;
-        program.name = "Laboratory Program";
-
-        program.parameters = {
-            {1, {{1, "container", "red"}}},
-            {2, {{2, "mug", "blue"}}},
-            {3, {{3, "stirrer", "yellow"}}}
-        };
-
-        std::vector<Parameter> inputParameters =
-        {
-            {101, "tallMug", "green"},
-            {102, "mug", "blue"},
-            {103, "stirrer", "yellow"}
-
-        };
-
-        std::cout << "ORIGINAL PROGRAM\n";
-        printProgram(program);
-
-        LocalParametrization local;
-        runParametrization(local, program, inputParameters);
-
-        GlobalImplicit implicit;
-        runParametrization(implicit, program, inputParameters);
-
-		ImplicitExhaustive exhaustive;
-		runParametrization(exhaustive, program, inputParameters);
-
-        GlobalExplicit explicitMethod;
-
-        std::vector<Assignment> userAssignments =
-        {
-            {101, 1, 2.0},
-            {102, 2, 0.0},
-            {103, 3, 0.0} 
-        };
-
-        std::cout << "\nGLOBAL EXPLICIT \n";
-
-        AssignmentResult explicitResult =
-            explicitMethod.applyUserAssignments(
-                program,
-                inputParameters,
-                userAssignments
-            );
-
-        printAssignments(explicitResult);
+        runParametrizationTests();
         
     }
     catch (const std::exception& e)
