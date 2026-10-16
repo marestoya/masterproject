@@ -1,7 +1,9 @@
 
 #include "parametrization/GlobalImplicit.h"
 
-#include <algorithm>
+#include <dlib/matrix.h>
+#include <dlib/optimization/max_cost_assignment.h>
+
 #include <cmath>
 #include <limits>
 #include <stdexcept>
@@ -12,215 +14,189 @@ AssignmentResult GlobalImplicit::parametrize(
     const std::vector<Parameter>& programParameters,
     const std::vector<Parameter>& inputParameters) const
 {
-    if (costMatrix.getRowCount() != programParameters.size() ||
-        costMatrix.getColumnCount() != inputParameters.size())
+    const std::size_t slotCount = programParameters.size();
+    const std::size_t inputCount = inputParameters.size();
+
+    if (costMatrix.getRowCount() != slotCount ||
+        costMatrix.getColumnCount() != inputCount)
     {
         throw std::invalid_argument(
-            "Cost matrix dimensions do not match the parameter lists!!"
-        );
+            "Cost matrix dimensions do not match the parameter list!");
     }
 
-    const std::size_t n = inputParameters.size();
-    const std::size_t m = programParameters.size();
-
-    if (n > m)
+    if (inputCount > slotCount)
     {
         throw std::runtime_error(
-            "Global implicit parametrization failed: not enough program parameters for a one-to-one assignment."
-        );
+            "Global implicit parametrization failed: not enough program parameters for a one-to-one assignment!");
     }
 
-    AssignmentResult result{};
-    result.totalCost = 0.0;
-
-    if (n == 0)
+    if (inputCount == 0)
     {
-        return result;
+        return AssignmentResult{};
     }
 
-    double maxAbsCost = 0.0;
+    double maxCost = -std::numeric_limits<double>::infinity();
+    bool foundCompatiblePair = false;
 
-    for (std::size_t i = 0; i < m; ++i)
+    for (std::size_t slot = 0; slot < slotCount; ++slot)
     {
-        for (std::size_t j = 0; j < n; ++j)
+        for (std::size_t input = 0; input < inputCount; ++input)
         {
-            const auto& cost = costMatrix.getCost(i, j);
+            const auto& cost = costMatrix.getCost(slot, input);
 
             if (!cost.has_value())
-            {
                 continue;
-            }
 
             if (!std::isfinite(cost.value()))
             {
-                throw std::invalid_argument(
-                    "Cost matrix contains a non-finite cost."
-                );
-            }
-
-            maxAbsCost = std::max(
-                maxAbsCost, std::abs(cost.value())
-            );
-        }
-    }
-
-   
-
-    const double forbiddenCost =
-        (2.0 * static_cast<double>(n) + 1.0)
-        * (maxAbsCost + 1.0);
-
-    if (!std::isfinite(forbiddenCost))
-    {
-        throw std::overflow_error("Could not construct a finite penalty for incompatible pairs");
-    }
-
-    std::vector<std::vector<double>> costs(
-        n, std::vector<double>(m, forbiddenCost)
-    );
-
-    for (std::size_t inputIndex = 0;
-        inputIndex < n;
-        ++inputIndex)
-    {
-        for (std::size_t programIndex = 0;
-            programIndex < m;
-            ++programIndex)
-        {
-            const auto& cost = costMatrix.getCost(
-                programIndex, inputIndex
-            );
-
-            if (cost.has_value())
-            {
-                costs[inputIndex][programIndex] = cost.value();
-            }
-        }
-    }
-
-    const double INF = std::numeric_limits<double>::infinity();
-
-    std::vector<double> u(n + 1, 0.0);
-    std::vector<double> v(m + 1, 0.0);
-    std::vector<std::size_t> p(m + 1, 0);
-    std::vector<std::size_t> way(m + 1, 0);
-
-    for (std::size_t i = 1; i <= n; ++i)
-    {
-        p[0] = i;
-
-        std::size_t j0 = 0;
-
-        std::vector<double> minv(m + 1, INF);
-        std::vector<bool> used(m + 1, false);
-
-        do
-        {
-            used[j0] = true;
-            const std::size_t i0 = p[j0];
-            double delta = INF;
-            std::size_t j1 = 0;
-
-            for (std::size_t j = 1; j <= m; ++j)
-            {
-                if (used[j])
-                {
-                    continue;
-                }
-
-                const double current =
-                    costs[i0 - 1][j - 1] - u[i0] - v[j];
-
-                if (current < minv[j])
-                {
-                    minv[j] = current;
-                    way[j] = j0;
-                }
-
-                if (minv[j] < delta)
-                {
-                    delta = minv[j];
-                    j1 = j;
-                }
-            }
-
-            if (!std::isfinite(delta))
-            {
                 throw std::runtime_error(
-                    "Hungarian algorithm could not find an assignment"
-                );
+                    "Cost matrix contains a non-finite cost.");
             }
 
-            for (std::size_t j = 0; j <= m; ++j)
+            maxCost = foundCompatiblePair
+                ? (cost.value() > maxCost ? cost.value() : maxCost)
+                : cost.value();
+
+            foundCompatiblePair = true;
+        }
+    }
+
+    if (!foundCompatiblePair)
+    {
+        throw std::runtime_error(
+            "Global implicit parametrization failed: no compatible "
+            "input/program parameter pairs exist.");
+    }
+
+    const long matrixSize = static_cast<long>(slotCount);
+
+    dlib::matrix<dlib::int64> gainMatrix(matrixSize, matrixSize);
+
+    constexpr double scale = 1'000'000.0;
+    dlib::int64 maxGain = 0;
+
+    for (std::size_t slot = 0; slot < slotCount; ++slot)
+    {
+        for (std::size_t input = 0; input < inputCount; ++input)
+        {
+            const auto& cost = costMatrix.getCost(slot, input);
+
+            if (!cost.has_value())
             {
-                if (used[j])
-                {
-                    u[p[j]] += delta;
-                    v[j] -= delta;
-                }
-                else if (j != 0)
-                {
-                    minv[j] -= delta;
-                }
+                gainMatrix(
+                    static_cast<long>(slot),
+                    static_cast<long>(input)) = 0;
+
+                continue;
             }
 
-            j0 = j1;
+            const long double scaledGain =
+                (static_cast<long double>(maxCost) - cost.value())
+                * scale;
 
-        } while (p[j0] != 0);
+            if (scaledGain >
+                static_cast<long double>(
+                    std::numeric_limits<dlib::int64>::max()) / 2)
+            {
+                throw std::overflow_error(
+                    "Value is too high");
+            }
 
-        do
+            const auto gain = static_cast<dlib::int64>(
+                std::llround(scaledGain));
+
+            gainMatrix(
+                static_cast<long>(slot),
+                static_cast<long>(input)) = gain;
+
+            if (gain > maxGain)
+                maxGain = gain;
+        }
+
+        //dummies for the square matrix
+        for (std::size_t dummy = inputCount;
+            dummy < slotCount;
+            ++dummy)
         {
-            const std::size_t j1 = way[j0];
-
-            p[j0] = p[j1];
-            j0 = j1;
-
-        } while (j0 != 0);
-    }
-
-    std::vector<std::size_t> assignedProgramForInput(n, m);
-
-    for (std::size_t j = 1; j <= m; ++j)
-    {
-        if (p[j] != 0)
-        {
-            assignedProgramForInput[p[j] - 1] = j - 1;
+            gainMatrix(
+                static_cast<long>(slot),
+                static_cast<long>(dummy)) = 0;
         }
     }
 
-    for (std::size_t inputIndex = 0;
-        inputIndex < n;
-        ++inputIndex)
+    const dlib::int64 maxInt =
+        std::numeric_limits<dlib::int64>::max();
+
+    const dlib::int64 factor =
+        static_cast<dlib::int64>(inputCount) + 1;
+
+    if (maxGain >= maxInt / factor - 1)
     {
-        const std::size_t programIndex =
-            assignedProgramForInput[inputIndex];
+        throw std::overflow_error(
+            "gain range is too big");
+    }
 
-        if (programIndex >= m)
+    const dlib::int64 incompatibleGain =
+        -(maxGain + 1) * factor;
+
+    for (std::size_t slot = 0; slot < slotCount; ++slot)
+    {
+        for (std::size_t input = 0; input < inputCount; ++input)
         {
-            throw std::runtime_error(
-                "Global implicit parametrization failed, no complete assignment exists."
-            );
+            if (!costMatrix.getCost(slot, input).has_value())
+            {
+                gainMatrix(
+                    static_cast<long>(slot),
+                    static_cast<long>(input)) = incompatibleGain;
+            }
+        }
+    }
+
+    const std::vector<long> assignment =
+        dlib::max_cost_assignment(gainMatrix);
+
+    AssignmentResult result{};
+    std::vector<bool> inputAssigned(inputCount, false);
+
+    for (std::size_t slot = 0; slot < slotCount; ++slot)
+    {
+        const long column = assignment[slot];
+
+        if (column < 0 ||
+            static_cast<std::size_t>(column) >= inputCount)
+        {
+            continue;
         }
 
-        const auto& originalCost = costMatrix.getCost(
-            programIndex, inputIndex
-        );
+        const std::size_t input = static_cast<std::size_t>(column);
+        const auto& cost = costMatrix.getCost(slot, input);
 
-        if (!originalCost.has_value())
+        if (!cost.has_value())
         {
             throw std::runtime_error(
-                "Global implicit parametrization failed, no complete compatible assignment exists."
-            );
+                "Global implicit parametrization failed: no complete compatible assignment exists.");
         }
+
+        inputAssigned[input] = true;
 
         result.assignments.push_back({
-            inputParameters[inputIndex].id,
-            programParameters[programIndex].id,
-            originalCost.value()
+            inputParameters[input].id,
+            programParameters[slot].id,
+            cost.value()
             });
 
-        result.totalCost += originalCost.value();
+        result.totalCost += cost.value();
+    }
+
+    for (bool assigned : inputAssigned)
+    {
+        if (!assigned)
+        {
+            throw std::runtime_error(
+                "Global implicit parametrization failed: not every input parameter was assigned");
+        }
     }
 
     return result;
 }
+

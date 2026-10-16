@@ -58,7 +58,7 @@ void runParametrization(
     const Program& program,
     const std::vector<Parameter>& inputParameters)
 {
-    CostModel costModel;
+    CostModel costModel(false);
     const std::vector<Parameter> programParameters =
         getFirstParameters(program);
     CostMatrix costMatrix(

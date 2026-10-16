@@ -11,9 +11,8 @@
 class CostModel
 {
 public:
-    CostModel();
+    explicit CostModel(bool useNumber = true);
 
-  
     std::optional<double> calculateCost(
         const Parameter& programParameter,
         const Parameter& inputParameter
@@ -33,6 +32,8 @@ private:
     double generalizationWeight = 2.0;
     double specializationWeight = 1.0;
 
+    bool useNumber;
+
     void addType(
         const std::string& type,
         const std::string& parent
@@ -46,5 +47,10 @@ private:
     double calculateColorCost(
         const std::string& programColor,
         const std::string& inputColor
+    ) const;
+
+    double calculateNumberCost(
+        const std::optional<int>& programNumber,
+        const std::optional<int>& inputNumber
     ) const;
 };

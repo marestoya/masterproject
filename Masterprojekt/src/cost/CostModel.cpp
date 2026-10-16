@@ -5,7 +5,8 @@
 #include <cmath>
 #include <stdexcept>
 
-CostModel::CostModel()
+CostModel::CostModel(bool useNumber)
+    : useNumber(useNumber)
 {
  
     //example ontology for the first domain
@@ -55,6 +56,13 @@ std::optional<double> CostModel::calculateCost(
         programParameter.color,
         inputParameter.color
     );
+
+    const double numberCost = useNumber
+        ? calculateNumberCost(
+            programParameter.number,
+            inputParameter.number
+        )
+		: 0.0;
 
     return typeWeight * typeCost.value()
         + colorWeight * colorCost;
@@ -115,4 +123,16 @@ double CostModel::calculateColorCost(
     const std::string& inputColor) const
 {
     return programColor == inputColor ? 0.0 : 1.0;
+}
+
+double CostModel::calculateNumberCost(
+    const std::optional<int>& programNumber,
+    const std::optional<int>& inputNumber) const
+{
+    if (!programNumber.has_value() || !inputNumber.has_value())
+    {
+        return 0.0;
+    }
+
+    return programNumber.value() == inputNumber.value() ? 0.0 : 1.0;
 }
