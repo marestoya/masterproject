@@ -20,6 +20,7 @@
 #include "parametrization/ImplicitNM.h"
 
 #include "tests/ParametrizationTests.h"
+#include <unity_simulation.hpp>
 
 void runParametrization(
     const ParametrizationMethod& method,
@@ -77,7 +78,25 @@ int main()
 {
     try
     {
-        runParametrizationTests();
+        ursim::unity_simulation unity_sim;
+
+        std::cout << "waiting" << std::endl;
+
+        for (int i = 0; i < 50; ++i)
+        {
+            auto feedback = unity_sim.info.recent_feedback();
+
+            if (feedback.has_value())
+            {
+                std::cout << "feedback" << std::endl;
+                return 0;
+            }
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+
+        std::cout << "no feedback after 5 secs" << std::endl;
+        return 0;
         
     }
     catch (const std::exception& e)
