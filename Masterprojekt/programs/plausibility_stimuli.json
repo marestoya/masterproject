@@ -1,0 +1,580 @@
+{
+  "stimuli": [
+    {
+      "programId": 1,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "toolbox",
+          "color": "blue"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 1,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "toolbox",
+          "color": "blue"
+        }
+      ],
+      "context": "The blue toolbox belongs to the green wrench."
+    },
+    {
+      "programId": 1,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "wrench",
+          "color": "black"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 1,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "wrench",
+          "color": "black"
+        }
+      ],
+      "context": "The black wrench belongs to the red toolbox."
+    },
+    {
+      "programId": 2,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "bolt",
+          "color": ""
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 2,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "bolt",
+          "color": ""
+        }
+      ],
+      "context": "The bolt should be used to fasten the long table leg."
+    },
+    {
+      "programId": 2,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "table leg",
+          "color": "red"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 2,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "table leg",
+          "color": "red"
+        }
+      ],
+      "context": "The red table leg should be glued on."
+    },
+    {
+      "programId": 3,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "package",
+          "color": "white"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 3,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "package",
+          "color": "white"
+        }
+      ],
+      "context": "The white package should be in the green container."
+    },
+    {
+      "programId": 3,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "container",
+          "color": "yellow"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 3,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "container",
+          "color": "yellow"
+        }
+      ],
+      "context": "The yellow container belongs on shelf B."
+    },
+    {
+      "programId": 4,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "spoon",
+          "color": ""
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 4,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "spoon",
+          "color": ""
+        }
+      ],
+      "context": "The spoon should be placed next to the rack."
+    },
+    {
+      "programId": 4,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "sample",
+          "color": "white"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 4,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "sample",
+          "color": "white"
+        }
+      ],
+      "context": "The white sample belongs on the left side of the rack."
+    },
+    {
+      "programId": 5,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "barometer",
+          "color": ""
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 5,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "barometer",
+          "color": ""
+        }
+      ],
+      "context": "The barometer should be inside the beaker."
+    },
+    {
+      "programId": 5,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "gloves",
+          "color": ""
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 5,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "gloves",
+          "color": ""
+        }
+      ],
+      "context": "The gloves should lie on the table."
+    },
+    {
+      "programId": 6,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "glass",
+          "color": ""
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 6,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "glass",
+          "color": ""
+        }
+      ],
+      "context": "The glass should be filled with the grey liquid."
+    },
+    {
+      "programId": 6,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "stirrer",
+          "color": "yellow"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 6,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "stirrer",
+          "color": "yellow"
+        }
+      ],
+      "context": "The yellow stirrer should be used to stir the liquid."
+    },
+    {
+      "programId": 7,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "spoon container",
+          "color": ""
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 7,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "spoon container",
+          "color": ""
+        }
+      ],
+      "context": "The spoon container should be at station B."
+    },
+    {
+      "programId": 7,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "plate stack",
+          "color": "grey"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 7,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "plate stack",
+          "color": "grey"
+        }
+      ],
+      "context": "The grey plate stack should be at station A."
+    },
+    {
+      "programId": 8,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "stickers",
+          "color": "sale"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 8,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "stickers",
+          "color": "sale"
+        }
+      ],
+      "context": "Sale stickers should be placed on cups."
+    },
+    {
+      "programId": 8,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "drinks",
+          "color": "yellow"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 8,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "drinks",
+          "color": "yellow"
+        }
+      ],
+      "context": "Yellow drinks should be next to the red drinks."
+    },
+    {
+      "programId": 9,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "counter",
+          "color": ""
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 9,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "counter",
+          "color": ""
+        }
+      ],
+      "context": "All the things need to be placed on the counter."
+    },
+    {
+      "programId": 9,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "champagne",
+          "color": ""
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 9,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "champagne",
+          "color": ""
+        }
+      ],
+      "context": "The champagne should be next to the red cake."
+    },
+    {
+      "programId": 10,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "light",
+          "color": "green"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 10,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "light",
+          "color": "green"
+        }
+      ],
+      "context": "Green light needs to be in branch 1."
+    },
+    {
+      "programId": 10,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "resistor",
+          "color": "yellow"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 10,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "resistor",
+          "color": "yellow"
+        }
+      ],
+      "context": "Yellow resistor needs to be in branch 1."
+    },
+    {
+      "programId": 11,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "wire",
+          "color": "blue"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 11,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "wire",
+          "color": "blue"
+        }
+      ],
+      "context": "Blue wire needs to be in circuit A."
+    },
+    {
+      "programId": 11,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "connector",
+          "color": "black"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 11,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "connector",
+          "color": "black"
+        }
+      ],
+      "context": "Black connector needs to be in circuit B."
+    },
+    {
+      "programId": 12,
+      "variant": "A",
+      "objects": [
+        {
+          "id": 1,
+          "type": "button",
+          "color": "red"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 12,
+      "variant": "B",
+      "objects": [
+        {
+          "id": 1,
+          "type": "button",
+          "color": "red"
+        }
+      ],
+      "context": "Red button needs to be switched on."
+    },
+    {
+      "programId": 12,
+      "variant": "C",
+      "objects": [
+        {
+          "id": 1,
+          "type": "switch",
+          "color": "white"
+        }
+      ],
+      "context": ""
+    },
+    {
+      "programId": 12,
+      "variant": "D",
+      "objects": [
+        {
+          "id": 1,
+          "type": "switch",
+          "color": "white"
+        }
+      ],
+      "context": "White switch needs to be on panel A."
+    }
+  ]
+}

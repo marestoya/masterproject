@@ -37,7 +37,11 @@
     <ClInclude Include="include\parametrization\ParametrizationMethod.h" />
     <ClInclude Include="include\programs\LaboratoryPrograms.h" />
     <ClInclude Include="include\tests\ParametrizationTests.h" />
+    <QtMoc Include="include\ui\ParametrizationPage.h" />
+    <ClInclude Include="include\ui\ProgramLoader.h" />
+    <QtMoc Include="include\ui\PlausibilityPage.h" />
     <QtMoc Include="include\ui\MainWindow.h" />
+    <QtMoc Include="include\ui\MainMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -58,10 +62,19 @@
     <ClCompile Include="src\parametrization\ParametrizationMethod.cpp" />
     <ClCompile Include="src\programs\LaboratoryPrograms.cpp" />
     <ClCompile Include="src\tests\ParametrizationTests.cpp" />
+    <ClCompile Include="src\ui\MainMenu.cpp" />
     <ClCompile Include="src\ui\MainWindow.cpp" />
+    <ClCompile Include="src\ui\ParametrizationPage.cpp" />
+    <ClCompile Include="src\ui\PlausibilityPage.cpp" />
+    <ClCompile Include="src\ui\ProgramLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="catering_ontology.json" />
+    <None Include="electronics_ontology.json" />
+    <None Include="laboratory_ontology.json" />
+    <None Include="programs.json" />
     <None Include="vcpkg.json" />
+    <None Include="workshop_ontology.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

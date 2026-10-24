@@ -1,0 +1,73 @@
+{
+  "domain": "Electronics",
+  "types": [
+    {
+      "name": "object",
+      "parent": null
+    },
+    {
+      "name": "electronic_component",
+      "parent": "object"
+    },
+    {
+      "name": "light",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "resistor",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "connector",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "power_connector",
+      "parent": "connector"
+    },
+    {
+      "name": "wire",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "battery",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "button",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "switch",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "module",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "sensor",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "temperature_sensor",
+      "parent": "sensor"
+    },
+    {
+      "name": "id_card",
+      "parent": "object"
+    },
+    {
+      "name": "branch",
+      "parent": "object"
+    },
+    {
+      "name": "circuit",
+      "parent": "object"
+    },
+    {
+      "name": "panel",
+      "parent": "object"
+    }
+  ]
+}

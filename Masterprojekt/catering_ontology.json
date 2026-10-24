@@ -1,0 +1,121 @@
+{
+  "domain": "Catering",
+  "types": [
+    {
+      "name": "object",
+      "parent": null
+    },
+    {
+      "name": "container",
+      "parent": "object"
+    },
+    {
+      "name": "tray",
+      "parent": "container"
+    },
+    {
+      "name": "serving_tray",
+      "parent": "tray"
+    },
+    {
+      "name": "tableware",
+      "parent": "object"
+    },
+    {
+      "name": "plate",
+      "parent": "tableware"
+    },
+    {
+      "name": "plate_stack",
+      "parent": "container"
+    },
+    {
+      "name": "cup",
+      "parent": "tableware"
+    },
+    {
+      "name": "spoon",
+      "parent": "tableware"
+    },
+    {
+      "name": "glass",
+      "parent": "tableware"
+    },
+    {
+      "name": "kettle",
+      "parent": "container"
+    },
+    {
+      "name": "spoon_container",
+      "parent": "container"
+    },
+    {
+      "name": "fork_container",
+      "parent": "container"
+    },
+    {
+      "name": "napkin",
+      "parent": "object"
+    },
+    {
+      "name": "sticker",
+      "parent": "object"
+    },
+    {
+      "name": "sale_sticker",
+      "parent": "sticker"
+    },
+    {
+      "name": "price_tag",
+      "parent": "object"
+    },
+    {
+      "name": "drink",
+      "parent": "object"
+    },
+    {
+      "name": "champagne",
+      "parent": "drink"
+    },
+    {
+      "name": "tea",
+      "parent": "drink"
+    },
+    {
+      "name": "food",
+      "parent": "object"
+    },
+    {
+      "name": "cake",
+      "parent": "food"
+    },
+    {
+      "name": "muffin",
+      "parent": "food"
+    },
+    {
+      "name": "cake_stand",
+      "parent": "object"
+    },
+    {
+      "name": "chocolate_fountain",
+      "parent": "object"
+    },
+    {
+      "name": "table",
+      "parent": "object"
+    },
+    {
+      "name": "small_table",
+      "parent": "table"
+    },
+    {
+      "name": "counter",
+      "parent": "table"
+    },
+    {
+      "name": "station",
+      "parent": "object"
+    }
+  ]
+}

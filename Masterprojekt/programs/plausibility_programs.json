@@ -1,0 +1,1320 @@
+{
+  "programs": [
+    {
+      "id": 1,
+      "name": "Prepare work zone",
+      "domain": "Workshop",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "toolbox",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "storage 1",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "wrench",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "storage 2",
+          "color": ""
+        },
+        {
+          "id": 5,
+          "type": "wrench",
+          "color": "green"
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " in "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " in "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": " in "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Assemble table",
+      "domain": "Workshop",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "table plate",
+          "color": ""
+        },
+        {
+          "id": 2,
+          "type": "working tray",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "long table leg",
+          "color": ""
+        },
+        {
+          "id": 4,
+          "type": "screw",
+          "color": ""
+        },
+        {
+          "id": 6,
+          "type": "short table leg",
+          "color": ""
+        },
+        {
+          "id": 7,
+          "type": "table",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Fasten the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 7
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Glue the "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 7
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Organize storage",
+      "domain": "Workshop",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "container",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "shelf A",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "box",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "container",
+          "color": "green"
+        },
+        {
+          "id": 5,
+          "type": "shelf B",
+          "color": ""
+        },
+        {
+          "id": 6,
+          "type": "package",
+          "color": "grey"
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " on "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " on "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Prepare sample storage",
+      "domain": "Laboratory",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "sample rack",
+          "color": ""
+        },
+        {
+          "id": 2,
+          "type": "table",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "sample",
+          "color": "red"
+        },
+        {
+          "id": 4,
+          "type": "sample",
+          "color": "green"
+        },
+        {
+          "id": 5,
+          "type": "stirrer",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " on the left of the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " on the right of the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Assemble setup",
+      "domain": "Laboratory",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "table",
+          "color": ""
+        },
+        {
+          "id": 2,
+          "type": "beaker",
+          "color": "red"
+        },
+        {
+          "id": 3,
+          "type": "cotton pads",
+          "color": ""
+        },
+        {
+          "id": 4,
+          "type": "thermometer",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Wipe the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Mix a reagent",
+      "domain": "Laboratory",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "beaker",
+          "color": "white"
+        },
+        {
+          "id": 2,
+          "type": "table",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "stirrer",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "stirrer",
+          "color": "red"
+        },
+        {
+          "id": 5,
+          "type": "liquid",
+          "color": "grey"
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " and the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pour the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Stir with the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Set up a serving station",
+      "domain": "Catering",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "serving tray",
+          "color": "white"
+        },
+        {
+          "id": 2,
+          "type": "plate stack",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "plate stack",
+          "color": ""
+        },
+        {
+          "id": 4,
+          "type": "fork container",
+          "color": ""
+        },
+        {
+          "id": 5,
+          "type": "napkins",
+          "color": ""
+        },
+        {
+          "id": 6,
+          "type": "station",
+          "color": "",
+          "label": "station A"
+        },
+        {
+          "id": 7,
+          "type": "station",
+          "color": "",
+          "label": "station B"
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " at "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": " at "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put another "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " at "
+          },
+          {
+            "slot": 7
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " at "
+          },
+          {
+            "slot": 7
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Prepare beverage service",
+      "domain": "Catering",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "drinks",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "table",
+          "color": "brown"
+        },
+        {
+          "id": 3,
+          "type": "drinks",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "cups",
+          "color": ""
+        },
+        {
+          "id": 5,
+          "type": "serving tray",
+          "color": ""
+        },
+        {
+          "id": 6,
+          "type": "price tags",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " on all "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Arrange buffet",
+      "domain": "Catering",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "cake stand",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "table",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "muffins",
+          "color": ""
+        },
+        {
+          "id": 4,
+          "type": "cake",
+          "color": "red"
+        },
+        {
+          "id": 5,
+          "type": "chocolate fountain",
+          "color": ""
+        },
+        {
+          "id": 6,
+          "type": "small table",
+          "color": ""
+        },
+        {
+          "id": 7,
+          "type": "plates",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on the left "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 7
+          },
+          {
+            "text": " in the corner of the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Assemble branches",
+      "domain": "Electronics",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "light",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "branch 1",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "resistor",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "resistor",
+          "color": "green"
+        },
+        {
+          "id": 5,
+          "type": "branch 2",
+          "color": ""
+        },
+        {
+          "id": 6,
+          "type": "power connector",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " in "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " in "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " in "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place a "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " in "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": " and "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Prepare sensor circuits",
+      "domain": "Electronics",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "temperature sensor",
+          "color": ""
+        },
+        {
+          "id": 2,
+          "type": "circuit A",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "connector",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "connector",
+          "color": "green"
+        },
+        {
+          "id": 5,
+          "type": "circuit B",
+          "color": ""
+        },
+        {
+          "id": 6,
+          "type": "ID card",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " in "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " in "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " in "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Attach an "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " to the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " and "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Organize control panels",
+      "domain": "Electronics",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "switch",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "panel A",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "module",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "module",
+          "color": "green"
+        },
+        {
+          "id": 5,
+          "type": "panel B",
+          "color": ""
+        },
+        {
+          "id": 6,
+          "type": "switch",
+          "color": "blue"
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " on "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " on "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " on "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Turn the "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " on."
+          }
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "domain": "Laboratory",
+  "types": [
+    {
+      "name": "object",
+      "parent": null
+    },
+    {
+      "name": "container",
+      "parent": "object"
+    },
+    {
+      "name": "vessel",
+      "parent": "container"
+    },
+    {
+      "name": "beaker",
+      "parent": "vessel"
+    },
+    {
+      "name": "glass",
+      "parent": "vessel"
+    },
+    {
+      "name": "tube",
+      "parent": "vessel"
+    },
+    {
+      "name": "test_tube",
+      "parent": "tube"
+    },
+    {
+      "name": "sample_tube",
+      "parent": "tube"
+    },
+    {
+      "name": "rack",
+      "parent": "object"
+    },
+    {
+      "name": "sample_rack",
+      "parent": "rack"
+    },
+    {
+      "name": "test_tube_rack",
+      "parent": "rack"
+    },
+    {
+      "name": "tray",
+      "parent": "container"
+    },
+    {
+      "name": "table",
+      "parent": "object"
+    },
+    {
+      "name": "sample",
+      "parent": "object"
+    },
+    {
+      "name": "spoon",
+      "parent": "object"
+    },
+    {
+      "name": "tool",
+      "parent": "object"
+    },
+    {
+      "name": "measuring_instrument",
+      "parent": "tool"
+    },
+    {
+      "name": "thermometer",
+      "parent": "measuring_instrument"
+    },
+    {
+      "name": "barometer",
+      "parent": "measuring_instrument"
+    },
+    {
+      "name": "stirrer",
+      "parent": "tool"
+    },
+    {
+      "name": "glove",
+      "parent": "object"
+    },
+    {
+      "name": "cotton_pad",
+      "parent": "object"
+    },
+    {
+      "name": "liquid",
+      "parent": "object"
+    }
+  ]
+}

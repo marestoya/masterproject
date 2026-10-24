@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-
+//this is kinda hardcoded and the json file is better but its better for the n:m version
 Program getSetUpExperiment()
 {
     return {

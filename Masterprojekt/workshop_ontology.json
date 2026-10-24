@@ -1,0 +1,81 @@
+{
+  "domain": "Workshop",
+  "types": [
+    {
+      "name": "object",
+      "parent": null
+    },
+    {
+      "name": "container",
+      "parent": "object"
+    },
+    {
+      "name": "box",
+      "parent": "container"
+    },
+    {
+      "name": "toolbox",
+      "parent": "box"
+    },
+    {
+      "name": "tool",
+      "parent": "object"
+    },
+    {
+      "name": "wrench",
+      "parent": "tool"
+    },
+    {
+      "name": "hammer",
+      "parent": "tool"
+    },
+    {
+      "name": "screwdriver",
+      "parent": "tool"
+    },
+    {
+      "name": "gear",
+      "parent": "object"
+    },
+    {
+      "name": "vault",
+      "parent": "container"
+    },
+    {
+      "name": "tray",
+      "parent": "container"
+    },
+    {
+      "name": "package",
+      "parent": "object"
+    },
+    {
+      "name": "shelf",
+      "parent": "object"
+    },
+    {
+      "name": "table",
+      "parent": "object"
+    },
+    {
+      "name": "table_plate",
+      "parent": "object"
+    },
+    {
+      "name": "table_leg",
+      "parent": "object"
+    },
+    {
+      "name": "long_table_leg",
+      "parent": "table_leg"
+    },
+    {
+      "name": "short_table_leg",
+      "parent": "table_leg"
+    },
+    {
+      "name": "screw",
+      "parent": "object"
+    }
+  ]
+}

@@ -1,0 +1,862 @@
+{
+  "programs": [
+    {
+      "id": 1,
+      "name": "Set up experiment",
+      "domain": "Laboratory",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "beaker",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "tray",
+          "color": "grey"
+        },
+        {
+          "id": 3,
+          "type": "testTube",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "rack",
+          "color": ""
+        },
+        {
+          "id": 5,
+          "type": "thermometer",
+          "color": ""
+        },
+        {
+          "id": 6,
+          "type": "stirrer",
+          "color": "yellow"
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Store samples",
+      "domain": "Laboratory",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "testTube",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "testTubeRack",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "sampleTube",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "testTube",
+          "color": "white"
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Put the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " in the middle of the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Clear table",
+      "domain": "Catering",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "plate",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "tray",
+          "color": "brown"
+        },
+        {
+          "id": 3,
+          "type": "cup",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "spoon",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Set up table",
+      "domain": "Catering",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "plate",
+          "color": "white"
+        },
+        {
+          "id": 2,
+          "type": "tray",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "glass",
+          "color": ""
+        },
+        {
+          "id": 4,
+          "type": "spoon",
+          "color": ""
+        },
+        {
+          "id": 5,
+          "type": "kettle",
+          "color": ""
+        },
+        {
+          "id": 6,
+          "type": "tea",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pour the "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " into the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Return tools",
+      "domain": "Workshop",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "hammer",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "container",
+          "color": "red"
+        },
+        {
+          "id": 3,
+          "type": "screwdriver",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "tray",
+          "color": "brown"
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Galvanize a gear",
+      "domain": "Workshop",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "gear",
+          "color": "white"
+        },
+        {
+          "id": 2,
+          "type": "vault",
+          "color": "grey"
+        },
+        {
+          "id": 3,
+          "type": "vault",
+          "color": "green"
+        },
+        {
+          "id": 4,
+          "type": "tray",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Pick up the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Prepare sensor assembly",
+      "domain": "Electronics",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "wire",
+          "color": "red"
+        },
+        {
+          "id": 2,
+          "type": "battery",
+          "color": ""
+        },
+        {
+          "id": 3,
+          "type": "wire",
+          "color": "blue"
+        },
+        {
+          "id": 4,
+          "type": "button",
+          "color": ""
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " next to the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " in front of the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Press the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Sort components",
+      "domain": "Electronics",
+      "parameters": [
+        {
+          "id": 1,
+          "type": "button",
+          "color": "black"
+        },
+        {
+          "id": 2,
+          "type": "container",
+          "color": "red"
+        },
+        {
+          "id": 3,
+          "type": "battery",
+          "color": ""
+        },
+        {
+          "id": 4,
+          "type": "wire",
+          "color": "black"
+        },
+        {
+          "id": 5,
+          "type": "container",
+          "color": "blue"
+        },
+        {
+          "id": 6,
+          "type": "wire",
+          "color": "yellow"
+        }
+      ],
+      "instructions": [
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 1
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 3
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 2
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 4
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ],
+        [
+          {
+            "text": "Place the "
+          },
+          {
+            "slot": 6
+          },
+          {
+            "text": " in the "
+          },
+          {
+            "slot": 5
+          },
+          {
+            "text": "."
+          }
+        ]
+      ]
+    }
+  ]
+}
