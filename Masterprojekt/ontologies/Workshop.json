@@ -74,8 +74,24 @@
       "parent": "table_leg"
     },
     {
-      "name": "screw",
+      "name": "fastener",
       "parent": "object"
+    },
+    {
+      "name": "screw",
+      "parent": "fastener"
+    },
+    {
+      "name": "bolt",
+      "parent": "fastener"
+    },
+    {
+      "name": "storage",
+      "parent": "container"
+    },
+    {
+      "name": "working_tray",
+      "parent": "tray"
     }
   ]
 }

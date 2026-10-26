@@ -1,9 +1,10 @@
+
 #include "ui/MainWindow.h"
 #include "ui/MainMenu.h"
+#include "ui/ParametrizationPage.h"
 #include "ui/PlausibilityPage.h"
+
 #include <QStackedWidget>
-#include "ui/ParametrizationPage.h"
-#include "ui/ParametrizationPage.h"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -14,24 +15,57 @@ MainWindow::MainWindow(QWidget* parent)
 {
     setWindowTitle("VerbBot");
     resize(1100, 720);
+
     setCentralWidget(stackedWidget);
+
     stackedWidget->addWidget(mainMenu);
     stackedWidget->addWidget(parametrizationPage);
     stackedWidget->addWidget(plausibilityPage);
     stackedWidget->setCurrentWidget(mainMenu);
 
-    connect(mainMenu, &MainMenu::parametrizationRequested, this, [this]() {
-        stackedWidget->setCurrentWidget(parametrizationPage);
-        setWindowTitle("VerbBot - Parametrization");
-        });
-    connect(mainMenu, &MainMenu::plausibilityRequested, this, [this]() {
-        stackedWidget->setCurrentWidget(plausibilityPage);
-        setWindowTitle("VerbBot - Plausibility");
-        });
-    connect(parametrizationPage, &ParametrizationPage::backToMenuRequested,
-        this, &MainWindow::showMainMenu);
-    connect(plausibilityPage, &PlausibilityPage::backToMenuRequested,
-        this, &MainWindow::showMainMenu);
+    connect(
+        mainMenu,
+        &MainMenu::parametrizationRequested,
+        this,
+        [this]()
+        {
+            parametrizationPage->setParticipantId(
+                mainMenu->participantId()
+            );
+
+            stackedWidget->setCurrentWidget(parametrizationPage);
+            setWindowTitle("VerbBot - Parametrization");
+        }
+    );
+
+    connect(
+        mainMenu,
+        &MainMenu::plausibilityRequested,
+        this,
+        [this]()
+        {
+            plausibilityPage->setParticipantId(
+                mainMenu->participantId()
+            );
+
+            stackedWidget->setCurrentWidget(plausibilityPage);
+            setWindowTitle("VerbBot - Plausibility");
+        }
+    );
+
+    connect(
+        parametrizationPage,
+        &ParametrizationPage::backToMenuRequested,
+        this,
+        &MainWindow::showMainMenu
+    );
+
+    connect(
+        plausibilityPage,
+        &PlausibilityPage::backToMenuRequested,
+        this,
+        &MainWindow::showMainMenu
+    );
 }
 
 void MainWindow::showMainMenu()

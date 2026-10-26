@@ -27,7 +27,7 @@
     },
     {
       "name": "plate_stack",
-      "parent": "container"
+      "parent": "object"
     },
     {
       "name": "cup",
@@ -67,31 +67,31 @@
     },
     {
       "name": "price_tag",
-      "parent": "object"
+      "parent": "sticker"
     },
     {
-      "name": "drink",
+      "name": "consumable",
       "parent": "object"
     },
     {
       "name": "champagne",
-      "parent": "drink"
+      "parent": "consumable"
+    },
+    {
+      "name": "juice",
+      "parent": "consumable"
     },
     {
       "name": "tea",
-      "parent": "drink"
-    },
-    {
-      "name": "food",
-      "parent": "object"
+      "parent": "consumable"
     },
     {
       "name": "cake",
-      "parent": "food"
+      "parent": "consumable"
     },
     {
       "name": "muffin",
-      "parent": "food"
+      "parent": "consumable"
     },
     {
       "name": "cake_stand",

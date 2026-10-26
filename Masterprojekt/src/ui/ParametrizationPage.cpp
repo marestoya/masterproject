@@ -29,6 +29,12 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QStringList>
+#include <QFile>
+#include <QDir>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QDateTime>
 
 #include <algorithm>
 #include <exception>
@@ -392,21 +398,6 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
         "font-size: 18px; font-weight: bold;");
     rightPanel->addWidget(inputTitle);
 
-
-    objectTypeCombo->addItem("Beaker", "beaker");
-    objectTypeCombo->addItem("Test tube", "testTube");
-    objectTypeCombo->addItem("Thermometer", "thermometer");
-    objectTypeCombo->addItem("Stirrer", "stirrer");
-    objectTypeCombo->addItem("Tray", "tray");
-    objectTypeCombo->addItem("Test tube rack", "testTubeRack");
-    objectTypeCombo->addItem("Sample tube", "sampleTube");
-    objectTypeCombo->addItem("Storage box", "storageBox");
-    objectTypeCombo->addItem("Powder", "powder");
-    objectTypeCombo->addItem("Liquid", "liquid");
-    objectTypeCombo->addItem("Container", "container");
-    objectTypeCombo->addItem("Water bottle", "waterBottle");
-    objectTypeCombo->addItem("Water", "water");
-
     objectColorCombo->addItem("Red", "red");
     objectColorCombo->addItem("Green", "green");
     objectColorCombo->addItem("Blue", "blue");
@@ -516,8 +507,8 @@ void ParametrizationPage::updateProgramList()
 
     programCombo->blockSignals(false);
 
-    explicitAssignments.clear();
-    updateProgram();
+    updateAvailableObjectTypes();
+    clearInputObjects();
 }
 
 //show selected program
@@ -762,57 +753,175 @@ void ParametrizationPage::clearInputObjects()
     updateProgram();
 }
 
+
+void ParametrizationPage::updateAvailableObjectTypes()
+{
+    const QString domain = domainCombo->currentText();
+
+    objectTypeCombo->clear();
+
+    if (domain == "Laboratory")
+    {
+        objectTypeCombo->addItem("Beaker", "beaker");
+        objectTypeCombo->addItem("Glass", "glass");
+        objectTypeCombo->addItem("Test tube", "test_tube");
+        objectTypeCombo->addItem("Sample tube", "sample_tube");
+        objectTypeCombo->addItem("Tube rack", "test_tube_rack");
+        objectTypeCombo->addItem("Sample rack", "sample_rack");
+        objectTypeCombo->addItem("Sample", "sample");
+        objectTypeCombo->addItem("Tray", "tray");
+        objectTypeCombo->addItem("Table", "table");
+        objectTypeCombo->addItem("Spoon", "spoon");
+        objectTypeCombo->addItem("Stirrer", "stirrer");
+        objectTypeCombo->addItem("Thermometer", "thermometer");
+        objectTypeCombo->addItem("Barometer", "barometer");
+        objectTypeCombo->addItem("Cotton pad", "cotton_pad");
+        objectTypeCombo->addItem("Glove", "glove");
+        objectTypeCombo->addItem("Liquid", "liquid");
+    }
+    else if (domain == "Catering")
+    {
+        objectTypeCombo->addItem("Plate", "plate");
+        objectTypeCombo->addItem("Plate stack", "plate_stack");
+        objectTypeCombo->addItem("Tray", "tray");
+        objectTypeCombo->addItem("Serving tray", "serving_tray");
+        objectTypeCombo->addItem("Cup", "cup");
+        objectTypeCombo->addItem("Glass", "glass");
+        objectTypeCombo->addItem("Spoon", "spoon");
+        objectTypeCombo->addItem("Kettle", "kettle");
+        objectTypeCombo->addItem("Spoon container", "spoon_container");
+        objectTypeCombo->addItem("Fork container", "fork_container");
+        objectTypeCombo->addItem("Napkin", "napkin");
+        objectTypeCombo->addItem("Sale sticker", "sale_sticker");
+        objectTypeCombo->addItem("Price tag", "price_tag");
+        objectTypeCombo->addItem("Drink", "drink");
+        objectTypeCombo->addItem("Champagne", "champagne");
+        objectTypeCombo->addItem("Tea", "tea");
+        objectTypeCombo->addItem("Cake", "cake");
+        objectTypeCombo->addItem("Muffin", "muffin");
+        objectTypeCombo->addItem("Cake stand", "cake_stand");
+        objectTypeCombo->addItem("Chocolate fountain", "chocolate_fountain");
+        objectTypeCombo->addItem("Table", "table");
+        objectTypeCombo->addItem("Small table", "small_table");
+        objectTypeCombo->addItem("Counter", "counter");
+    }
+    else if (domain == "Workshop")
+    {
+        objectTypeCombo->addItem("Toolbox", "toolbox");
+        objectTypeCombo->addItem("Wrench", "wrench");
+        objectTypeCombo->addItem("Hammer", "hammer");
+        objectTypeCombo->addItem("Screwdriver", "screwdriver");
+        objectTypeCombo->addItem("Gear", "gear");
+        objectTypeCombo->addItem("Vault", "vault");
+        objectTypeCombo->addItem("Container", "container");
+        objectTypeCombo->addItem("Box", "box");
+        objectTypeCombo->addItem("Package", "package");
+        objectTypeCombo->addItem("Tray", "tray");
+        objectTypeCombo->addItem("Shelf", "shelf");
+        objectTypeCombo->addItem("Table", "table");
+        objectTypeCombo->addItem("Table plate", "table_plate");
+        objectTypeCombo->addItem("Table leg", "table_leg");
+        objectTypeCombo->addItem("Long table leg", "long_table_leg");
+        objectTypeCombo->addItem("Short table leg", "short_table_leg");
+        objectTypeCombo->addItem("Screw", "screw");
+    }
+    else if (domain == "Electronics")
+    {
+        objectTypeCombo->addItem("Light", "light");
+        objectTypeCombo->addItem("Resistor", "resistor");
+        objectTypeCombo->addItem("Connector", "connector");
+        objectTypeCombo->addItem("Power connector", "power_connector");
+        objectTypeCombo->addItem("Wire", "wire");
+        objectTypeCombo->addItem("Battery", "battery");
+        objectTypeCombo->addItem("Button", "button");
+        objectTypeCombo->addItem("Switch", "switch");
+        objectTypeCombo->addItem("Module", "module");
+        objectTypeCombo->addItem("Sensor", "sensor");
+        objectTypeCombo->addItem("Temperature sensor", "temperature_sensor");
+        objectTypeCombo->addItem("ID card", "id_card");
+        objectTypeCombo->addItem("Branch", "branch");
+        objectTypeCombo->addItem("Circuit", "circuit");
+        objectTypeCombo->addItem("Panel", "panel");
+        objectTypeCombo->addItem("Container", "container");
+    }
+}
 //run the parametrization depending on the mode (implicit or explicit)
+
 
 void ParametrizationPage::runParametrization()
 {
+    if (participantId.trimmed().isEmpty())
+    {
+        QMessageBox::warning(
+            this,
+            "Participant ID required",
+            "Please return to the main menu and enter a participant ID."
+        );
+        return;
+    }
+
     if (programCombo->currentIndex() < 0)
     {
         QMessageBox::warning(
-            this, "No program selected",
-            "Select a program before running parametrization");
+            this,
+            "No program selected",
+            "Select a program before running parametrization."
+        );
         return;
     }
 
     const int selectedId = programCombo->currentData().toInt();
 
     const auto programIt = std::find_if(
-        programs.begin(), programs.end(),
+        programs.begin(),
+        programs.end(),
         [selectedId](const Program& program)
         {
             return program.id == selectedId;
-        });
+        }
+    );
 
     if (programIt == programs.end())
     {
         QMessageBox::critical(
-            this, "Error", "The selected program could not be found!");
+            this,
+            "Error",
+            "The selected program could not be found!"
+        );
         return;
     }
 
     const Program& program = *programIt;
+    const QString mode = modeCombo->currentText();
 
     try
     {
         AssignmentResult result;
 
-        if (modeCombo->currentText() == "Implicit")
+        if (mode == "Implicit")
         {
             const std::vector<Parameter> programParameters =
                 getFirstParameters(program);
 
-            CostModel costModel;
+            const std::string ontologyPath =
+                "ontologies/" + program.domain + ".json";
+
+            Ontology ontology(ontologyPath);
+            CostModel costModel(ontology);
+
             CostMatrix costMatrix(
                 programParameters,
                 inputParameters,
-                costModel);
+                costModel
+            );
 
             GlobalImplicit method;
 
             result = method.parametrize(
                 costMatrix,
                 programParameters,
-                inputParameters);
+                inputParameters
+            );
         }
         else
         {
@@ -822,9 +931,9 @@ void ParametrizationPage::runParametrization()
             for (const auto& entry : explicitAssignments)
             {
                 userAssignments.push_back({
-                    entry.first,
-                    entry.second,
-                    0.0
+                    entry.first,  
+                    entry.second, 
+                    0.0           
                     });
             }
 
@@ -833,33 +942,193 @@ void ParametrizationPage::runParametrization()
             result = method.applyUserAssignments(
                 program,
                 inputParameters,
-                userAssignments);
+                userAssignments
+            );
         }
 
         ProgramInstantiator instantiator;
-
         const Program instantiatedProgram = instantiator.instantiate(
             program,
             inputParameters,
-            result);
+            result
+        );
+
+        //save the mapping in a Json file
+        QJsonObject response;
+
+        response["participant_id"] = participantId.trimmed();
+        response["program_id"] = program.id;
+        response["program_name"] = QString::fromStdString(program.name);
+        response["domain"] = QString::fromStdString(program.domain);
+        response["mode"] = mode;
+        response["total_cost"] = result.totalCost;
+        response["timestamp"] =
+            QDateTime::currentDateTime().toString(Qt::ISODate);
+
+        QJsonArray objectsArray;
+
+        for (const Parameter& parameter : inputParameters)
+        {
+            QJsonObject object;
+
+            object["object_id"] = parameter.id;
+            object["type"] = QString::fromStdString(parameter.type);
+            object["color"] = QString::fromStdString(parameter.color);
+
+            QJsonValue assignedSlot = QJsonValue::Null;
+
+            for (const Assignment& assignment : result.assignments)
+            {
+                if (assignment.inputParameterId == parameter.id)
+                {
+                    assignedSlot = assignment.programParameterId;
+                    break;
+                }
+            }
+
+            object["program_slot_id"] = assignedSlot;
+            objectsArray.append(object);
+        }
+
+        response["objects"] = objectsArray;
+
+        QJsonArray assignmentsArray;
+
+        for (const Assignment& assignment : result.assignments)
+        {
+            QJsonObject assignmentObject;
+
+            assignmentObject["input_parameter_id"] =
+                assignment.inputParameterId;
+            assignmentObject["program_parameter_id"] =
+                assignment.programParameterId;
+            assignmentObject["cost"] = assignment.cost;
+
+            assignmentsArray.append(assignmentObject);
+        }
+
+        response["assignments"] = assignmentsArray;
+        const QString outputPath =
+            "C:/Users/marsp/source/repos/Masterprojekt/"
+            "Masterprojekt/programs/parametrization_responses.json";
+
+        QFile outputFile(outputPath);
+        QJsonArray responsesArray;
+
+        if (outputFile.exists())
+        {
+            if (!outputFile.open(QIODevice::ReadOnly))
+            {
+                QMessageBox::warning(
+                    this,
+                    "Save error",
+                    "Could not read the existing parametrization responses file"
+                );
+                return;
+            }
+
+            const QByteArray existingData = outputFile.readAll();
+            outputFile.close();
+
+            if (!existingData.trimmed().isEmpty())
+            {
+                QJsonParseError parseError;
+
+                const QJsonDocument existingDocument =
+                    QJsonDocument::fromJson(existingData, &parseError);
+
+                if (parseError.error != QJsonParseError::NoError ||
+                    !existingDocument.isObject())
+                {
+                    QMessageBox::warning(
+                        this,
+                        "Save error",
+                        "The existing parametrization responses JSON is invalid "
+                        "No response was saved"
+                    );
+                    return;
+                }
+
+                const QJsonValue existingResponses =
+                    existingDocument.object().value("responses");
+
+                if (!existingResponses.isArray())
+                {
+                    QMessageBox::warning(
+                        this,
+                        "Save error",
+                        "The existing JSON does not contain a valid responses array"
+                    );
+                    return;
+                }
+
+                responsesArray = existingResponses.toArray();
+            }
+        }
+
+        responsesArray.append(response);
+
+        QJsonObject root;
+        root["responses"] = responsesArray;
+
+        if (!outputFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+        {
+            QMessageBox::warning(
+                this,
+                "Save error",
+                "Could not open the parametrization responses file for writing"
+            );
+            return;
+        }
+
+        const QByteArray jsonData =
+            QJsonDocument(root).toJson(QJsonDocument::Indented);
+
+        const qint64 bytesWritten = outputFile.write(jsonData);
+        outputFile.close();
+
+        if (bytesWritten != jsonData.size())
+        {
+            QMessageBox::warning(
+                this,
+                "Save error",
+                "The response could not be completely written to the file"
+            );
+            return;
+        }
 
         renderProgram(instantiatedProgram);
 
         QMessageBox::information(
             this,
             "Parametrization successful",
-            QString("Parametrization completed successfully.\n\n"
-                "Assignments: %1\n"
-                "Total cost: %2")
+            QString(
+                "Parametrization completed successfully.\n\n"
+                "Participant: %1\n"
+                "Mode: %2\n"
+                "Assignments: %3\n"
+                "Total cost: %4\n\n"
+                "Response saved."
+            )
+            .arg(participantId.trimmed())
+            .arg(mode)
             .arg(static_cast<qulonglong>(result.assignments.size()))
-            .arg(result.totalCost));
+            .arg(result.totalCost)
+        );
     }
     catch (const std::exception& e)
     {
         QMessageBox::warning(
             this,
             "Parametrization failed",
-            QString::fromStdString(e.what()));
+            QString::fromStdString(e.what())
+        );
     }
+}
+
+
+void ParametrizationPage::setParticipantId(const QString& id)
+{
+    participantId = id.trimmed();
 }
 

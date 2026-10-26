@@ -54,7 +54,7 @@
       "parent": "sensor"
     },
     {
-      "name": "id_card",
+      "name": "ID_card",
       "parent": "object"
     },
     {

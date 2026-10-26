@@ -117,6 +117,12 @@
     <ClInclude Include="include\ui\ProgramLoader.h">
       <Filter>Headerdateien\ui</Filter>
     </ClInclude>
+    <ClInclude Include="include\model\Ontology.h">
+      <Filter>Headerdateien\model</Filter>
+    </ClInclude>
+    <ClInclude Include="CostModelBatchTest.hpp">
+      <Filter>Headerdateien\tests</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\model\Assignment.cpp">
@@ -188,16 +194,15 @@
     <ClCompile Include="src\ui\ProgramLoader.cpp">
       <Filter>Quelldateien\ui</Filter>
     </ClCompile>
+    <ClCompile Include="src\model\Ontology.cpp">
+      <Filter>Quelldateien\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
     <None Include="programs.json">
       <Filter>Quelldateien\programs</Filter>
     </None>
-    <None Include="workshop_ontology.json" />
-    <None Include="laboratory_ontology.json" />
-    <None Include="catering_ontology.json" />
-    <None Include="electronics_ontology.json" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\ui\MainMenu.h">

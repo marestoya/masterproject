@@ -5,8 +5,9 @@
 
 struct Parameter
 {
-    int id;
+    int id = 0;
     std::string type;
     std::string color;
-	std::optional<int> number = std::nullopt;
+    std::optional<int> number;
+    std::string descriptor;
 };

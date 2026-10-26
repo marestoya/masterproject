@@ -16,6 +16,7 @@ class ParametrizationPage : public QWidget
     Q_OBJECT
 public:
     explicit ParametrizationPage(QWidget* parent = nullptr);
+    void setParticipantId(const QString& id);
 
 signals:
     void backToMenuRequested();
@@ -32,6 +33,8 @@ private:
     QWidget* inputPanel;
     QVBoxLayout* programLayout;
     QVBoxLayout* inputLayout;
+    QString participantId;
+
     std::vector<Program> programs;
     std::vector<Parameter> inputParameters;
     std::map<int, int> explicitAssignments;
@@ -43,4 +46,5 @@ private:
     void addInputObject();
     void clearInputObjects();
     void runParametrization();
+    void updateAvailableObjectTypes();
 };

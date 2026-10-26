@@ -26,6 +26,7 @@ class PlausibilityPage : public QWidget
     Q_OBJECT
 public:
     explicit PlausibilityPage(QWidget* parent = nullptr);
+    void setParticipantId(const QString& id);
 
 signals:
     void backToMenuRequested();
@@ -41,6 +42,7 @@ private:
     QGridLayout* objectGridLayout;
     QLabel* contextLabel;
     QLabel* statusLabel;
+    QString participantId;
 
     std::vector<Program> programs;
     // program ID to variant name to stimulus objects and optional context
@@ -57,4 +59,6 @@ private:
     void renderObjects();
     void refreshSlotLabels(const Program& program);
     void clearLayout(QLayout* layout);
+    void saveUserChoice();
+    
 };

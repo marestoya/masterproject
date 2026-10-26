@@ -1,0 +1,28 @@
+{
+    "responses": [
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 1
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 2,
+                    "program_slot_id": 1,
+                    "type": "plate"
+                }
+            ],
+            "participant_id": "TEST",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-10-25T14:12:08",
+            "total_cost": 0
+        }
+    ]
+}

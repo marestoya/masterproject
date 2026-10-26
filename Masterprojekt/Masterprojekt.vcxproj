@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CostModelBatchTest.hpp" />
     <ClInclude Include="include\cost\CostMatrix.h" />
     <ClInclude Include="include\cost\CostModel.h" />
     <ClInclude Include="include\external\json.hpp" />
@@ -26,6 +27,7 @@
     <ClInclude Include="include\model\Assignment.h" />
     <ClInclude Include="include\model\AssignmentResult.h" />
     <ClInclude Include="include\model\Command.h" />
+    <ClInclude Include="include\model\Ontology.h" />
     <ClInclude Include="include\model\Parameter.h" />
     <ClInclude Include="include\model\Program.h" />
     <ClInclude Include="include\model\ProgramInstantiator.h" />
@@ -51,6 +53,7 @@
     <ClCompile Include="src\model\Assignment.cpp" />
     <ClCompile Include="src\model\AssignmentResult.cpp" />
     <ClCompile Include="src\model\Command.cpp" />
+    <ClCompile Include="src\model\Ontology.cpp" />
     <ClCompile Include="src\model\Parameter.cpp" />
     <ClCompile Include="src\model\Program.cpp" />
     <ClCompile Include="src\model\ProgramInstantiator.cpp" />
@@ -69,12 +72,8 @@
     <ClCompile Include="src\ui\ProgramLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="catering_ontology.json" />
-    <None Include="electronics_ontology.json" />
-    <None Include="laboratory_ontology.json" />
     <None Include="programs.json" />
     <None Include="vcpkg.json" />
-    <None Include="workshop_ontology.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -23,7 +23,7 @@
     },
     {
       "name": "tube",
-      "parent": "vessel"
+      "parent": "container"
     },
     {
       "name": "test_tube",
@@ -59,7 +59,7 @@
     },
     {
       "name": "spoon",
-      "parent": "object"
+      "parent": "tool"
     },
     {
       "name": "tool",
@@ -67,7 +67,7 @@
     },
     {
       "name": "measuring_instrument",
-      "parent": "tool"
+      "parent": "object"
     },
     {
       "name": "thermometer",
@@ -91,6 +91,10 @@
     },
     {
       "name": "liquid",
+      "parent": "object"
+    },
+    {
+      "name": "powder",
       "parent": "object"
     }
   ]
