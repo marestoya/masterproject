@@ -39,6 +39,7 @@
     <ClInclude Include="include\parametrization\ParametrizationMethod.h" />
     <ClInclude Include="include\programs\LaboratoryPrograms.h" />
     <ClInclude Include="include\tests\ParametrizationTests.h" />
+    <ClInclude Include="ParametrizationBatchTest.hpp" />
     <QtMoc Include="include\ui\ParametrizationPage.h" />
     <ClInclude Include="include\ui\ProgramLoader.h" />
     <QtMoc Include="include\ui\PlausibilityPage.h" />

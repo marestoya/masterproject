@@ -30,11 +30,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "wrench",
-          "color": "black"
+          "type": "toolbox",
+          "color": "blue"
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "toolbox",
+          "color": "red"
+        }
+      ],
+      "anotherSlots": [ 3 ]
     },
     {
       "programId": 1,
@@ -42,11 +50,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "wrench",
-          "color": "black"
+          "type": "toolbox",
+          "color": "blue"
         }
       ],
-      "context": "The black wrench belongs to the red toolbox."
+      "context": "The blue toolbox belongs to the green wrench.",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "toolbox",
+          "color": "red"
+        }
+      ],
+      "anotherSlots": [ 3 ]
     },
     {
       "programId": 2,
@@ -78,11 +94,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "table leg",
-          "color": "red"
+          "type": "bolt",
+          "color": ""
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 6,
+          "type": "screw",
+          "color": ""
+        }
+      ],
+      "anotherSlots": [ 6 ]
     },
     {
       "programId": 2,
@@ -90,11 +114,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "table leg",
-          "color": "red"
+          "type": "bolt",
+          "color": ""
         }
       ],
-      "context": "The red table leg should be glued on."
+      "context": "The bolt should be used to fasten the long table leg.",
+      "programParameterOverrides": [
+        {
+          "id": 6,
+          "type": "screw",
+          "color": ""
+        }
+      ],
+      "anotherSlots": [ 6 ]
     },
     {
       "programId": 3,
@@ -126,11 +158,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "container",
-          "color": "yellow"
+          "type": "package",
+          "color": "white"
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "package",
+          "color": "grey"
+        }
+      ],
+      "anotherSlots": [ 6 ]
     },
     {
       "programId": 3,
@@ -138,11 +178,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "container",
-          "color": "yellow"
+          "type": "package",
+          "color": "white"
         }
       ],
-      "context": "The yellow container belongs on shelf B."
+      "context": "The white package should be in the green container.",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "package",
+          "color": "grey"
+        }
+      ],
+      "anotherSlots": [ 6 ]
     },
     {
       "programId": 4,
@@ -166,7 +214,7 @@
           "color": ""
         }
       ],
-      "context": "The spoon should be placed next to the rack."
+      "context": "The spoon should be placed on the left of the sample rack."
     },
     {
       "programId": 4,
@@ -174,11 +222,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "sample",
-          "color": "white"
+          "type": "spoon",
+          "color": ""
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "stirrer",
+          "color": ""
+        }
+      ],
+      "anotherSlots": [ 5 ]
     },
     {
       "programId": 4,
@@ -186,11 +242,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "sample",
-          "color": "white"
+          "type": "spoon",
+          "color": ""
         }
       ],
-      "context": "The white sample belongs on the left side of the rack."
+      "context": "The spoon should be placed on the left of the sample rack.",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "stirrer",
+          "color": ""
+        }
+      ],
+      "anotherSlots": [ 5 ]
     },
     {
       "programId": 5,
@@ -222,11 +286,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "beaker",
-          "color": "green"
+          "type": "barometer",
+          "color": ""
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "thermometer",
+          "color": ""
+        }
+      ],
+      "anotherSlots": [ 4 ]
     },
     {
       "programId": 5,
@@ -234,11 +306,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "beaker",
-          "color": "green"
+          "type": "barometer",
+          "color": ""
         }
       ],
-      "context": "The green beaker should lie on the table."
+      "context": "The barometer should be inside the beaker.",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "thermometer",
+          "color": ""
+        }
+      ],
+      "anotherSlots": [ 4 ]
     },
     {
       "programId": 6,
@@ -270,11 +350,20 @@
       "objects": [
         {
           "id": 1,
-          "type": "stirrer",
-          "color": "yellow"
+          "type": "glass",
+          "color": ""
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "beaker",
+          "color": "white"
+        }
+      ],
+      "anotherSlots": [ 3 ],
+      "hiddenInstructions": [ 4 ]
     },
     {
       "programId": 6,
@@ -282,11 +371,20 @@
       "objects": [
         {
           "id": 1,
-          "type": "stirrer",
-          "color": "yellow"
+          "type": "glass",
+          "color": ""
         }
       ],
-      "context": "The yellow stirrer should be used to stir the liquid."
+      "context": "The glass should be filled with the grey liquid.",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "beaker",
+          "color": "white"
+        }
+      ],
+      "anotherSlots": [ 3 ],
+      "hiddenInstructions": [ 4 ]
     },
     {
       "programId": 7,
@@ -318,11 +416,18 @@
       "objects": [
         {
           "id": 1,
-          "type": "plate stack",
-          "color": "grey"
+          "type": "spoon container",
+          "color": ""
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 1,
+          "type": "fork container",
+          "color": ""
+        }
+      ]
     },
     {
       "programId": 7,
@@ -330,11 +435,18 @@
       "objects": [
         {
           "id": 1,
-          "type": "plate stack",
-          "color": "grey"
+          "type": "spoon container",
+          "color": ""
         }
       ],
-      "context": "The grey plate stack should be at station A."
+      "context": "The spoon container should be at station B.",
+      "programParameterOverrides": [
+        {
+          "id": 1,
+          "type": "fork container",
+          "color": ""
+        }
+      ]
     },
     {
       "programId": 8,
@@ -366,11 +478,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "juice",
-          "color": "yellow"
+          "type": "stickers",
+          "color": "sale"
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "price tags",
+          "color": ""
+        }
+      ],
+      "anotherSlots": [ 6 ]
     },
     {
       "programId": 8,
@@ -378,11 +498,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "juice",
-          "color": "yellow"
+          "type": "stickers",
+          "color": "sale"
         }
       ],
-      "context": "Yellow juice should be next to the red juice."
+      "context": "Sale stickers should be placed on cups.",
+      "programParameterOverrides": [
+        {
+          "id": 3,
+          "type": "price tags",
+          "color": ""
+        }
+      ],
+      "anotherSlots": [ 6 ]
     },
     {
       "programId": 9,
@@ -406,7 +534,7 @@
           "color": ""
         }
       ],
-      "context": "All the things need to be placed on the counter."
+      "context": "The red cake stand should be on the counter."
     },
     {
       "programId": 9,
@@ -414,11 +542,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "champagne",
+          "type": "counter",
           "color": ""
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 6,
+          "type": "table",
+          "color": ""
+        }
+      ],
+      "anotherSlots": [ 6 ]
     },
     {
       "programId": 9,
@@ -426,11 +562,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "champagne",
+          "type": "counter",
           "color": ""
         }
       ],
-      "context": "The champagne should be next to the red cake."
+      "context": "The red cake stand should be on the counter.",
+      "programParameterOverrides": [
+        {
+          "id": 6,
+          "type": "table",
+          "color": ""
+        }
+      ],
+      "anotherSlots": [ 6 ]
     },
     {
       "programId": 10,
@@ -462,11 +606,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "resistor",
-          "color": "yellow"
+          "type": "light",
+          "color": "green"
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 4,
+          "type": "light",
+          "color": "red"
+        }
+      ],
+      "anotherSlots": [ 4 ]
     },
     {
       "programId": 10,
@@ -474,11 +626,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "resistor",
-          "color": "yellow"
+          "type": "light",
+          "color": "green"
         }
       ],
-      "context": "Yellow resistor needs to be in branch 1."
+      "context": "Green light needs to be in branch 1.",
+      "programParameterOverrides": [
+        {
+          "id": 4,
+          "type": "light",
+          "color": "red"
+        }
+      ],
+      "anotherSlots": [ 4 ]
     },
     {
       "programId": 11,
@@ -510,11 +670,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "connector",
-          "color": "black"
+          "type": "wire",
+          "color": "blue"
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 4,
+          "type": "connector",
+          "color": "blue"
+        }
+      ],
+      "anotherSlots": [ 4 ]
     },
     {
       "programId": 11,
@@ -522,11 +690,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "connector",
-          "color": "black"
+          "type": "wire",
+          "color": "blue"
         }
       ],
-      "context": "Black connector needs to be in circuit B."
+      "context": "Blue wire needs to be in circuit A.",
+      "programParameterOverrides": [
+        {
+          "id": 4,
+          "type": "connector",
+          "color": "blue"
+        }
+      ],
+      "anotherSlots": [ 4 ]
     },
     {
       "programId": 12,
@@ -558,11 +734,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "switch",
-          "color": "white"
+          "type": "button",
+          "color": "red"
         }
       ],
-      "context": ""
+      "context": "",
+      "programParameterOverrides": [
+        {
+          "id": 6,
+          "type": "switch",
+          "color": "red"
+        }
+      ],
+      "anotherSlots": [ 6 ]
     },
     {
       "programId": 12,
@@ -570,11 +754,19 @@
       "objects": [
         {
           "id": 1,
-          "type": "switch",
-          "color": "white"
+          "type": "button",
+          "color": "red"
         }
       ],
-      "context": "White switch needs to be on panel A."
+      "context": "Red button needs to be switched on.",
+      "programParameterOverrides": [
+        {
+          "id": 6,
+          "type": "switch",
+          "color": "red"
+        }
+      ],
+      "anotherSlots": [ 6 ]
     }
   ]
 }

@@ -12,9 +12,8 @@
         },
         {
           "id": 2,
-          "type": "storage",
-          "color": "",
-          "descriptor": "1"
+          "type": "storage 1",
+          "color": ""
         },
         {
           "id": 3,
@@ -23,9 +22,8 @@
         },
         {
           "id": 4,
-          "type": "storage",
-          "color": "",
-          "descriptor": "2"
+          "type": "storage 2",
+          "color": ""
         },
         {
           "id": 5,
@@ -148,9 +146,8 @@
         },
         {
           "id": 2,
-          "type": "shelf",
-          "color": "",
-          "descriptor": "A"
+          "type": "shelf A",
+          "color": ""
         },
         {
           "id": 3,
@@ -164,9 +161,8 @@
         },
         {
           "id": 5,
-          "type": "shelf",
-          "color": "",
-          "descriptor": "B"
+          "type": "shelf B",
+          "color": ""
         },
         {
           "id": 6,
@@ -291,11 +287,6 @@
           "id": 4,
           "type": "thermometer",
           "color": ""
-        },
-        {
-          "id": 5,
-          "type": "beaker",
-          "color": "black"
         }
       ],
       "instructions": [
@@ -319,17 +310,10 @@
           { "text": "." }
         ],
         [
-          { "text": "Put the " },
-          { "slot": 5 },
-          { "text": " on the " },
-          { "slot": 1 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 4 },
           { "text": " in the " },
-          { "slot": 5 },
+          { "slot": 2 },
           { "text": "." }
         ]
       ]
@@ -428,15 +412,13 @@
         },
         {
           "id": 6,
-          "type": "station",
-          "color": "",
-          "label": "station A"
+          "type": "station A",
+          "color": ""
         },
         {
           "id": 7,
-          "type": "station",
-          "color": "",
-          "label": "station B"
+          "type": "station B",
+          "color": ""
         }
       ],
       "instructions": [
@@ -484,7 +466,7 @@
       "parameters": [
         {
           "id": 1,
-          "type": "juice",
+          "type": "drinks",
           "color": "red"
         },
         {
@@ -494,7 +476,7 @@
         },
         {
           "id": 3,
-          "type": "juice",
+          "type": "drinks",
           "color": "blue"
         },
         {
@@ -567,7 +549,7 @@
         {
           "id": 4,
           "type": "cake",
-          "color": ""
+          "color": "red"
         },
         {
           "id": 5,
@@ -628,9 +610,8 @@
         },
         {
           "id": 2,
-          "type": "branch",
-          "color": "",
-          "descriptor": "1"
+          "type": "branch 1",
+          "color": ""
         },
         {
           "id": 3,
@@ -644,9 +625,8 @@
         },
         {
           "id": 5,
-          "type": "branch",
-          "color": "",
-          "descriptor": "2"
+          "type": "branch 2",
+          "color": ""
         },
         {
           "id": 6,
@@ -699,9 +679,8 @@
         },
         {
           "id": 2,
-          "type": "circuit",
-          "color": "",
-          "descriptor": "A"
+          "type": "circuit A",
+          "color": ""
         },
         {
           "id": 3,
@@ -715,9 +694,8 @@
         },
         {
           "id": 5,
-          "type": "circuit",
-          "color": "",
-          "descriptor": "B"
+          "type": "circuit B",
+          "color": ""
         },
         {
           "id": 6,
@@ -770,9 +748,8 @@
         },
         {
           "id": 2,
-          "type": "panel",
-          "color": "",
-          "descriptor": "A"
+          "type": "panel A",
+          "color": ""
         },
         {
           "id": 3,
@@ -786,9 +763,8 @@
         },
         {
           "id": 5,
-          "type": "panel",
-          "color": "",
-          "descriptor": "B"
+          "type": "panel B",
+          "color": ""
         },
         {
           "id": 6,

@@ -31,6 +31,7 @@
 #include <QScrollArea>
 #include <QVBoxLayout>
 #include <QInputDialog>
+#include <QLineEdit>
 
 #include <algorithm>
 #include <fstream>
@@ -40,9 +41,6 @@
 #include <stdexcept>
 #include <string>
 
-#include <nlohmann/json.hpp>
-
-//TODO make this page and the other page into a common class
 namespace
 {
     constexpr const char* ParameterMimeType = "application/x-verbbot-plausibility-parameter";
@@ -92,7 +90,6 @@ namespace
             return QString("[Unknown parameter %1]").arg(slotId);
         return parameterName(it->parameters.front());
     }
-
     //draggable parameter
     class PlausibilityDraggableObject : public QLabel
     {
@@ -149,7 +146,7 @@ namespace
                 (event->pos() - dragStart).manhattanLength()
                 < QApplication::startDragDistance())
                 return;
-               
+
             QDrag drag(this);
             auto* mimeData = new QMimeData;
             mimeData->setData(ParameterMimeType, QByteArray::number(parameterId));
@@ -175,15 +172,14 @@ namespace
         QString colorName;
         bool isAssigned;
     };
-
-    //program slot
+    //param slot
     class PlausibilityDropSlot : public QLabel
     {
     public:
         using AssignmentCallback = std::function<void(int, int)>;
 
         PlausibilityDropSlot(int slotId, const QString& initialText,
-                             AssignmentCallback callback, QWidget* parent = nullptr)
+            AssignmentCallback callback, QWidget* parent = nullptr)
             : QLabel(initialText, parent), slotId(slotId), callback(std::move(callback))
         {
             setProperty("slotId", slotId);
@@ -256,20 +252,20 @@ namespace
 
 PlausibilityPage::PlausibilityPage(QWidget* parent)
     : QWidget(parent),
-      domainCombo(new QComboBox(this)),
-      programCombo(new QComboBox(this)),
-      variantCombo(new QComboBox(this)),
-      programPanel(new QWidget(this)),
-      programLayout(new QVBoxLayout),
-      objectGridContainer(new QWidget(this)),
-      objectGridLayout(new QGridLayout(objectGridContainer)),
-      contextLabel(new QLabel(this)),
-      statusLabel(new QLabel(this))
+    domainCombo(new QComboBox(this)),
+    programCombo(new QComboBox(this)),
+    variantCombo(new QComboBox(this)),
+    programPanel(new QWidget(this)),
+    programLayout(new QVBoxLayout),
+    objectGridContainer(new QWidget(this)),
+    objectGridLayout(new QGridLayout(objectGridContainer)),
+    contextLabel(new QLabel(this)),
+    statusLabel(new QLabel(this))
 {
     auto* pageLayout = new QVBoxLayout(this);
     pageLayout->setContentsMargins(8, 8, 8, 8);
 
-    auto* backButton = new QPushButton("← Back to Main Menu", this);
+    auto* backButton = new QPushButton("Back to Main Menu", this);
     pageLayout->addWidget(backButton, 0, Qt::AlignLeft);
     connect(backButton, &QPushButton::clicked, this, &PlausibilityPage::backToMenuRequested);
 
@@ -326,7 +322,6 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
     contentLayout->addWidget(leftContainer, 1);
     contentLayout->addWidget(rightContainer, 1);
     pageLayout->addLayout(contentLayout, 1);
-
     //reset button
     auto* resetAllButton = new QPushButton("Reset all assignments", this);
     resetAllButton->setMinimumHeight(40);
@@ -342,7 +337,7 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
         {
             if (objectToSlot.empty())
             {
-                statusLabel->setText("There are no assignments to reset.");
+                statusLabel->setText("There are no assignments to reset");
                 return;
             }
 
@@ -362,8 +357,9 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
 
             renderObjects();
 
-            statusLabel->setText("All assignments for this task have been reset.");
+            statusLabel->setText("All assignments for this task have been reset");
         });
+
     //save the current mapping
     auto* saveButton = new QPushButton("Save user's choice", this);
     saveButton->setMinimumHeight(40);
@@ -377,7 +373,6 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
 
     connect(saveButton, &QPushButton::clicked,
         this, &PlausibilityPage::saveUserChoice);
-
     connect(domainCombo, &QComboBox::currentIndexChanged, this, [this](int) { updateProgramList(); });
     connect(programCombo, &QComboBox::currentIndexChanged, this, [this](int) { updateVariantList(); });
     connect(variantCombo, &QComboBox::currentIndexChanged, this, [this](int) { loadSelectedStimulus(); });
@@ -408,7 +403,7 @@ void PlausibilityPage::loadProgramsAndStimuli()
         input >> root;
 
         if (!root.contains("stimuli") || !root["stimuli"].is_array())
-            throw std::runtime_error("plausibility_stimuli.json must contain a stimuli array");
+            throw std::runtime_error("plausibility_stimuli.json must contain a 'stimuli' array.");
 
         for (const auto& entry : root["stimuli"])
         {
@@ -420,6 +415,36 @@ void PlausibilityPage::loadProgramsAndStimuli()
             PlausibilityVariant variant;
             if (entry.contains("context") && entry["context"].is_string())
                 variant.context = QString::fromStdString(entry["context"].get<std::string>());
+
+            if (entry.contains("programParameterOverrides") && entry["programParameterOverrides"].is_array())
+            {
+                for (const auto& parameterJson : entry["programParameterOverrides"])
+                {
+                    Parameter parameter{};
+                    parameter.id = parameterJson.at("id").get<int>();
+                    parameter.type = parameterJson.at("type").get<std::string>();
+                    parameter.color = parameterJson.value("color", std::string{});
+                    if (parameterJson.contains("number") && !parameterJson["number"].is_null())
+                        parameter.number = parameterJson["number"].get<int>();
+                    variant.programParameterOverrides.push_back(parameter);
+                }
+            }
+
+            if (entry.contains("anotherSlots") && entry["anotherSlots"].is_array())
+            {
+                for (const auto& slotJson : entry["anotherSlots"])
+                    variant.anotherSlots.push_back(slotJson.get<int>());
+            }
+
+            if (entry.contains("hiddenInstructions") &&
+                entry["hiddenInstructions"].is_array())
+            {
+                for (const auto& instruction : entry["hiddenInstructions"])
+                {
+                    if (instruction.is_number_integer())
+                        variant.hiddenInstructions.push_back(instruction.get<int>());
+                }
+            }
 
             int fallbackId = 1;
             if (entry.contains("objects") && entry["objects"].is_array())
@@ -441,7 +466,7 @@ void PlausibilityPage::loadProgramsAndStimuli()
     catch (const std::exception& e)
     {
         QMessageBox::warning(this, "Plausibility stimuli", QString::fromStdString(e.what()));
-        statusLabel->setText("Stimuli could not be loaded, check plausibility_stimuli.json");
+        statusLabel->setText("Stimuli could not be loaded. Check plausibility_stimuli.json.");
     }
 
     std::set<std::string> domains;
@@ -492,6 +517,7 @@ void PlausibilityPage::loadSelectedStimulus()
 {
     objectToSlot.clear();
     currentObjects.clear();
+    currentAnotherSlots.clear();
     nextObjectId = 1;
 
     const int programId = programCombo->currentData().toInt();
@@ -508,12 +534,12 @@ void PlausibilityPage::loadSelectedStimulus()
         return;
     }
 
-    renderProgram(*programIt);
-
     const QString selectedVariant = variantCombo->currentText();
     const auto variantsIt = variantsByProgram.find(programId);
     if (variantsIt == variantsByProgram.end() || !variantsIt->second.count(selectedVariant))
     {
+        currentDisplayProgram = *programIt;
+        renderProgram(currentDisplayProgram);
         contextLabel->hide();
         statusLabel->setText("No variants found for this task. Add its A/B/C/D entries to plausibility_stimuli.json.");
         renderObjects();
@@ -521,6 +547,41 @@ void PlausibilityPage::loadSelectedStimulus()
     }
 
     const PlausibilityVariant& stimulus = variantsIt->second.at(selectedVariant);
+
+    //here the override for variants C and D
+    currentDisplayProgram = *programIt;
+    for (const Parameter& overrideParameter : stimulus.programParameterOverrides)
+    {
+        const auto slotIt = std::find_if(
+            currentDisplayProgram.parameters.begin(), currentDisplayProgram.parameters.end(),
+            [&overrideParameter](const ParameterSlot& slot)
+            {
+                return slot.id == overrideParameter.id;
+            });
+
+        if (slotIt == currentDisplayProgram.parameters.end())
+            continue;
+
+        if (slotIt->parameters.empty())
+            slotIt->parameters.push_back(overrideParameter);
+        else
+        {
+            slotIt->parameters.front().type = overrideParameter.type;
+            slotIt->parameters.front().color = overrideParameter.color;
+            slotIt->parameters.front().descriptor = overrideParameter.descriptor;
+            slotIt->parameters.front().number = overrideParameter.number;
+        }
+    }
+
+    currentAnotherSlots = stimulus.anotherSlots;
+    currentHiddenInstructions = stimulus.hiddenInstructions;
+
+    renderProgram(
+        currentDisplayProgram,
+        currentAnotherSlots,
+        currentHiddenInstructions
+    );
+
     currentObjects = stimulus.objects;
     for (Parameter& object : currentObjects)
     {
@@ -540,13 +601,16 @@ void PlausibilityPage::loadSelectedStimulus()
         contextLabel->show();
     }
 
-    statusLabel->setText("Drag each object onto the corresponding slot in the program.");
+    statusLabel->setText("Drag each object onto the corresponding slot in the program");
     renderObjects();
-    refreshSlotLabels(*programIt);
+    refreshSlotLabels(currentDisplayProgram);
 }
 
 
-void PlausibilityPage::renderProgram(const Program& program)
+void PlausibilityPage::renderProgram(
+    const Program& program,
+    const std::vector<int>& anotherSlots,
+    const std::vector<int>& hiddenInstructions)
 {
     clearLayout(programLayout);
 
@@ -555,48 +619,52 @@ void PlausibilityPage::renderProgram(const Program& program)
     title->setStyleSheet("font-size: 16px; font-weight: bold; padding: 8px;");
     programLayout->addWidget(title);
 
+    std::set<int> anotherAlreadyMentioned;
     int stepNumber = 1;
 
-    for (const auto& instruction : program.instructions)
+    for (std::size_t instructionIndex = 0;
+        instructionIndex < program.instructions.size();
+        ++instructionIndex)
     {
+        const int instructionNumber =
+            static_cast<int>(instructionIndex + 1);
+
+        if (std::find(
+            hiddenInstructions.begin(),
+            hiddenInstructions.end(),
+            instructionNumber) != hiddenInstructions.end())
+        {
+            continue;
+        }
+
+        const auto& instruction = program.instructions[instructionIndex];
+
         auto* stepFrame = new QFrame(programPanel);
         stepFrame->setFrameShape(QFrame::StyledPanel);
 
         auto* row = new QHBoxLayout(stepFrame);
         row->setSpacing(4);
-
         row->addWidget(
             new QLabel(QString("%1.").arg(stepNumber++), stepFrame),
             0,
             Qt::AlignTop
         );
 
-        for (const InstructionSegment& segment : instruction)
+        for (std::size_t segmentIndex = 0;
+            segmentIndex < instruction.size();
+            ++segmentIndex)
         {
+            const InstructionSegment& segment = instruction[segmentIndex];
+
             if (segment.isSlot)
             {
-                const int slotId = segment.slotId;
-
                 auto* slot = new PlausibilityDropSlot(
-                    slotId,
-                    defaultSlotText(program, slotId),
-                    [this, program](int objectId, int targetSlotId)
+                    segment.slotId,
+                    defaultSlotText(program, segment.slotId),
+                    [this, program](int objectId, int slotId)
                     {
-                        if (objectToSlot.find(objectId) != objectToSlot.end())
-                        {
-                            statusLabel->setText(
-                                "This object is already assigned. "
-                                "Use 'Reset all assignments' to assign it again."
-                            );
-                            return;
-                        }
-
-                        objectToSlot[objectId] = targetSlotId;
-
+                        objectToSlot[objectId] = slotId;
                         refreshSlotLabels(program);
-                        renderObjects();
-
-                        statusLabel->setText("Object assigned successfully.");
                     },
                     stepFrame
                 );
@@ -605,13 +673,52 @@ void PlausibilityPage::renderProgram(const Program& program)
             }
             else
             {
-                auto* text = new QLabel(
-                    QString::fromStdString(segment.text),
-                    stepFrame
-                );
+                QString text = QString::fromStdString(segment.text);
 
-                text->setWordWrap(true);
-                row->addWidget(text, 0, Qt::AlignVCenter);
+                //another should be plkaced at the first mention
+                if (segmentIndex + 1 < instruction.size() &&
+                    instruction[segmentIndex + 1].isSlot)
+                {
+                    const int nextSlotId =
+                        instruction[segmentIndex + 1].slotId;
+
+                    const bool isAnotherSlot =
+                        std::find(
+                            anotherSlots.begin(),
+                            anotherSlots.end(),
+                            nextSlotId
+                        ) != anotherSlots.end();
+
+                    if (isAnotherSlot &&
+                        !anotherAlreadyMentioned.count(nextSlotId))
+                    {
+                        const QString slotName =
+                            defaultSlotText(program, nextSlotId);
+
+                        const bool pluralLabel =
+                            slotName.compare(
+                                "price tags",
+                                Qt::CaseInsensitive
+                            ) == 0;
+
+                        const QString replacement =
+                            pluralLabel ? "another set of " : "another ";
+
+                        if (text.endsWith("the ", Qt::CaseInsensitive))
+                            text.chop(4);
+                        else if (text.endsWith("a ", Qt::CaseInsensitive))
+                            text.chop(2);
+                        else if (text.endsWith("an ", Qt::CaseInsensitive))
+                            text.chop(3);
+
+                        text += replacement;
+                        anotherAlreadyMentioned.insert(nextSlotId);
+                    }
+                }
+
+                auto* label = new QLabel(text, stepFrame);
+                label->setWordWrap(true);
+                row->addWidget(label, 0, Qt::AlignVCenter);
             }
         }
 
@@ -626,32 +733,12 @@ void PlausibilityPage::renderProgram(const Program& program)
 void PlausibilityPage::renderObjects()
 {
     clearLayout(objectGridLayout);
-
     for (std::size_t i = 0; i < currentObjects.size(); ++i)
     {
-        const Parameter& parameter = currentObjects[i];
-
-        const bool assigned =
-            objectToSlot.find(parameter.id) != objectToSlot.end();
-
-        auto* object = new PlausibilityDraggableObject(
-            parameter,
-            assigned,
-            objectGridContainer
-        );
-
-        objectGridLayout->addWidget(
-            object,
-            static_cast<int>(i / 2),
-            static_cast<int>(i % 2),
-            Qt::AlignTop | Qt::AlignLeft
-        );
+        auto* object = new PlausibilityDraggableObject(currentObjects[i], objectGridContainer);
+        objectGridLayout->addWidget(object, static_cast<int>(i / 2), static_cast<int>(i % 2), Qt::AlignTop | Qt::AlignLeft);
     }
-
-    objectGridLayout->setRowStretch(
-        static_cast<int>((currentObjects.size() + 1) / 2),
-        1
-    );
+    objectGridLayout->setRowStretch(static_cast<int>((currentObjects.size() + 1) / 2), 1);
 }
 
 void PlausibilityPage::refreshSlotLabels(const Program& program)
@@ -679,44 +766,53 @@ void PlausibilityPage::refreshSlotLabels(const Program& program)
     }
 }
 
+
 void PlausibilityPage::clearLayout(QLayout* layout)
 {
     while (QLayoutItem* item = layout->takeAt(0))
     {
         if (QWidget* widget = item->widget())
             widget->deleteLater();
+
         if (QLayout* childLayout = item->layout())
             clearLayout(childLayout);
+
         delete item;
     }
 }
 
 void PlausibilityPage::saveUserChoice()
 {
-    bool ok = false;
-    const QString participantId = QInputDialog::getText(
-        this,
-        "Participant identification",
-        "Enter participant ID or name:",
-        QLineEdit::Normal,
-        QString(),
-        &ok
-    ).trimmed();
+    QString responseParticipantId = participantId.trimmed();
 
-    if (!ok)
-        return;
-
-    if (participantId.isEmpty())
+    if (responseParticipantId.isEmpty())
     {
-        QMessageBox::warning(
-            this,
-            "Missing participant ID",
-            "Please enter a participant ID or name."
-        );
-        return;
-    }
+        bool ok = false;
 
-    // Identify the selected program.
+        responseParticipantId = QInputDialog::getText(
+            this,
+            "Participant identification",
+            "Enter participant ID or name:",
+            QLineEdit::Normal,
+            QString(),
+            &ok
+        ).trimmed();
+
+        if (!ok)
+            return;
+
+        if (responseParticipantId.isEmpty())
+        {
+            QMessageBox::warning(
+                this,
+                "Missing participant ID",
+                "Please enter a participant ID or name."
+            );
+            return;
+        }
+
+        participantId = responseParticipantId;
+    }
     const int programId = programCombo->currentData().toInt();
 
     const auto programIt = std::find_if(
@@ -733,13 +829,12 @@ void PlausibilityPage::saveUserChoice()
         QMessageBox::warning(
             this,
             "No task selected",
-            "Please select a task before saving."
+            "Please select a task before saving"
         );
         return;
     }
 
     const QString variantName = variantCombo->currentText();
-
     const auto variantsIt = variantsByProgram.find(programId);
 
     if (variantsIt == variantsByProgram.end() ||
@@ -748,7 +843,7 @@ void PlausibilityPage::saveUserChoice()
         QMessageBox::warning(
             this,
             "No stimulus selected",
-            "Please select a valid stimulus variant before saving."
+            "Please select a valid stimulus variant before saving"
         );
         return;
     }
@@ -756,9 +851,8 @@ void PlausibilityPage::saveUserChoice()
     const PlausibilityVariant& stimulus =
         variantsIt->second.at(variantName);
 
-    // Build the participant's response.
     nlohmann::json response;
-    response["participant_id"] = participantId.toStdString();
+    response["participant_id"] = responseParticipantId.toStdString();
     response["program_id"] = programIt->id;
     response["domain"] = programIt->domain;
     response["task"] = programIt->name;
@@ -766,7 +860,6 @@ void PlausibilityPage::saveUserChoice()
     response["context"] = stimulus.context.toStdString();
     response["mapping"] = nlohmann::json::array();
 
-    // Record every input object, including objects not assigned to a slot.
     for (const Parameter& object : currentObjects)
     {
         nlohmann::json mappingEntry;
@@ -780,25 +873,18 @@ void PlausibilityPage::saveUserChoice()
         const auto assignmentIt = objectToSlot.find(object.id);
 
         if (assignmentIt != objectToSlot.end())
-        {
             mappingEntry["program_slot_id"] = assignmentIt->second;
-        }
         else
-        {
             mappingEntry["program_slot_id"] = nullptr;
-        }
 
         response["mapping"].push_back(mappingEntry);
     }
 
-    // Use a shared file so responses from multiple participants are retained.
     const QString outputPath =
         "C:/Users/marsp/source/repos/Masterprojekt/"
         "Masterprojekt/programs/plausibility_responses.json";
 
     nlohmann::json root;
-
-    // Load existing responses instead of overwriting them.
     {
         std::ifstream input(outputPath.toStdString());
 
@@ -813,8 +899,9 @@ void PlausibilityPage::saveUserChoice()
                 QMessageBox::critical(
                     this,
                     "Could not read responses",
-                    QString("The existing response file contains invalid JSON:\n%1")
-                    .arg(QString::fromStdString(e.what()))
+                    QString(
+                        "The existing response file contains invalid JSON:\n%1"
+                    ).arg(QString::fromStdString(e.what()))
                 );
                 return;
             }
@@ -829,7 +916,7 @@ void PlausibilityPage::saveUserChoice()
         QMessageBox::critical(
             this,
             "Invalid response file",
-            "The response file must contain a JSON object."
+            "The response file must contain a JSON object"
         );
         return;
     }
@@ -842,15 +929,13 @@ void PlausibilityPage::saveUserChoice()
         QMessageBox::critical(
             this,
             "Invalid response file",
-            "The 'responses' field must be a JSON array."
+            "The 'responses' field must be a JSON array"
         );
         return;
     }
 
-    // Append this response.
     root["responses"].push_back(response);
 
-    // Write the updated file.
     {
         std::ofstream output(outputPath.toStdString());
 
@@ -879,18 +964,24 @@ void PlausibilityPage::saveUserChoice()
 
     statusLabel->setText(
         QString("Response saved for participant %1.")
-        .arg(participantId)
+        .arg(responseParticipantId)
     );
 
     QMessageBox::information(
         this,
         "Response saved",
-        QString("The choice for participant '%1' was saved successfully:)")
-        .arg(participantId)
+        QString("The choice for participant '%1' was saved successfully")
+        .arg(responseParticipantId)
     );
 }
 
-void PlausibilityPage::setParticipantId(const QString& id)
+void PlausibilityPage::setParticipantId(const QString& participantId)
 {
-    participantId = id.trimmed();
+    this->participantId = participantId;
+}
+
+
+void PlausibilityPage::setParticipantId(const QString& participantId)
+{
+    this->participantId = participantId;
 }

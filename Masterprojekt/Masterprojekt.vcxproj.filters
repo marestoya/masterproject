@@ -123,6 +123,9 @@
     <ClInclude Include="CostModelBatchTest.hpp">
       <Filter>Headerdateien\tests</Filter>
     </ClInclude>
+    <ClInclude Include="ParametrizationBatchTest.hpp">
+      <Filter>Headerdateien\tests</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\model\Assignment.cpp">

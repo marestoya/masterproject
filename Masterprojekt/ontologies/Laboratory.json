@@ -10,6 +10,10 @@
       "parent": "object"
     },
     {
+      "name": "box",
+      "parent": "container"
+    },
+    {
       "name": "vessel",
       "parent": "container"
     },
@@ -58,12 +62,12 @@
       "parent": "object"
     },
     {
-      "name": "spoon",
-      "parent": "tool"
-    },
-    {
       "name": "tool",
       "parent": "object"
+    },
+    {
+      "name": "spoon",
+      "parent": "tool"
     },
     {
       "name": "measuring_instrument",

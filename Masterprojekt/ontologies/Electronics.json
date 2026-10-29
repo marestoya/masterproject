@@ -6,6 +6,14 @@
       "parent": null
     },
     {
+      "name": "container",
+      "parent": "object"
+    },
+    {
+      "name": "box",
+      "parent": "container"
+    },
+    {
       "name": "electronic_component",
       "parent": "object"
     },
@@ -30,6 +38,10 @@
       "parent": "electronic_component"
     },
     {
+      "name": "cable",
+      "parent": "wire"
+    },
+    {
       "name": "battery",
       "parent": "electronic_component"
     },
@@ -43,6 +55,10 @@
     },
     {
       "name": "module",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "power_unit",
       "parent": "electronic_component"
     },
     {

@@ -38,7 +38,15 @@
       "parent": "tableware"
     },
     {
+      "name": "fork",
+      "parent": "tableware"
+    },
+    {
       "name": "glass",
+      "parent": "tableware"
+    },
+    {
+      "name": "bowl",
       "parent": "tableware"
     },
     {
@@ -82,6 +90,10 @@
       "parent": "consumable"
     },
     {
+      "name": "coffee",
+      "parent": "consumable"
+    },
+    {
       "name": "tea",
       "parent": "consumable"
     },
@@ -111,6 +123,10 @@
     },
     {
       "name": "counter",
+      "parent": "table"
+    },
+    {
+      "name": "board",
       "parent": "table"
     },
     {
