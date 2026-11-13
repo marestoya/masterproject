@@ -227,11 +227,7 @@ namespace GlobalImplicitAssignmentTest
         {
             const TestCase& test = testCases[testIndex];
 
-            std::cout
-                << "Test " << testIndex + 1 << ": "
-                << test.programName << '\n'
-                << "Domain: " << test.domain << '\n'
-                << "Variant: " << test.variant << '\n';
+            
 
             try
             {
@@ -288,18 +284,7 @@ namespace GlobalImplicitAssignmentTest
                 {
                     std::cout << "No assignments!\n";
                 }
-                else
-                {
-                    for (const auto& assignment : result.assignments)
-                    {
-                        std::cout
-                            << "Input ID "
-                            << assignment.inputParameterId
-                            << " -> Slot ID "
-                            << assignment.programParameterId
-                            << '\n';
-                    }
-                }
+               
 
                 ++testsPassed;
             }

@@ -5,52 +5,13 @@
       "name": "object",
       "parent": null
     },
+
     {
       "name": "container",
       "parent": "object"
     },
     {
       "name": "tray",
-      "parent": "container"
-    },
-    {
-      "name": "serving_tray",
-      "parent": "tray"
-    },
-    {
-      "name": "tableware",
-      "parent": "object"
-    },
-    {
-      "name": "plate",
-      "parent": "tableware"
-    },
-    {
-      "name": "plate_stack",
-      "parent": "object"
-    },
-    {
-      "name": "cup",
-      "parent": "tableware"
-    },
-    {
-      "name": "spoon",
-      "parent": "tableware"
-    },
-    {
-      "name": "fork",
-      "parent": "tableware"
-    },
-    {
-      "name": "glass",
-      "parent": "tableware"
-    },
-    {
-      "name": "bowl",
-      "parent": "tableware"
-    },
-    {
-      "name": "kettle",
       "parent": "container"
     },
     {
@@ -61,6 +22,84 @@
       "name": "fork_container",
       "parent": "container"
     },
+
+    {
+      "name": "dishware",
+      "parent": "object"
+    },
+    {
+      "name": "plate",
+      "parent": "dishware"
+    },
+    {
+      "name": "smallPlate",
+      "parent": "plate"
+    },
+    {
+      "name": "bowl",
+      "parent": "dishware"
+    },
+
+    {
+      "name": "drinkware",
+      "parent": "object"
+    },
+    {
+      "name": "cup",
+      "parent": "drinkware"
+    },
+    {
+      "name": "largeCup",
+      "parent": "cup"
+    },
+    {
+      "name": "glass",
+      "parent": "drinkware"
+    },
+
+    {
+      "name": "cutlery",
+      "parent": "object"
+    },
+    {
+      "name": "spoon",
+      "parent": "cutlery"
+    },
+    {
+      "name": "longSpoon",
+      "parent": "spoon"
+    },
+    {
+      "name": "fork",
+      "parent": "cutlery"
+    },
+
+    {
+      "name": "tea",
+      "parent": "object"
+    },
+    {
+      "name": "chamomileTea",
+      "parent": "tea"
+    },
+    {
+      "name": "matchaTeaBag",
+      "parent": "tea"
+    },
+
+    {
+      "name": "consumable",
+      "parent": "object"
+    },
+    {
+      "name": "juice",
+      "parent": "consumable"
+    },
+    {
+      "name": "muffin",
+      "parent": "consumable"
+    },
+
     {
       "name": "napkin",
       "parent": "object"
@@ -77,34 +116,7 @@
       "name": "price_tag",
       "parent": "sticker"
     },
-    {
-      "name": "consumable",
-      "parent": "object"
-    },
-    {
-      "name": "champagne",
-      "parent": "consumable"
-    },
-    {
-      "name": "juice",
-      "parent": "consumable"
-    },
-    {
-      "name": "coffee",
-      "parent": "consumable"
-    },
-    {
-      "name": "tea",
-      "parent": "consumable"
-    },
-    {
-      "name": "cake",
-      "parent": "consumable"
-    },
-    {
-      "name": "muffin",
-      "parent": "consumable"
-    },
+
     {
       "name": "cake_stand",
       "parent": "object"
@@ -126,12 +138,12 @@
       "parent": "table"
     },
     {
-      "name": "board",
-      "parent": "table"
+      "name": "cuttingBoard",
+      "parent": "object"
     },
     {
-      "name": "station",
-      "parent": "object"
+      "name": "plate_stack",
+      "parent": "dishware"
     }
   ]
 }

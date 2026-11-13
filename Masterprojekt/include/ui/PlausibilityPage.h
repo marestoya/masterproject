@@ -14,19 +14,20 @@ class QLabel;
 class QLayout;
 class QVBoxLayout;
 class QWidget;
+class QPushButton;
 
 struct PlausibilityVariant
 {
     std::vector<Parameter> objects;
     QString context;
 
-    // Optional variant-specific program parameter changes (id is the program slot ID).
+    //overrides for variant C and D
     std::vector<Parameter> programParameterOverrides;
 
-    // Slot IDs whose first mention should say "another ..." in the program text.
+    //needed for variant C and D; adds another parameter with the minimum cost
     std::vector<int> anotherSlots;
 
-    // 1-based instruction numbers hidden for this variant.
+    //needed foe one specific task 
     std::vector<int> hiddenInstructions;
 };
 
@@ -38,6 +39,10 @@ public:
     explicit PlausibilityPage(QWidget* parent = nullptr);
 
     void setParticipantId(const QString& participantId);
+    void setStudyTask(int programId, const QString& variant);
+
+    bool saveUserChoice(bool showMessage = true);
+    void setStudyLanguage(const QString& language);
 signals:
     void backToMenuRequested();
 
@@ -53,6 +58,19 @@ private:
     QLabel* contextLabel;
     QLabel* statusLabel;
     QString participantId;
+
+
+    QString studyLanguage = "English";
+
+    QLabel* domainLabel;
+    QLabel* taskLabel;
+    QLabel* variantLabel;
+    QLabel* programTitleLabel;
+    QLabel* objectsTitleLabel;
+
+    QPushButton* backButton;
+    QPushButton* resetAllButton;
+    QPushButton* saveButton;
 
     std::vector<Program> programs;
 
@@ -71,6 +89,7 @@ private:
     void updateProgramList();
     void updateVariantList();
     void loadSelectedStimulus();
+   
 
     void renderProgram(
         const Program& program,
@@ -81,6 +100,5 @@ private:
     void renderObjects();
     void refreshSlotLabels(const Program& program);
     void clearLayout(QLayout* layout);
-    void saveUserChoice();
 
 };

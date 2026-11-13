@@ -1,4 +1,4 @@
-#include "ui/ParametrizationPage.h"
+﻿#include "ui/ParametrizationPage.h"
 
 #include "ui/ProgramLoader.h"
 #include "cost/CostMatrix.h"
@@ -6,6 +6,11 @@
 #include "model/ProgramInstantiator.h"
 #include "parametrization/GlobalExplicit.h"
 #include "parametrization/GlobalImplicit.h"
+#include "RobotController.h"
+#include "CommandExecutor.h"
+#include <unity_connection.hpp>
+#include <unity_simulation.hpp>
+#include <programs/Programs.h>
 
 #include <QApplication>
 #include <QColor>
@@ -44,19 +49,145 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <optional>
+#include <iostream>
 
+//TODO: Translation could be saved in json, for now thats fine i think
 namespace
 {
     constexpr const char* ParameterMimeType =
         "application/x-verbbot-parameter";
 
-    QString parameterName(const Parameter& parameter)
+    QString parameterName(const Parameter& parameter, bool german)
     {
-        return QString("%1 %2")
-            .arg(QString::fromStdString(parameter.color),
-                QString::fromStdString(parameter.type));
-    }
+        QString type = QString::fromStdString(parameter.type);
 
+        if (type == "testTubeHolderFoam")
+        {
+            type = german ? QStringLiteral("Reagenzglasständer")
+                : QStringLiteral("test tube holder");
+        }
+        else if (german)
+        {
+            static const std::map<QString, QString> translations = {
+                {"beaker", "Becherglas"},
+                {"tray", "Tablett"},
+                {"testTube", "Reagenzglas"},
+                {"thermometer", "Thermometer"},
+                {"box", "Box"},
+                {"plate", "Teller"},
+                {"cup", "Tasse"},
+                {"spoon", "Löffel"},
+                {"smallPlate", "Kleiner Teller"},
+                {"glass", "Glas"},
+                {"matchaTeaBag", "Matcha-Teebeutel"},
+                {"hammer", "Hammer"},
+                {"drill", "Bohrer"},
+                {"gear", "Zahnrad"},
+                {"vat", "Wanne"},
+                {"wire", "Kabel"},
+                {"battery", "Batterie"},
+                {"button", "Knopf"},
+                {"bowl", "Schüssel"},
+                {"cake_stand", "Kuchenständer"},
+                {"chamomileTea", "Kamillentee"},
+                {"counter", "Theke"},
+                {"cuttingBoard", "Schneidebrett"},
+                {"fork", "Gabel"},
+                {"fork_container", "Gabelbehälter"},
+                {"juice", "Saft"},
+                {"largeCup", "Große Tasse"},
+                {"longSpoon", "Langer Löffel"},
+                {"muffin", "Muffin"},
+                {"napkin", "Serviette"},
+                {"plate_stack", "Tellerstapel"},
+                {"price_tag", "Preisschild"},
+                {"sale_sticker", "Angebotsaufkleber"},
+                {"small_table", "Kleiner Tisch"},
+                {"spoon_container", "Löffelbehälter"},
+                {"table", "Tisch"},
+                {"tea_bag", "Teebeutel"},
+                {"branch", "Zweig"},
+                {"bolt", "Schraubbolzen"},
+                {"circuit", "Schaltkreis"},
+                {"connector", "Steckverbinder"},
+                {"container", "Behälter"},
+                {"id_card", "Ausweis"},
+                {"light", "Leuchte"},
+                {"module", "Modul"},
+                {"panel", "Bedienfeld"},
+                {"powerUnit", "Akku"},
+                {"resistor", "Widerstand"},
+                {"sensor", "Sensor"},
+                {"switch", "Schalter"},
+                {"temperature_sensor", "Temperatursensor"},
+                {"barometer", "Barometer"},
+                {"cotton_pad", "Wattepad"},
+                {"liquid", "Flüssigkeit"},
+                {"stirrer", "Rührstab"},
+                {"testTubeRack", "Reagenzglasständer"},
+                {"long_table_leg", "Langes Tischbein"},
+                {"package", "Paket"},
+                {"screw", "Schraube"},
+                {"screwdriver", "Schraubendreher"},
+                {"shelf", "Regal"},
+                {"short_table_leg", "Kurzes Tischbein"},
+                {"storage", "Lager"},
+                {"table_plate", "Tischplatte"},
+                {"toolbox", "Werkzeugkasten"},
+                {"wrench", "Schraubenschlüssel"},
+                {"chocolate_fountain", "Schokoladenbrunnen"}
+
+            };
+
+            auto it = translations.find(type);
+
+            if (it != translations.end())
+                type = it->second;
+        }
+        else
+        {
+            type.replace(QStringLiteral("_"), QStringLiteral(" "));
+
+            type.replace(
+                QRegularExpression(QStringLiteral("([a-z])([A-Z])")),
+                QStringLiteral("\\1 \\2")
+            );
+
+            type = type.toLower();
+        }
+
+        QString parameterColorName =
+            QString::fromStdString(parameter.color).toLower();
+
+        if (parameterColorName.isEmpty())
+            return type;
+
+        if (german)
+        {
+            static const std::map<QString, QString> colorTranslations = {
+                {"red", "Rot"},
+                {"brown", "Braun"},
+                {"green", "Grün"},
+                {"blue", "Blau"},
+                {"yellow", "Gelb"},
+                {"white", "Weiss"},
+                {"silver", "Silber"},
+                {"glass", "Glas"},
+                {"grey", "Grau"},
+                {"black", "Schwarz"}
+            };
+
+            auto it = colorTranslations.find(parameterColorName);
+
+            if (it != colorTranslations.end())
+                parameterColorName = it->second;
+
+            return QString("%1 (%2)").arg(type, parameterColorName);
+        }
+
+        return QString("%1 %2").arg(parameterColorName, type);
+    }
     QColor parameterColor(const QString& colorName)
     {
         QColor color(colorName);
@@ -98,7 +229,7 @@ namespace
         return colors[(slotId - 1) % count];
     }
 
-    QString defaultSlotText(const Program& program, int slotId)
+    QString defaultSlotText(const Program& program, int slotId, bool german)
     {
         const auto it = std::find_if(
             program.parameters.begin(),
@@ -111,7 +242,106 @@ namespace
         if (it == program.parameters.end() || it->parameters.empty())
             return QString("[Unknown parameter %1]").arg(slotId);
 
-        return parameterName(it->parameters.front());
+        return parameterName(it->parameters.front(), german);
+    }
+
+    bool isGerman(const QObject* object)
+    {
+        return object &&
+            object->property("studyLanguage").toString() == "German";
+    }
+
+    QString translatedDomain(const QString& raw, bool german)
+    {
+        if (!german)
+            return raw;
+
+        static const std::map<QString, QString> translations = {
+            {"Laboratory", "Labor"},
+            {"Catering", "Gastronomie"},
+            {"Workshop", "Werkstatt"},
+            {"Electronics", "Elektronik"}
+        };
+
+        const auto it = translations.find(raw);
+        return it != translations.end() ? it->second : raw;
+    }
+
+    QString translatedMode(const QString& raw, bool german)
+    {
+        if (!german)
+            return raw;
+
+        if (raw == "Implicit")
+            return "Implizit";
+
+        if (raw == "Explicit")
+            return "Explizit";
+
+        return raw;
+    }
+
+    QString translatedColor(const QString& raw, bool german)
+    {
+        if (!german)
+            return raw;
+
+        static const std::map<QString, QString> translations = {
+            {"red", "Rot"},
+            {"brown", "Braun"},
+            {"green", "Grün"},
+            {"blue", "Blau"},
+            {"yellow", "Gelb"},
+            {"white", "Weiss"},
+            {"silver", "Silber"},
+            {"glass", "Glas"},
+            {"grey", "Grau"},
+            {"black", "Schwarz"}
+        };
+
+        const auto it = translations.find(raw.toLower());
+        return it != translations.end() ? it->second : raw;
+    }
+
+    QString translatedProgramName(const QString& raw, bool german)
+    {
+        if (!german)
+            return raw;
+
+        static const std::map<QString, QString> translations = {
+            {"Set up experiment", "Experiment vorbereiten"},
+            {"Store samples", "Proben lagern"},
+            {"Clear table", "Tisch abräumen"},
+            {"Set up table", "Tisch decken"},
+            {"Return tools", "Werkzeuge zurücklegen"},
+            {"Galvanize a gear", "Ein Zahnrad verzinken"},
+            {"Prepare sensor assembly", "Sensorbaugruppe vorbereiten"},
+            {"Sort components", "Bauteile sortieren"}
+        };
+
+        auto it = translations.find(raw);
+        return it != translations.end() ? it->second : raw;
+    }
+
+    QString translatedInstructionText(const QString& raw, bool german)
+    {
+        if (!german)
+            return raw;
+
+        static const std::map<QString, QString> translations = {
+            {"Pick up the ", "Nimm "},
+            {"Place the ", "Platziere "},
+            {"Put the ", "Lege "},
+            {" on the ", " auf "},
+            {" in the ", " in "},
+            {" in the middle of the ", " in die Mitte von "},
+            {" next to the ", " neben "},
+            {" in front of the ", " vor "},
+            {"Press the ", "Drücke "}
+        };
+
+        auto it = translations.find(raw);
+        return it != translations.end() ? it->second : raw;
     }
 }
 
@@ -123,7 +353,7 @@ public:
         const Parameter& parameter,
         QObject* modeOwner,
         QWidget* parent = nullptr)
-        : QLabel(parameterName(parameter), parent),
+        : QLabel(parameterName(parameter, isGerman(modeOwner)), parent),
         parameterId(parameter.id),
         colorName(QString::fromStdString(parameter.color)),
         modeOwner(modeOwner)
@@ -143,7 +373,7 @@ public:
 
         setToolTip(
             QString("%1 (ID: %2)")
-            .arg(parameterName(parameter))
+            .arg(parameterName(parameter, isGerman(modeOwner)))
             .arg(parameter.id));
     }
 
@@ -220,30 +450,31 @@ public:
         : QLabel(initialText, parent),
         slotId(slotId),
         modeOwner(modeOwner),
-        callback(std::move(callback))
+        callback(std::move(callback)),
+        originalText(initialText)
     {
         setProperty("slotId", slotId);
         setAcceptDrops(true);
         setAlignment(Qt::AlignCenter);
-        setContentsMargins(5, 13, 24, 5);
-        setMinimumSize(135, 42);
+        setContentsMargins(5, 23, 24, 5);
+        setMinimumSize(135, 55);
         setMaximumWidth(220);
         setWordWrap(true);
         setFrameShape(QFrame::StyledPanel);
 
         setToolTip(QString("Program slot %1").arg(slotId));
 
-        const QColor bgColor = slotBackgroundColor(slotId);
+        updateStyle();
+    }
 
-        setStyleSheet(QString(
-            "QLabel {"
-            " background-color: %1;"
-            " color: black;"
-            " border: 2px solid %2;"
-            " border-radius: 6px;"
-            " padding: 5px;"
-            "}"
-        ).arg(bgColor.name(), bgColor.darker(125).name()));
+    void setAssignment(const QString& assignedText)
+    {
+        isAssigned = !assignedText.isEmpty();
+
+        setText(isAssigned ? assignedText : originalText);
+
+        updateStyle();
+        update();
     }
 
 protected:
@@ -251,25 +482,51 @@ protected:
     {
         QLabel::paintEvent(event);
 
-        // Draw a small corner badge so repeated references to the same slot
-        // are easy to identify throughout the program instructions.
         QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing);
 
-        const QString identifier = slotIdentifier(slotId);
+        if (isAssigned)
+        {
+            const QFontMetrics metrics(painter.font());
+            const QString labelText = originalText;
+
+            const int labelWidth =
+                metrics.horizontalAdvance(labelText) + 10;
+
+            const QRect originalRect(5, 3, labelWidth, 17);
+
+            painter.setPen(QPen(QColor("#81c784"), 1));
+            painter.setBrush(QColor("#e8f5e9"));
+            painter.drawRoundedRect(originalRect, 4, 4);
+
+            painter.setPen(QColor("#2e7d32"));
+            painter.drawText(
+                originalRect,
+                Qt::AlignCenter,
+                labelText
+            );
+        }
+
         const QRect badgeRect(width() - 25, 4, 19, 17);
-        const QColor badgeColor = slotBackgroundColor(slotId).darker(118);
+        const QColor badgeColor =
+            slotBackgroundColor(slotId).darker(118);
 
         painter.setPen(QPen(badgeColor.darker(145), 1));
         painter.setBrush(badgeColor);
         painter.drawRoundedRect(badgeRect, 4, 4);
 
         painter.setPen(Qt::black);
+
         QFont badgeFont = painter.font();
         badgeFont.setBold(true);
         badgeFont.setPointSize(8);
         painter.setFont(badgeFont);
-        painter.drawText(badgeRect, Qt::AlignCenter, identifier);
+
+        painter.drawText(
+            badgeRect,
+            Qt::AlignCenter,
+            slotIdentifier(slotId)
+        );
     }
 
     void dragEnterEvent(QDragEnterEvent* event) override
@@ -317,10 +574,44 @@ private:
     int slotId;
     QObject* modeOwner;
     AssignmentCallback callback;
+
+    QString originalText;
+    bool isAssigned = false;
+
+    void updateStyle()
+    {
+        if (isAssigned)
+        {
+            setStyleSheet(
+                "QLabel {"
+                " background-color: #e8f5e9;"
+                " color: #202124;"
+                " border: 2px solid #4caf50;"
+                " border-radius: 6px;"
+                " padding: 5px;"
+                "}"
+            );
+        }
+        else
+        {
+            const QColor bgColor = slotBackgroundColor(slotId);
+
+            setStyleSheet(QString(
+                "QLabel {"
+                " background-color: %1;"
+                " color: black;"
+                " border: 2px solid %2;"
+                " border-radius: 6px;"
+                " padding: 5px;"
+                "}"
+            ).arg(bgColor.name(), bgColor.darker(125).name()));
+        }
+    }
 };
 
 
 //main window
+
 
 ParametrizationPage::ParametrizationPage(QWidget* parent)
     : QWidget(parent),
@@ -337,6 +628,7 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     inputLayout(new QVBoxLayout)
 {
     setProperty("explicitMode", false);
+    setProperty("studyLanguage", "English");
 
     try
     {
@@ -356,23 +648,44 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
 
     auto* central = new QWidget(this);
     auto* mainLayout = new QVBoxLayout(central);
+
     auto* pageLayout = new QVBoxLayout(this);
     pageLayout->setContentsMargins(0, 0, 0, 0);
     pageLayout->addWidget(central);
-    auto* backButton = new QPushButton("Back");
-    mainLayout->addWidget(backButton, 0, Qt::AlignLeft);
-    connect(backButton, &QPushButton::clicked, this, &ParametrizationPage::backToMenuRequested);
 
+    // Back button
+    auto* backButton = new QPushButton("Back", this);
+    backButton->setObjectName("backButton");
+
+    mainLayout->addWidget(backButton, 0, Qt::AlignLeft);
+
+    connect(
+        backButton,
+        &QPushButton::clicked,
+        this,
+        &ParametrizationPage::backToMenuRequested
+    );
+
+    // Top controls
     auto* topLayout = new QHBoxLayout;
 
-    topLayout->addWidget(new QLabel("Domain:"));
+    auto* domainLabel = new QLabel("Domain:", this);
+    domainLabel->setObjectName("domainLabel");
+    topLayout->addWidget(domainLabel);
     topLayout->addWidget(domainCombo);
 
-    topLayout->addWidget(new QLabel("Program:"));
+    auto* programLabel = new QLabel("Program:", this);
+    programLabel->setObjectName("programLabel");
+    topLayout->addWidget(programLabel);
     topLayout->addWidget(programCombo);
 
-    topLayout->addWidget(new QLabel("Mode:"));
-    modeCombo->addItems({ "Implicit", "Explicit" });
+    auto* modeLabel = new QLabel("Mode:", this);
+    modeLabel->setObjectName("modeLabel");
+    topLayout->addWidget(modeLabel);
+
+    modeCombo->addItem("Implicit", "Implicit");
+    modeCombo->addItem("Explicit", "Explicit");
+
     topLayout->addWidget(modeCombo);
 
     mainLayout->addLayout(topLayout);
@@ -381,9 +694,12 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     auto* leftPanel = new QVBoxLayout;
     auto* rightPanel = new QVBoxLayout;
 
-    auto* programTitle = new QLabel("Program");
+    auto* programTitle = new QLabel("Program", this);
+    programTitle->setObjectName("programTitle");
+
     programTitle->setStyleSheet(
         "font-size: 18px; font-weight: bold;");
+
     leftPanel->addWidget(programTitle);
 
     programPanel->setLayout(programLayout);
@@ -391,30 +707,46 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     auto* programScroll = new QScrollArea;
     programScroll->setWidgetResizable(true);
     programScroll->setWidget(programPanel);
+
     leftPanel->addWidget(programScroll);
 
-    auto* inputTitle = new QLabel("Input objects");
+    auto* inputTitle = new QLabel("Input objects", this);
+    inputTitle->setObjectName("inputTitle");
+
     inputTitle->setStyleSheet(
         "font-size: 18px; font-weight: bold;");
+
     rightPanel->addWidget(inputTitle);
 
     objectColorCombo->addItem("Red", "red");
+    objectColorCombo->addItem("Brown", "brown");
     objectColorCombo->addItem("Green", "green");
     objectColorCombo->addItem("Blue", "blue");
     objectColorCombo->addItem("Yellow", "yellow");
     objectColorCombo->addItem("White", "white");
     objectColorCombo->addItem("Silver", "silver");
     objectColorCombo->addItem("Glass", "glass");
+    objectColorCombo->addItem("Grey", "grey");
+    objectColorCombo->addItem("Black", "black");
+    objectColorCombo->addItem("No color", "");
 
     auto* objectControls = new QHBoxLayout;
+
     objectControls->addWidget(objectTypeCombo);
     objectControls->addWidget(objectColorCombo);
 
-    auto* addButton = new QPushButton("+ Add object");
+    auto* addButton = new QPushButton("+ Add object", this);
+    addButton->setObjectName("addButton");
+
     objectControls->addWidget(addButton);
+
     rightPanel->addLayout(objectControls);
 
-    auto* clearButton = new QPushButton("Clear all input objects");
+    auto* clearButton = new QPushButton(
+        "Clear all input objects", this);
+
+    clearButton->setObjectName("clearButton");
+
     rightPanel->addWidget(clearButton);
 
     inputGridLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
@@ -423,8 +755,13 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     auto* inputScroll = new QScrollArea;
     inputScroll->setWidgetResizable(true);
     inputScroll->setWidget(inputGridContainer);
-    inputScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    inputScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+    inputScroll->setHorizontalScrollBarPolicy(
+        Qt::ScrollBarAlwaysOff);
+
+    inputScroll->setVerticalScrollBarPolicy(
+        Qt::ScrollBarAsNeeded);
+
     rightPanel->addWidget(inputScroll);
 
     auto* leftContainer = new QWidget;
@@ -439,42 +776,70 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     mainLayout->addLayout(contentLayout, 1);
 
     auto* actionLayout = new QHBoxLayout;
-    auto* runButton = new QPushButton("Run parametrization");
+
+    auto* runButton = new QPushButton(
+        "Run parametrization", this);
+
+    runButton->setObjectName("runButton");
 
     actionLayout->addStretch();
     actionLayout->addWidget(runButton);
+
     mainLayout->addLayout(actionLayout);
 
+    connect(
+        addButton,
+        &QPushButton::clicked,
+        this,
+        [this]() { addInputObject(); }
+    );
 
+    connect(
+        clearButton,
+        &QPushButton::clicked,
+        this,
+        [this]() { clearInputObjects(); }
+    );
 
+    connect(
+        runButton,
+        &QPushButton::clicked,
+        this,
+        [this]() { runParametrization(); }
+    );
 
+    connect(
+        domainCombo,
+        &QComboBox::currentIndexChanged,
+        this,
+        [this](int) { updateProgramList(); }
+    );
 
-    connect(addButton, &QPushButton::clicked,
-        this, [this]() { addInputObject(); });
+    connect(
+        programCombo,
+        &QComboBox::currentIndexChanged,
+        this,
+        [this](int) { updateProgram(); }
+    );
 
-    connect(clearButton, &QPushButton::clicked,
-        this, [this]() { clearInputObjects(); });
-
-    connect(runButton, &QPushButton::clicked,
-        this, [this]() { runParametrization(); });
-
-    connect(domainCombo, &QComboBox::currentIndexChanged,
-        this, [this](int) { updateProgramList(); });
-
-    connect(programCombo, &QComboBox::currentIndexChanged,
-        this, [this](int) { updateProgram(); });
-
-    connect(modeCombo, &QComboBox::currentTextChanged,
-        this, [this](const QString& mode)
+    connect(
+        modeCombo,
+        &QComboBox::currentIndexChanged,
+        this,
+        [this](int)
         {
-            const bool explicitMode = (mode == "Explicit");
+            const bool explicitMode =
+                modeCombo->currentData().toString() == "Explicit";
+
             setProperty("explicitMode", explicitMode);
 
             setWindowTitle(
                 explicitMode
                 ? "VerbBot - Explicit Parametrization"
-                : "VerbBot - Implicit Parametrization");
-        });
+                : "VerbBot - Implicit Parametrization"
+            );
+        }
+    );
 
     std::set<std::string> domains;
 
@@ -482,15 +847,22 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
         domains.insert(program.domain);
 
     for (const std::string& domain : domains)
-        domainCombo->addItem(QString::fromStdString(domain));
+    {
+        const QString domainName =
+            QString::fromStdString(domain);
+
+        domainCombo->addItem(domainName, domainName);
+    }
 
     updateProgramList();
 }
 
 //progtam dropdown
+
 void ParametrizationPage::updateProgramList()
 {
-    const QString domain = domainCombo->currentText();
+    const bool german = isGerman(this);
+    const QString domain = domainCombo->currentData().toString();
 
     programCombo->blockSignals(true);
     programCombo->clear();
@@ -499,9 +871,13 @@ void ParametrizationPage::updateProgramList()
     {
         if (QString::fromStdString(program.domain) == domain)
         {
+            const QString rawName =
+                QString::fromStdString(program.name);
+
             programCombo->addItem(
-                QString::fromStdString(program.name),
-                program.id);
+                translatedProgramName(rawName, german),
+                program.id
+            );
         }
     }
 
@@ -509,12 +885,18 @@ void ParametrizationPage::updateProgramList()
 
     updateAvailableObjectTypes();
     clearInputObjects();
+
+    updateProgram();
 }
 
+
 //show selected program
+
 void ParametrizationPage::updateProgram()
 {
     explicitAssignments.clear();
+
+    const bool german = isGerman(this);
 
     if (programCombo->currentIndex() < 0)
     {
@@ -522,11 +904,18 @@ void ParametrizationPage::updateProgram()
         {
             if (item->widget())
                 item->widget()->deleteLater();
+
             delete item;
         }
 
         programLayout->addWidget(
-            new QLabel("No programs available for this domain"));
+            new QLabel(
+                german
+                ? "Keine Programme für diesen Bereich verfügbar"
+                : "No programs available for this domain"
+            )
+        );
+
         programLayout->addStretch();
         return;
     }
@@ -534,11 +923,13 @@ void ParametrizationPage::updateProgram()
     const int selectedId = programCombo->currentData().toInt();
 
     const auto it = std::find_if(
-        programs.begin(), programs.end(),
+        programs.begin(),
+        programs.end(),
         [selectedId](const Program& program)
         {
             return program.id == selectedId;
-        });
+        }
+    );
 
     if (it == programs.end())
         return;
@@ -548,91 +939,116 @@ void ParametrizationPage::updateProgram()
 
 void ParametrizationPage::renderProgram(const Program& program)
 {
-    while (QLayoutItem* item = programLayout->takeAt(0))
+    QVBoxLayout* layout = programLayout;
+
+    QLayoutItem* item;
+    while ((item = layout->takeAt(0)) != nullptr)
     {
         if (item->widget())
-            item->widget()->deleteLater();
+            delete item->widget();
+
         delete item;
     }
 
-    auto* description = new QLabel(
-        QString::fromStdString(program.name));
+    const bool german = isGerman(this);
 
-    description->setWordWrap(true);
-    description->setStyleSheet(
-        "font-size: 16px; font-weight: bold; padding: 8px;");
+    QString programName = translatedProgramName(
+        QString::fromStdString(program.name),
+        german
+    );
 
-    programLayout->addWidget(description);
+    auto* titleLabel = new QLabel(programName, programPanel);
+    titleLabel->setStyleSheet(
+        "font-size: 18px; font-weight: bold;"
+    );
+    layout->addWidget(titleLabel);
+    QString assignmentHint;
 
-    auto* assignmentHint = new QLabel(
-        modeCombo->currentText() == "Explicit"
-        ? "Drag each input object onto its intended slot."
-        : "Input objects will be matched automatically.");
+    if (modeCombo->currentData().toString() == "Explicit")
+    {
+        assignmentHint = german
+            ? "Ziehe jedes Eingabeobjekt auf den vorgesehenen Platz."
+            : "Drag each input object onto its intended slot.";
+    }
+    else
+    {
+        assignmentHint = german
+            ? "Die Eingabeobjekte werden automatisch zugeordnet."
+            : "Input objects will be matched automatically.";
+    }
 
-    assignmentHint->setWordWrap(true);
-    programLayout->addWidget(assignmentHint);
+    auto* hintLabel = new QLabel(assignmentHint, programPanel);
+    hintLabel->setWordWrap(true);
+    layout->addWidget(hintLabel);
 
-    const auto updateAssignment =
-        [this, program](int inputId, int slotId)
+    auto refreshSlotDisplays = [this, german, &program]()
         {
-            explicitAssignments[inputId] = slotId;
+            const auto labels = programPanel->findChildren<QLabel*>();
 
-            const auto labels =
-                programPanel->findChildren<QLabel*>();
-
-            for (QLabel* label : labels)
+            for (auto* label : labels)
             {
-                const QVariant slotProperty =
-                    label->property("slotId");
-
-                if (!slotProperty.isValid())
+                if (!label->property("slotId").isValid())
                     continue;
 
-                const int currentSlotId = slotProperty.toInt();
+                auto* slot = dynamic_cast<DropSlot*>(label);
 
-                QStringList assignedNames;
+                if (!slot)
+                    continue;
 
-                for (const auto& assignment : explicitAssignments)
+                const int slotId = label->property("slotId").toInt();
+
+                auto it = explicitAssignments.find(slotId);
+
+                if (it != explicitAssignments.end())
                 {
-                    if (assignment.second != currentSlotId)
-                        continue;
+                    const int inputId = it->second;
 
-                    const auto input = std::find_if(
+                    auto input = std::find_if(
                         inputParameters.begin(),
                         inputParameters.end(),
-                        [&assignment](const Parameter& parameter)
+                        [inputId](const Parameter& parameter)
                         {
-                            return parameter.id == assignment.first;
-                        });
+                            return parameter.id == inputId;
+                        }
+                    );
 
                     if (input != inputParameters.end())
-                        assignedNames.append(parameterName(*input));
+                    {
+                        slot->setAssignment(
+                            parameterName(*input, german)
+                        );
+                        continue;
+                    }
                 }
 
-                if (assignedNames.isEmpty())
-                {
-                    label->setText(
-                        defaultSlotText(program, currentSlotId));
-                }
-                else
-                {
-                    label->setText(assignedNames.join(" + "));
-                }
+                slot->setAssignment("");
             }
         };
 
-    int stepNumber = 1;
+    auto updateAssignment =
+        [this, refreshSlotDisplays](int inputId, int slotId)
+        {
+            for (auto it = explicitAssignments.begin();
+                it != explicitAssignments.end();)
+            {
+                if (it->second == inputId)
+                    it = explicitAssignments.erase(it);
+                else
+                    ++it;
+            }
+
+            explicitAssignments[slotId] = inputId;
+
+            refreshSlotDisplays();
+        };
 
     for (const auto& instruction : program.instructions)
     {
-        auto* stepFrame = new QFrame;
-        stepFrame->setFrameShape(QFrame::StyledPanel);
+        auto* instructionWidget = new QWidget(programPanel);
 
-        auto* row = new QHBoxLayout(stepFrame);
-        row->setSpacing(4);
-
-        row->addWidget(new QLabel(
-            QString("%1.").arg(stepNumber++)), 0, Qt::AlignTop);
+        auto* instructionLayout = new QHBoxLayout(instructionWidget);
+        instructionLayout->setContentsMargins(0, 4, 0, 4);
+        instructionLayout->setSpacing(4);
 
         for (const InstructionSegment& segment : instruction)
         {
@@ -640,33 +1056,59 @@ void ParametrizationPage::renderProgram(const Program& program)
             {
                 auto* slot = new DropSlot(
                     segment.slotId,
-                    defaultSlotText(program, segment.slotId),
+                    defaultSlotText(
+                        program,
+                        segment.slotId,
+                        german
+                    ),
                     this,
                     updateAssignment,
-                    stepFrame);
+                    instructionWidget
+                );
 
-                row->addWidget(slot, 0, Qt::AlignVCenter);
+                instructionLayout->addWidget(
+                    slot,
+                    0,
+                    Qt::AlignVCenter
+                );
             }
             else
             {
-                auto* text = new QLabel(
-                    QString::fromStdString(segment.text));
+                QString translatedText =
+                    translatedInstructionText(
+                        QString::fromStdString(segment.text),
+                        german
+                    );
 
-                text->setWordWrap(true);
-                row->addWidget(text, 0, Qt::AlignVCenter);
+                auto* textLabel = new QLabel(
+                    translatedText,
+                    instructionWidget
+                );
+
+                textLabel->setWordWrap(true);
+
+                instructionLayout->addWidget(
+                    textLabel,
+                    0,
+                    Qt::AlignVCenter
+                );
             }
         }
 
-        row->addStretch();
-        programLayout->addWidget(stepFrame);
+        instructionLayout->addStretch();
+        layout->addWidget(instructionWidget);
     }
 
-    programLayout->addStretch();
-}
+    layout->addStretch();
 
+    refreshSlotDisplays();
+}
 //add param
+
 void ParametrizationPage::addInputObject()
 {
+    const bool german = isGerman(this);
+
     Parameter parameter;
     parameter.id = nextInputParameterId++;
     parameter.type = objectTypeCombo->currentData().toString().toStdString();
@@ -681,7 +1123,12 @@ void ParametrizationPage::addInputObject()
     cellLayout->setSpacing(4);
 
     auto* object = new DraggableObject(parameter, this, cell);
-    auto* deleteButton = new QPushButton("Remove", cell);
+
+    auto* deleteButton = new QPushButton(
+        german ? "Entfernen" : "Remove",
+        cell
+    );
+
     deleteButton->setFixedWidth(150);
 
     cellLayout->addWidget(object, 0, Qt::AlignCenter);
@@ -691,10 +1138,14 @@ void ParametrizationPage::addInputObject()
 
     inputGridLayout->addWidget(
         cell, index / 2, index % 2,
-        Qt::AlignTop | Qt::AlignLeft);
+        Qt::AlignTop | Qt::AlignLeft
+    );
 
-    connect(deleteButton, &QPushButton::clicked,
-        this, [this, cell, parameter]()
+    connect(
+        deleteButton,
+        &QPushButton::clicked,
+        this,
+        [this, cell, parameter]()
         {
             inputParameters.erase(
                 std::remove_if(
@@ -704,9 +1155,17 @@ void ParametrizationPage::addInputObject()
                     {
                         return candidate.id == parameter.id;
                     }),
-                inputParameters.end());
+                inputParameters.end()
+            );
 
-            explicitAssignments.erase(parameter.id);
+            for (auto it = explicitAssignments.begin();
+                it != explicitAssignments.end();)
+            {
+                if (it->second == parameter.id)
+                    it = explicitAssignments.erase(it);
+                else
+                    ++it;
+            }
 
             inputGridLayout->removeWidget(cell);
             cell->deleteLater();
@@ -716,7 +1175,8 @@ void ParametrizationPage::addInputObject()
 
             const auto cells =
                 inputGridContainer->findChildren<QWidget*>(
-                    QString(), Qt::FindDirectChildrenOnly);
+                    QString(), Qt::FindDirectChildrenOnly
+                );
 
             int index = 0;
 
@@ -727,13 +1187,15 @@ void ParametrizationPage::addInputObject()
 
                 inputGridLayout->addWidget(
                     widget, index / 2, index % 2,
-                    Qt::AlignTop | Qt::AlignLeft);
+                    Qt::AlignTop | Qt::AlignLeft
+                );
 
                 ++index;
             }
 
             updateProgram();
-        });
+        }
+    );
 }
 
 //clear input parameters (all)
@@ -754,120 +1216,148 @@ void ParametrizationPage::clearInputObjects()
 }
 
 
+
 void ParametrizationPage::updateAvailableObjectTypes()
 {
-    const QString domain = domainCombo->currentText();
+    const bool german = isGerman(this);
+    const QString domain = domainCombo->currentData().toString();
 
     objectTypeCombo->clear();
 
+    auto addObjectType = [this, german](
+        const QString& englishName,
+        const QString& internalName)
+        {
+            Parameter parameter;
+            parameter.type = internalName.toStdString();
+            parameter.color = "";
+
+            objectTypeCombo->addItem(
+                parameterName(parameter, german),
+                internalName
+            );
+        };
+
     if (domain == "Laboratory")
     {
-        objectTypeCombo->addItem("Beaker", "beaker");
-        objectTypeCombo->addItem("Glass", "glass");
-        objectTypeCombo->addItem("Test tube", "test_tube");
-        objectTypeCombo->addItem("Sample tube", "sample_tube");
-        objectTypeCombo->addItem("Tube rack", "test_tube_rack");
-        objectTypeCombo->addItem("Sample rack", "sample_rack");
-        objectTypeCombo->addItem("Sample", "sample");
-        objectTypeCombo->addItem("Tray", "tray");
-        objectTypeCombo->addItem("Table", "table");
-        objectTypeCombo->addItem("Spoon", "spoon");
-        objectTypeCombo->addItem("Stirrer", "stirrer");
-        objectTypeCombo->addItem("Thermometer", "thermometer");
-        objectTypeCombo->addItem("Barometer", "barometer");
-        objectTypeCombo->addItem("Cotton pad", "cotton_pad");
-        objectTypeCombo->addItem("Glove", "glove");
-        objectTypeCombo->addItem("Liquid", "liquid");
+        addObjectType("Barometer", "barometer");
+        addObjectType("Beaker", "beaker");
+        addObjectType("Box", "box");
+        addObjectType("Cotton pad", "cotton_pad");
+        addObjectType("Glass", "glass");
+        addObjectType("Liquid", "liquid");
+        addObjectType("Spoon", "spoon");
+        addObjectType("Stirrer", "stirrer");
+        addObjectType("Table", "table");
+        addObjectType("Test tube", "testTube");
+        addObjectType("Thermometer", "thermometer");
+        addObjectType("Tray", "tray");
+        addObjectType("Tube rack", "testTubeRack");
     }
     else if (domain == "Catering")
     {
-        objectTypeCombo->addItem("Plate", "plate");
-        objectTypeCombo->addItem("Plate stack", "plate_stack");
-        objectTypeCombo->addItem("Tray", "tray");
-        objectTypeCombo->addItem("Serving tray", "serving_tray");
-        objectTypeCombo->addItem("Cup", "cup");
-        objectTypeCombo->addItem("Glass", "glass");
-        objectTypeCombo->addItem("Spoon", "spoon");
-        objectTypeCombo->addItem("Kettle", "kettle");
-        objectTypeCombo->addItem("Spoon container", "spoon_container");
-        objectTypeCombo->addItem("Fork container", "fork_container");
-        objectTypeCombo->addItem("Napkin", "napkin");
-        objectTypeCombo->addItem("Sale sticker", "sale_sticker");
-        objectTypeCombo->addItem("Price tag", "price_tag");
-        objectTypeCombo->addItem("Drink", "drink");
-        objectTypeCombo->addItem("Champagne", "champagne");
-        objectTypeCombo->addItem("Tea", "tea");
-        objectTypeCombo->addItem("Cake", "cake");
-        objectTypeCombo->addItem("Muffin", "muffin");
-        objectTypeCombo->addItem("Cake stand", "cake_stand");
-        objectTypeCombo->addItem("Chocolate fountain", "chocolate_fountain");
-        objectTypeCombo->addItem("Table", "table");
-        objectTypeCombo->addItem("Small table", "small_table");
-        objectTypeCombo->addItem("Counter", "counter");
+        addObjectType("Bowl", "bowl");
+        addObjectType("Cake stand", "cake_stand");
+        addObjectType("Chamomile Tea", "chamomileTea");
+        addObjectType("Chocolate fountain", "chocolate_fountain");
+        addObjectType("Counter", "counter");
+        addObjectType("Cutting Board", "cuttingBoard");
+        addObjectType("Cup", "cup");
+        addObjectType("Fork", "fork");
+        addObjectType("Fork container", "fork_container");
+        addObjectType("Glass", "glass");
+        addObjectType("Juice", "juice");
+        addObjectType("Large Cup", "largeCup");
+        addObjectType("Long Spoon", "longSpoon");
+        addObjectType("Muffin", "muffin");
+        addObjectType("Napkin", "napkin");
+        addObjectType("Plate", "plate");
+        addObjectType("Plate stack", "plate_stack");
+        addObjectType("Price tag", "price_tag");
+        addObjectType("Sale sticker", "sale_sticker");
+        addObjectType("Small Plate", "smallPlate");
+        addObjectType("Small table", "small_table");
+        addObjectType("Spoon", "spoon");
+        addObjectType("Spoon container", "spoon_container");
+        addObjectType("Table", "table");
+        addObjectType("Tea bag", "tea_bag");
+        addObjectType("Tray", "tray");
     }
     else if (domain == "Workshop")
     {
-        objectTypeCombo->addItem("Toolbox", "toolbox");
-        objectTypeCombo->addItem("Wrench", "wrench");
-        objectTypeCombo->addItem("Hammer", "hammer");
-        objectTypeCombo->addItem("Screwdriver", "screwdriver");
-        objectTypeCombo->addItem("Gear", "gear");
-        objectTypeCombo->addItem("Vault", "vault");
-        objectTypeCombo->addItem("Container", "container");
-        objectTypeCombo->addItem("Box", "box");
-        objectTypeCombo->addItem("Package", "package");
-        objectTypeCombo->addItem("Tray", "tray");
-        objectTypeCombo->addItem("Shelf", "shelf");
-        objectTypeCombo->addItem("Table", "table");
-        objectTypeCombo->addItem("Table plate", "table_plate");
-        objectTypeCombo->addItem("Table leg", "table_leg");
-        objectTypeCombo->addItem("Long table leg", "long_table_leg");
-        objectTypeCombo->addItem("Short table leg", "short_table_leg");
-        objectTypeCombo->addItem("Screw", "screw");
+        addObjectType("Bolt", "bolt");
+        addObjectType("Box", "box");
+        addObjectType("Drill", "drill");
+        addObjectType("Gear", "gear");
+        addObjectType("Hammer", "hammer");
+        addObjectType("Long table leg", "long_table_leg");
+        addObjectType("Package", "package");
+        addObjectType("Screw", "screw");
+        addObjectType("Screwdriver", "screwdriver");
+        addObjectType("Shelf", "shelf");
+        addObjectType("Shelf", "shelf");
+        addObjectType("Short table leg", "short_table_leg");
+        addObjectType("Storage", "storage");
+        addObjectType("Table", "table");
+        addObjectType("Table plate", "table_plate");
+        addObjectType("Toolbox", "toolbox");
+        addObjectType("Tray", "tray");
+        addObjectType("Vat", "vat");
+        addObjectType("Wrench", "wrench");
     }
     else if (domain == "Electronics")
     {
-        objectTypeCombo->addItem("Light", "light");
-        objectTypeCombo->addItem("Resistor", "resistor");
-        objectTypeCombo->addItem("Connector", "connector");
-        objectTypeCombo->addItem("Power connector", "power_connector");
-        objectTypeCombo->addItem("Wire", "wire");
-        objectTypeCombo->addItem("Battery", "battery");
-        objectTypeCombo->addItem("Button", "button");
-        objectTypeCombo->addItem("Switch", "switch");
-        objectTypeCombo->addItem("Module", "module");
-        objectTypeCombo->addItem("Sensor", "sensor");
-        objectTypeCombo->addItem("Temperature sensor", "temperature_sensor");
-        objectTypeCombo->addItem("ID card", "id_card");
-        objectTypeCombo->addItem("Branch", "branch");
-        objectTypeCombo->addItem("Circuit", "circuit");
-        objectTypeCombo->addItem("Panel", "panel");
-        objectTypeCombo->addItem("Container", "container");
+        addObjectType("Battery", "battery");
+        addObjectType("Branch", "branch");
+        addObjectType("Bolt", "bolt");
+        addObjectType("Box", "box");
+        addObjectType("Button", "button");
+        addObjectType("Circuit", "circuit");
+        addObjectType("Connector", "connector");
+        addObjectType("Container", "container");
+        addObjectType("Gear", "gear");
+        addObjectType("ID card", "id_card");
+        addObjectType("Light", "light");
+        addObjectType("Module", "module");
+        addObjectType("Panel", "panel");
+        addObjectType("Power unit", "powerUnit");
+        addObjectType("Resistor", "resistor");
+        addObjectType("Sensor", "sensor");
+        addObjectType("Switch", "switch");
+        addObjectType("Temperature sensor", "temperature_sensor");
+        addObjectType("Tray", "tray");
+        addObjectType("Wire", "wire");
     }
 }
+
 //run the parametrization depending on the mode (implicit or explicit)
 
-
-void ParametrizationPage::runParametrization()
+bool ParametrizationPage::runParametrization(bool showMessage)
 {
+    const bool german = isGerman(this);
+
     if (participantId.trimmed().isEmpty())
     {
         QMessageBox::warning(
             this,
-            "Participant ID required",
-            "Please return to the main menu and enter a participant ID."
+            german ? "Teilnehmer-ID erforderlich" : "Participant ID required",
+            german
+            ? "Bitte kehre zum Hauptmenü zurück und gib eine Teilnehmer-ID ein"
+            : "Please return to the main menu and enter a participant ID"
         );
-        return;
+        return false;
     }
 
     if (programCombo->currentIndex() < 0)
     {
         QMessageBox::warning(
             this,
-            "No program selected",
-            "Select a program before running parametrization."
+            german ? "Kein Programm ausgewählt" : "No program selected",
+            german
+            ? "Bitte wähle vor der Parametrisierung ein Programm aus"
+            : "Select a program before running parametrization"
         );
-        return;
+        return false;
     }
 
     const int selectedId = programCombo->currentData().toInt();
@@ -885,14 +1375,17 @@ void ParametrizationPage::runParametrization()
     {
         QMessageBox::critical(
             this,
-            "Error",
-            "The selected program could not be found!"
+            german ? "Fehler" : "Error",
+            german
+            ? "Das ausgewählte Programm konnte nicht gefunden werden!"
+            : "The selected program could not be found!"
         );
-        return;
+        return false;
     }
 
     const Program& program = *programIt;
-    const QString mode = modeCombo->currentText();
+
+    const QString mode = modeCombo->currentData().toString();
 
     try
     {
@@ -931,9 +1424,9 @@ void ParametrizationPage::runParametrization()
             for (const auto& entry : explicitAssignments)
             {
                 userAssignments.push_back({
-                    entry.first,  
-                    entry.second, 
-                    0.0           
+                    entry.first,
+                    entry.second,
+                    0.0
                     });
             }
 
@@ -947,13 +1440,46 @@ void ParametrizationPage::runParametrization()
         }
 
         ProgramInstantiator instantiator;
-        const Program instantiatedProgram = instantiator.instantiate(
+
+        Program instantiatedProgram = instantiator.instantiate(
             program,
             inputParameters,
             result
         );
 
-        //save the mapping in a Json file
+        explicitAssignments.clear();
+
+        for (const Assignment& assignment : result.assignments)
+        {
+            explicitAssignments[assignment.programParameterId] =
+                assignment.inputParameterId;
+        }
+
+       //RENDER WITH ORIGINAL
+        renderProgram(program);
+
+       //show the assignments before unity connection
+        QApplication::processEvents();
+
+        // Robot execution
+        {
+            ursim::unity_simulation simulation;
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+
+            RobotController robotController(simulation);
+
+            if (!robotController.initializeScene(instantiatedProgram))
+            {
+                std::cerr << "Program execution aborted: scene validation failed\n";
+                return false;
+            }
+
+            CommandExecutor executor(robotController);
+            executor.execute(instantiatedProgram);
+        }
+
+        //No disconnection from unity needed, gets destroyed after leaving the scope!
+
         QJsonObject response;
 
         response["participant_id"] = participantId.trimmed();
@@ -964,6 +1490,7 @@ void ParametrizationPage::runParametrization()
         response["total_cost"] = result.totalCost;
         response["timestamp"] =
             QDateTime::currentDateTime().toString(Qt::ISODate);
+        response["variant"] = studyVariant;
 
         QJsonArray objectsArray;
 
@@ -1000,14 +1527,17 @@ void ParametrizationPage::runParametrization()
 
             assignmentObject["input_parameter_id"] =
                 assignment.inputParameterId;
+
             assignmentObject["program_parameter_id"] =
                 assignment.programParameterId;
+
             assignmentObject["cost"] = assignment.cost;
 
             assignmentsArray.append(assignmentObject);
         }
 
         response["assignments"] = assignmentsArray;
+
         const QString outputPath =
             "C:/Users/marsp/source/repos/Masterprojekt/"
             "Masterprojekt/programs/parametrization_responses.json";
@@ -1021,10 +1551,12 @@ void ParametrizationPage::runParametrization()
             {
                 QMessageBox::warning(
                     this,
-                    "Save error",
-                    "Could not read the existing parametrization responses file"
+                    german ? "Speicherfehler" : "Save error",
+                    german
+                    ? "Die vorhandene Parametrisierungsdatei konnte nicht gelesen werden."
+                    : "Could not read the existing parametrization responses file"
                 );
-                return;
+                return false;
             }
 
             const QByteArray existingData = outputFile.readAll();
@@ -1042,11 +1574,12 @@ void ParametrizationPage::runParametrization()
                 {
                     QMessageBox::warning(
                         this,
-                        "Save error",
-                        "The existing parametrization responses JSON is invalid "
-                        "No response was saved"
+                        german ? "Speicherfehler" : "Save error",
+                        german
+                        ? "Die vorhandene JSON-Datei mit den Parametrisierungsergebnissen ist ungültig. Es wurde keine Antwort gespeichert"
+                        : "The existing parametrization responses JSON is invalid. No response was saved"
                     );
-                    return;
+                    return false;
                 }
 
                 const QJsonValue existingResponses =
@@ -1056,10 +1589,12 @@ void ParametrizationPage::runParametrization()
                 {
                     QMessageBox::warning(
                         this,
-                        "Save error",
-                        "The existing JSON does not contain a valid responses array"
+                        german ? "Speicherfehler" : "Save error",
+                        german
+                        ? "Die vorhandene JSON-Datei enthält kein gültiges responses-Array"
+                        : "The existing JSON does not contain a valid responses array"
                     );
-                    return;
+                    return false;
                 }
 
                 responsesArray = existingResponses.toArray();
@@ -1075,10 +1610,12 @@ void ParametrizationPage::runParametrization()
         {
             QMessageBox::warning(
                 this,
-                "Save error",
-                "Could not open the parametrization responses file for writing"
+                german ? "Speicherfehler" : "Save error",
+                german
+                ? "Die Parametrisierungsdatei konnte nicht zum Schreiben geöffnet werden"
+                : "Could not open the parametrization responses file for writing"
             );
-            return;
+            return false;
         }
 
         const QByteArray jsonData =
@@ -1091,44 +1628,228 @@ void ParametrizationPage::runParametrization()
         {
             QMessageBox::warning(
                 this,
-                "Save error",
-                "The response could not be completely written to the file"
+                german ? "Speicherfehler" : "Save error",
+                german
+                ? "Die Antwort konnte nicht vollständig in die Datei geschrieben werden"
+                : "The response could not be completely written to the file"
             );
-            return;
+            return false;
         }
 
-        renderProgram(instantiatedProgram);
+        if (showMessage)
+        {
+            QMessageBox::information(
+                this,
+                german
+                ? "Parametrisierung erfolgreich"
+                : "Parametrization successful",
+                german
+                ? QString(
+                    "Die Parametrisierung wurde erfolgreich abgeschlossen\n\n"
+                    "Teilnehmer: %1\n"
+                    "Zuordnung: %2\n"
+                    "Zuordnungen: %3\n"
+                    "Gesamtkosten: %4\n\n"
+                    "Antwort gespeichert."
+                )
+                .arg(participantId.trimmed())
+                .arg(mode == "Implicit" ? "Implizit" : "Explizit")
+                .arg(static_cast<qulonglong>(result.assignments.size()))
+                .arg(result.totalCost)
+                : QString(
+                    "Parametrization completed successfully.\n\n"
+                    "Participant: %1\n"
+                    "Mode: %2\n"
+                    "Assignments: %3\n"
+                    "Total cost: %4\n\n"
+                    "Response saved."
+                )
+                .arg(participantId.trimmed())
+                .arg(mode)
+                .arg(static_cast<qulonglong>(result.assignments.size()))
+                .arg(result.totalCost)
+            );
+        }
 
-        QMessageBox::information(
-            this,
-            "Parametrization successful",
-            QString(
-                "Parametrization completed successfully.\n\n"
-                "Participant: %1\n"
-                "Mode: %2\n"
-                "Assignments: %3\n"
-                "Total cost: %4\n\n"
-                "Response saved."
-            )
-            .arg(participantId.trimmed())
-            .arg(mode)
-            .arg(static_cast<qulonglong>(result.assignments.size()))
-            .arg(result.totalCost)
-        );
+        return true;
     }
     catch (const std::exception& e)
     {
         QMessageBox::warning(
             this,
-            "Parametrization failed",
-            QString::fromStdString(e.what())
+            german ? "Parametrisierung fehlgeschlagen" : "Parametrization failed",
+            german
+            ? QString("Bei der Parametrisierung ist ein Fehler aufgetreten:\n%1")
+            .arg(QString::fromStdString(e.what()))
+            : QString::fromStdString(e.what())
         );
+
+        return false;
     }
 }
-
 
 void ParametrizationPage::setParticipantId(const QString& id)
 {
     participantId = id.trimmed();
 }
 
+//used for the study mode
+void ParametrizationPage::setStudyTask(
+    int programId,
+    const QString& mode,
+    const QString& variant)
+{
+    const auto programIt = std::find_if(
+        programs.begin(),
+        programs.end(),
+        [programId](const Program& program)
+        {
+            return program.id == programId;
+        });
+
+    if (programIt == programs.end())
+        return;
+
+    clearInputObjects();
+    explicitAssignments.clear();
+
+    const QString domain =
+        QString::fromStdString(programIt->domain);
+
+    domainCombo->setCurrentText(domain);
+
+    const int programIndex =
+        programCombo->findData(programId);
+
+    if (programIndex < 0)
+        return;
+
+    programCombo->setCurrentIndex(programIndex);
+
+    const int modeIndex =
+        modeCombo->findText(mode);
+
+    if (modeIndex >= 0)
+        modeCombo->setCurrentIndex(modeIndex);
+
+    studyVariant = variant;
+}
+
+
+void ParametrizationPage::setStudyLanguage(const QString& language)
+{
+    setProperty(
+        "studyLanguage",
+        language == "German" ? "German" : "English"
+    );
+
+    const bool german = isGerman(this);
+
+    auto* domainLabel = findChild<QLabel*>("domainLabel");
+    auto* programLabel = findChild<QLabel*>("programLabel");
+    auto* modeLabel = findChild<QLabel*>("modeLabel");
+    auto* programTitle = findChild<QLabel*>("programTitle");
+    auto* inputTitle = findChild<QLabel*>("inputTitle");
+
+    if (domainLabel)
+        domainLabel->setText(german ? "Bereich:" : "Domain:");
+
+    if (programLabel)
+        programLabel->setText(german ? "Programm:" : "Program:");
+
+    if (modeLabel)
+        modeLabel->setText(german ? "Zuordnung:" : "Mode:");
+
+    if (programTitle)
+        programTitle->setText(german ? "Programm" : "Program");
+
+    if (inputTitle)
+        inputTitle->setText(
+            german ? "Eingabeobjekte" : "Input objects"
+        );
+
+    auto* backButton = findChild<QPushButton*>("backButton");
+    auto* addButton = findChild<QPushButton*>("addButton");
+    auto* clearButton = findChild<QPushButton*>("clearButton");
+    auto* runButton = findChild<QPushButton*>("runButton");
+
+    if (backButton)
+        backButton->setText(german ? "Zurück" : "Back");
+
+    if (addButton)
+        addButton->setText(
+            german ? "+ Objekt hinzufügen" : "+ Add object"
+        );
+
+    if (clearButton)
+        clearButton->setText(
+            german
+            ? "Alle Eingabeobjekte löschen"
+            : "Clear all input objects"
+        );
+
+    if (runButton)
+        runButton->setText(
+            german
+            ? "Parametrisierung starten"
+            : "Run parametrization"
+        );
+
+    for (int i = 0; i < domainCombo->count(); ++i)
+    {
+        const QString rawDomain =
+            domainCombo->itemData(i).toString();
+
+        domainCombo->setItemText(
+            i,
+            translatedDomain(rawDomain, german)
+        );
+    }
+
+    for (int i = 0; i < modeCombo->count(); ++i)
+    {
+        const QString rawMode =
+            modeCombo->itemData(i).toString();
+
+        modeCombo->setItemText(
+            i,
+            translatedMode(rawMode, german)
+        );
+    }
+
+    for (int i = 0; i < objectColorCombo->count(); ++i)
+    {
+        const QString rawColor =
+            objectColorCombo->itemData(i).toString();
+
+        if (rawColor.isEmpty())
+        {
+            objectColorCombo->setItemText(
+                i,
+                german ? "Keine Farbe" : "No color"
+            );
+        }
+        else
+        {
+            objectColorCombo->setItemText(
+                i,
+                translatedColor(rawColor, german)
+            );
+        }
+    }
+
+    const bool explicitMode =
+        modeCombo->currentData().toString() == "Explicit";
+
+    setWindowTitle(
+        explicitMode
+        ? (german
+            ? "VerbBot - Explizite Parametrisierung"
+            : "VerbBot - Explicit Parametrization")
+        : (german
+            ? "VerbBot - Implizite Parametrisierung"
+            : "VerbBot - Implicit Parametrization")
+    );
+
+    updateProgramList();
+}

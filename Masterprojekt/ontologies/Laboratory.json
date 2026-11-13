@@ -30,35 +30,23 @@
       "parent": "container"
     },
     {
-      "name": "test_tube",
+      "name": "testTube",
       "parent": "tube"
     },
     {
-      "name": "sample_tube",
-      "parent": "tube"
-    },
-    {
-      "name": "rack",
-      "parent": "object"
-    },
-    {
-      "name": "sample_rack",
-      "parent": "rack"
-    },
-    {
-      "name": "test_tube_rack",
-      "parent": "rack"
-    },
-    {
-      "name": "tray",
+      "name": "storage_container",
       "parent": "container"
     },
     {
-      "name": "table",
-      "parent": "object"
+      "name": "tray",
+      "parent": "storage_container"
     },
     {
-      "name": "sample",
+      "name": "testTubeHolderFoam",
+      "parent": "storage_container"
+    },
+    {
+      "name": "table",
       "parent": "object"
     },
     {
@@ -67,6 +55,10 @@
     },
     {
       "name": "spoon",
+      "parent": "tool"
+    },
+    {
+      "name": "stirrer",
       "parent": "tool"
     },
     {
@@ -82,23 +74,11 @@
       "parent": "measuring_instrument"
     },
     {
-      "name": "stirrer",
-      "parent": "tool"
-    },
-    {
-      "name": "glove",
-      "parent": "object"
-    },
-    {
       "name": "cotton_pad",
       "parent": "object"
     },
     {
       "name": "liquid",
-      "parent": "object"
-    },
-    {
-      "name": "powder",
       "parent": "object"
     }
   ]

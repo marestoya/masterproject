@@ -183,21 +183,12 @@ namespace CostModelBatchTest
 
             ++stimuliProcessed;
 
-            std::cout
-                << "Program: " << programName
-                << "ID " << programId << "\n"
-                << "Domain: " << domain << '\n'
-                << "Variant: " << variant << '\n'
-                << "Program slots: " << slots_.size() << '\n'
-                << "Input objects: " << inputs_.size() << '\n';
+            
 
        
             for (const auto& input : inputs_)
             {
-                std::cout
-                    << "\nInput object ID " << input.id
-                    << " | Type: " << input.type
-                    << " | Color: " << input.color << '\n';
+                
 
                 const bool inputTypeExists =
                     ontology.containsType(input.type);
@@ -214,10 +205,7 @@ namespace CostModelBatchTest
 
                 std::vector<std::pair<int, double>> validCosts;
 
-                std::cout
-                    << "Slot ID | Slot type"
-                    << "              | Cost";
-
+                
                 for (const auto& slot : slots_)
                 {
                     ++comparisons;
@@ -251,12 +239,7 @@ namespace CostModelBatchTest
 
                     validCosts.emplace_back(slot.id, *cost);
 
-                    std::cout
-                        << "  " << std::setw(7) << slot.id
-                        << " | " << std::setw(19) << slot.type
-                        << " | " << std::fixed
-                        << std::setprecision(4)
-                        << *cost << '\n';
+                    
                 }
 
                 if (validCosts.empty())
@@ -284,33 +267,7 @@ namespace CostModelBatchTest
                     }
                 }
 
-                std::cout
-                    << "Minimum individual cost: "
-                    << std::fixed << std::setprecision(4)
-                    << bestCost << '\n'
-                    << "Best individual slot IDs: ";
-
-                for (std::size_t i = 0; i < bestSlots.size(); ++i)
-                {
-                    if (i > 0)
-                    {
-                        std::cout << ", ";
-                    }
-
-                    std::cout << bestSlots[i];
-                }
-
-                std::cout << '\n';
-
-                if (bestSlots.size() > 1)
-                {
-                    ++tiedMatches;
-
-                    std::cout
-                        << "  TIE\n";
-                }
-            }
-
+                
             
             try
             {
@@ -323,40 +280,20 @@ namespace CostModelBatchTest
                     slots_,
                     inputs_);
 
-                std::cout
-                    << "Assignment results:\n";
 
                 if (result.assignments.empty())
                 {
                     std::cout
                         << "No assignments returned\n";
                 }
-                else
-                {
-                    for (const auto& assignment : result.assignments)
-                    {
-                        std::cout
-                            << "Input ID "
-                            << assignment.inputParameterId
-                            << "to Slot ID "
-                            << assignment.programParameterId
-                            << " | Cost: "
-                            << std::fixed << std::setprecision(4)
-                            << assignment.cost << '\n';
-                    }
-                }
-
-                std::cout
-                    << "total assignment cost: "
-                    << std::fixed << std::setprecision(4)
-                    << result.totalCost << '\n';
+              
             }
             catch (const std::exception& e)
             {
                 ++assignmentFailures;
 
                 std::cout
-                    << "NMImplicit failed: "
+                    << "NM Implicit failed: "
                     << e.what() << '\n';
             }
         }

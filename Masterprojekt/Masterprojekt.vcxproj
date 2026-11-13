@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommandExecutor.h" />
     <ClInclude Include="CostModelBatchTest.hpp" />
     <ClInclude Include="include\cost\CostMatrix.h" />
     <ClInclude Include="include\cost\CostModel.h" />
@@ -37,9 +38,13 @@
     <ClInclude Include="include\parametrization\ImplicitNM.h" />
     <ClInclude Include="include\parametrization\LocalParametrization.h" />
     <ClInclude Include="include\parametrization\ParametrizationMethod.h" />
-    <ClInclude Include="include\programs\LaboratoryPrograms.h" />
+    <ClInclude Include="include\programs\Programs.h" />
     <ClInclude Include="include\tests\ParametrizationTests.h" />
+    <QtMoc Include="LanguageSelection.h" />
+    <ClInclude Include="ObjectDefinitions.h" />
     <ClInclude Include="ParametrizationBatchTest.hpp" />
+    <ClInclude Include="RobotController.h" />
+    <ClInclude Include="StudyTask.h" />
     <QtMoc Include="include\ui\ParametrizationPage.h" />
     <ClInclude Include="include\ui\ProgramLoader.h" />
     <QtMoc Include="include\ui\PlausibilityPage.h" />
@@ -47,10 +52,12 @@
     <QtMoc Include="include\ui\MainMenu.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CommandExecutor.cpp" />
+    <ClCompile Include="LanguageSelection.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RobotController.cpp" />
     <ClCompile Include="src\cost\CostMatrix.cpp" />
     <ClCompile Include="src\cost\CostModel.cpp" />
-    <ClCompile Include="src\input\InputParameters.cpp" />
     <ClCompile Include="src\model\Assignment.cpp" />
     <ClCompile Include="src\model\AssignmentResult.cpp" />
     <ClCompile Include="src\model\Command.cpp" />
@@ -64,7 +71,7 @@
     <ClCompile Include="src\parametrization\ImplicitNM.cpp" />
     <ClCompile Include="src\parametrization\LocalParametrization.cpp" />
     <ClCompile Include="src\parametrization\ParametrizationMethod.cpp" />
-    <ClCompile Include="src\programs\LaboratoryPrograms.cpp" />
+    <ClCompile Include="src\programs\Programs.cpp" />
     <ClCompile Include="src\tests\ParametrizationTests.cpp" />
     <ClCompile Include="src\ui\MainMenu.cpp" />
     <ClCompile Include="src\ui\MainWindow.cpp" />
@@ -73,7 +80,6 @@
     <ClCompile Include="src\ui\ProgramLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="programs.json" />
     <None Include="vcpkg.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -191,16 +197,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;$(ProjectDir)include;C:\Users\marsp\source\repos\Masterprojekt\vcpkg\installed\x64-windows\include;C:\Users\marsp\ursim\source\unity_simulation;C:\Users\marsp\ursim\source\utility;C:\Users\marsp\ursim\build\vcpkg_installed\x64-windows\include</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;$(ProjectDir)include;C:\Users\marsp\source\repos\Masterprojekt\vcpkg\installed\x64-windows\include;C:\Users\marsp\ursim\source\unity_simulation;C:\Users\marsp\ursim\source\utility;C:\Users\marsp\ursim\build\vcpkg_installed\x64-windows\include;$(ProjectDir)vcpkg_installed\x64-windows\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\marsp\source\repos\Masterprojekt\vcpkg\installed\x64-windows\lib;C:\Users\marsp\ursim\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);unity_simulation.lib;utility.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\marsp\source\repos\Masterprojekt\vcpkg\installed\x64-windows\lib;C:\Users\marsp\ursim\build\lib\Release;C:\Users\marsp\franka-proxy\build\packages\franka_proxy_share\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);unity_simulation.lib;utility.lib;%(AdditionalDependencies);franka_proxy_share.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -211,16 +218,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;$(ProjectDir)include;C:\Users\marsp\source\repos\Masterprojekt\vcpkg\installed\x64-windows\include;C:\Users\marsp\ursim\source\unity_simulation;C:\Users\marsp\ursim\source\utility;C:\Users\marsp\ursim\build\vcpkg_installed\x64-windows\include</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;$(ProjectDir)include;C:\Users\marsp\source\repos\Masterprojekt\vcpkg\installed\x64-windows\include;C:\Users\marsp\ursim\source\unity_simulation;C:\Users\marsp\ursim\source\utility;C:\Users\marsp\ursim\build\vcpkg_installed\x64-windows\include;$(ProjectDir)vcpkg_installed\x64-windows\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\marsp\source\repos\Masterprojekt\vcpkg\installed\x64-windows\lib;C:\Users\marsp\ursim\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);unity_simulation.lib;utility.lib;dlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\marsp\source\repos\Masterprojekt\vcpkg\installed\x64-windows\lib;C:\Users\marsp\ursim\build\lib\Release;C:\Users\marsp\franka-proxy\build\packages\franka_proxy_share\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);unity_simulation.lib;utility.lib;dlib.lib;%(AdditionalDependencies);franka_proxy_share.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

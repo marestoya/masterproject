@@ -14,7 +14,6 @@ public:
         const Parameter& programParameter,
         const Parameter& inputParameter) const;
 
-    // Set these to the values from your previous CostModel if they differed.
     double typeWeight = 1.0;
     double colorWeight = 1.0;
     double generalizationWeight = 1.0;

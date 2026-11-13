@@ -23,16 +23,16 @@ void Ontology::loadFromFile(const std::string& jsonFilePath)
     input >> root;
 
     if (!root.is_object() || !root.contains("domain") || !root["domain"].is_string())
-        throw std::runtime_error("Ontology JSON must contain a string field named 'domain'.");
+        throw std::runtime_error("Ontology JSON must contain a string field named 'domain'");
     if (!root.contains("types") || !root["types"].is_array())
-        throw std::runtime_error("Ontology JSON must contain an array field named 'types'.");
+        throw std::runtime_error("Ontology JSON must contain an array field named 'types'");
 
     domainName = root["domain"].get<std::string>();
 
     for (const auto& entry : root["types"])
     {
         if (!entry.is_object() || !entry.contains("name") || !entry["name"].is_string())
-            throw std::runtime_error("Each ontology type must have a string 'name'.");
+            throw std::runtime_error("Each ontology type must have a string 'name'");
 
         const std::string name = entry["name"].get<std::string>();
         std::string parent;

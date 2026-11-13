@@ -58,6 +58,12 @@
     <Filter Include="Headerdateien\ui">
       <UniqueIdentifier>{30590d04-878c-4d92-b603-5763c82df3fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\robot">
+      <UniqueIdentifier>{523f02de-7102-4727-8703-632bfcea9f40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\robot">
+      <UniqueIdentifier>{9c7e1429-59c8-4eb6-be0d-46044a575168}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\model\Assignment.h">
@@ -99,7 +105,7 @@
     <ClInclude Include="include\external\json.hpp">
       <Filter>Headerdateien\external</Filter>
     </ClInclude>
-    <ClInclude Include="include\programs\LaboratoryPrograms.h">
+    <ClInclude Include="include\programs\Programs.h">
       <Filter>Headerdateien\programs</Filter>
     </ClInclude>
     <ClInclude Include="include\input\InputParameters.h">
@@ -125,6 +131,18 @@
     </ClInclude>
     <ClInclude Include="ParametrizationBatchTest.hpp">
       <Filter>Headerdateien\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="RobotController.h">
+      <Filter>Headerdateien\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandExecutor.h">
+      <Filter>Headerdateien\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDefinitions.h">
+      <Filter>Headerdateien\model</Filter>
+    </ClInclude>
+    <ClInclude Include="StudyTask.h">
+      <Filter>Headerdateien\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,11 +188,8 @@
     <ClCompile Include="src\model\AssignmentResult.cpp">
       <Filter>Quelldateien\model</Filter>
     </ClCompile>
-    <ClCompile Include="src\programs\LaboratoryPrograms.cpp">
+    <ClCompile Include="src\programs\Programs.cpp">
       <Filter>Quelldateien\programs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\input\InputParameters.cpp">
-      <Filter>Quelldateien\input</Filter>
     </ClCompile>
     <ClCompile Include="src\model\ProgramInstantiator.cpp">
       <Filter>Quelldateien\model</Filter>
@@ -200,12 +215,18 @@
     <ClCompile Include="src\model\Ontology.cpp">
       <Filter>Quelldateien\model</Filter>
     </ClCompile>
+    <ClCompile Include="RobotController.cpp">
+      <Filter>Quelldateien\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandExecutor.cpp">
+      <Filter>Quelldateien\robot</Filter>
+    </ClCompile>
+    <ClCompile Include="LanguageSelection.cpp">
+      <Filter>Quelldateien\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
-    <None Include="programs.json">
-      <Filter>Quelldateien\programs</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="include\ui\MainMenu.h">
@@ -218,6 +239,9 @@
       <Filter>Headerdateien\ui</Filter>
     </QtMoc>
     <QtMoc Include="include\ui\ParametrizationPage.h">
+      <Filter>Headerdateien\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="LanguageSelection.h">
       <Filter>Headerdateien\ui</Filter>
     </QtMoc>
   </ItemGroup>

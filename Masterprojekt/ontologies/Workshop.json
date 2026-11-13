@@ -22,7 +22,7 @@
       "parent": "object"
     },
     {
-      "name": "wrench",
+      "name": "drill",
       "parent": "tool"
     },
     {
@@ -34,11 +34,15 @@
       "parent": "tool"
     },
     {
+      "name": "wrench",
+      "parent": "tool"
+    },
+    {
       "name": "gear",
       "parent": "object"
     },
     {
-      "name": "vault",
+      "name": "vat",
       "parent": "container"
     },
     {
@@ -88,10 +92,6 @@
     {
       "name": "storage",
       "parent": "container"
-    },
-    {
-      "name": "working_tray",
-      "parent": "tray"
     }
   ]
 }

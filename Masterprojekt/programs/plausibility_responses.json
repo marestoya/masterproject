@@ -1,0 +1,2884 @@
+{
+    "responses": [
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": 4
+                }
+            ],
+            "participant_id": "TEST",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "A"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": 4
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "A"
+        },
+        {
+            "context": "Sale stickers should be placed on cups.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "sale",
+                        "id": 1,
+                        "type": "stickers"
+                    },
+                    "program_slot_id": 6
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": 2
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "C"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": 1
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": 3
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "A"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": 6
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": 3
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "C"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": 4
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": 1
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "A"
+        },
+        {
+            "context": "The blue toolbox belongs to the green wrench.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": 1
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": 4
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "C"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": 4
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "C"
+        },
+        {
+            "context": "The white package should be in the green container.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": 6
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "D"
+        },
+        {
+            "context": "The white package should be in the green container.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": 6
+                }
+            ],
+            "participant_id": "sascha",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": 2
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": 1
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": 1
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "The spoon should be placed on the left of the sample rack.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "2",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "2",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "C"
+        },
+        {
+            "context": "The glass should be filled with the grey liquid.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "2",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "2",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "A"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "sale",
+                        "id": 1,
+                        "type": "stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "sale",
+                        "id": 1,
+                        "type": "stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "C"
+        },
+        {
+            "context": "The bolt should be used to fasten the long table leg.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "A"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "C"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "sale",
+                        "id": 1,
+                        "type": "stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "C"
+        },
+        {
+            "context": "The bolt should be used to fasten the long table leg.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "A"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "C"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "sale stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "C"
+        },
+        {
+            "context": "The bolt should be used to fasten the long table leg.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "A"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "C"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "sale stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "C"
+        },
+        {
+            "context": "The bolt should be used to fasten the long table leg.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "A"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "C"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "sale stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "C"
+        },
+        {
+            "context": "The bolt should be used to fasten the long table leg.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "A"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "C"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "sale stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "C"
+        },
+        {
+            "context": "The bolt should be used to fasten the long table leg.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "A"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "C"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "sale stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "C"
+        },
+        {
+            "context": "The bolt should be used to fasten the long table leg.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "A"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "C"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "sale stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "C"
+        },
+        {
+            "context": "The bolt should be used to fasten the long table leg.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "A"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "C"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "sale stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "C"
+        },
+        {
+            "context": "The bolt should be used to fasten the long table leg.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "A"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "C"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "task": "Prepare sample storage",
+            "variant": "A"
+        },
+        {
+            "context": "The barometer should be inside the beaker.",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "barometer"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "task": "Assemble setup",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Laboratory",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "glass"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "task": "Mix a reagent",
+            "variant": "C"
+        },
+        {
+            "context": "The spoon container should be at station B.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "spoon container"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "task": "Set up a serving station",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "sale stickers"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "task": "Prepare beverage service",
+            "variant": "A"
+        },
+        {
+            "context": "The red cake stand should be on the counter.",
+            "domain": "Catering",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "counter"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 9,
+            "task": "Arrange buffet",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "toolbox"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "task": "Prepare work zone",
+            "variant": "C"
+        },
+        {
+            "context": "The bolt should be used to fasten the long table leg.",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "",
+                        "id": 1,
+                        "type": "bolt"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "task": "Assemble table",
+            "variant": "D"
+        },
+        {
+            "context": "",
+            "domain": "Workshop",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "white",
+                        "id": 1,
+                        "type": "package"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "task": "Organize storage",
+            "variant": "A"
+        },
+        {
+            "context": "Green light needs to be in branch 1.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "green",
+                        "id": 1,
+                        "type": "light"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 10,
+            "task": "Assemble branches",
+            "variant": "B"
+        },
+        {
+            "context": "",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "blue",
+                        "id": 1,
+                        "type": "wire"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 11,
+            "task": "Prepare sensor circuits",
+            "variant": "C"
+        },
+        {
+            "context": "Red button needs to be switched on.",
+            "domain": "Electronics",
+            "mapping": [
+                {
+                    "input_object": {
+                        "color": "red",
+                        "id": 1,
+                        "type": "button"
+                    },
+                    "program_slot_id": null
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 12,
+            "task": "Organize control panels",
+            "variant": "D"
+        }
+    ]
+}

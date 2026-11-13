@@ -8,21 +8,1271 @@
                     "program_parameter_id": 1
                 }
             ],
-            "domain": "Catering",
+            "domain": "Laboratory",
             "mode": "Explicit",
             "objects": [
                 {
                     "color": "green",
                     "object_id": 2,
                     "program_slot_id": 1,
-                    "type": "plate"
+                    "type": "beaker"
                 }
             ],
             "participant_id": "TEST",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-11T10:50:21",
+            "total_cost": 0
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "sascha",
+            "program_id": 4,
+            "program_name": "Set up table",
+            "timestamp": "2026-11-11T14:19:32",
+            "total_cost": 0
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "sascha",
+            "program_id": 4,
+            "program_name": "Set up table",
+            "timestamp": "2026-11-11T14:28:12",
+            "total_cost": 0
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
             "program_id": 3,
             "program_name": "Clear table",
-            "timestamp": "2026-10-25T14:12:08",
-            "total_cost": 0
+            "timestamp": "2026-11-12T13:06:16",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-12T13:10:37",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-12T13:12:33",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-12T13:15:00",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-12T13:16:07",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 2,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 3
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "grey",
+                    "object_id": 1,
+                    "program_slot_id": 4,
+                    "type": "fork"
+                },
+                {
+                    "color": "white",
+                    "object_id": 2,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-12T13:31:29",
+            "total_cost": 2.9,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 2,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 3
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "grey",
+                    "object_id": 1,
+                    "program_slot_id": 4,
+                    "type": "fork"
+                },
+                {
+                    "color": "white",
+                    "object_id": 2,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-12T13:41:59",
+            "total_cost": 2.9,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 2,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 3
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "grey",
+                    "object_id": 1,
+                    "program_slot_id": 4,
+                    "type": "fork"
+                },
+                {
+                    "color": "white",
+                    "object_id": 2,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-12T13:43:08",
+            "total_cost": 2.9,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 2,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 4,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 1
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "grey",
+                    "object_id": 1,
+                    "program_slot_id": 4,
+                    "type": "fork"
+                },
+                {
+                    "color": "white",
+                    "object_id": 2,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                },
+                {
+                    "color": "",
+                    "object_id": 3,
+                    "program_slot_id": 2,
+                    "type": "cuttingBoard"
+                },
+                {
+                    "color": "",
+                    "object_id": 4,
+                    "program_slot_id": 1,
+                    "type": "smallPlate"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-12T13:44:49",
+            "total_cost": 8.9,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 2,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 4,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 3
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "grey",
+                    "object_id": 1,
+                    "program_slot_id": 4,
+                    "type": "fork"
+                },
+                {
+                    "color": "",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "cuttingBoard"
+                },
+                {
+                    "color": "",
+                    "object_id": 3,
+                    "program_slot_id": 1,
+                    "type": "smallPlate"
+                },
+                {
+                    "color": "white",
+                    "object_id": 4,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-12T13:47:08",
+            "total_cost": 8.9,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T14:42:22",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T14:48:33",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T14:50:26",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T14:55:17",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T14:58:38",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T15:00:04",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T15:01:37",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T15:02:41",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 4,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "red",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T15:04:59",
+            "total_cost": 7,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 4,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "red",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T15:06:51",
+            "total_cost": 7,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 4,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 5,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 5,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 4
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "red",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 3,
+                    "program_slot_id": 3,
+                    "type": "spoon"
+                },
+                {
+                    "color": "white",
+                    "object_id": 4,
+                    "program_slot_id": 4,
+                    "type": "spoon"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-12T15:08:26",
+            "total_cost": 17,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-12T15:25:04",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-12T15:26:18",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "brown",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-12T15:31:18",
+            "total_cost": 1.8,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 5
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 3
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "brown",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                },
+                {
+                    "color": "red",
+                    "object_id": 3,
+                    "program_slot_id": 5,
+                    "type": "thermometer"
+                },
+                {
+                    "color": "red",
+                    "object_id": 4,
+                    "program_slot_id": 3,
+                    "type": "testTube"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-12T15:33:00",
+            "total_cost": 3.6,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 5
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 3
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "brown",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                },
+                {
+                    "color": "red",
+                    "object_id": 3,
+                    "program_slot_id": 5,
+                    "type": "thermometer"
+                },
+                {
+                    "color": "red",
+                    "object_id": 4,
+                    "program_slot_id": 3,
+                    "type": "testTube"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-12T15:34:25",
+            "total_cost": 3.6,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Workshop",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "program_name": "Return tools",
+            "timestamp": "2026-11-12T15:51:29",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "hammer"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "box"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "program_name": "Return tools",
+            "timestamp": "2026-11-12T15:53:01",
+            "total_cost": 1.8,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "hammer"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "box"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "program_name": "Return tools",
+            "timestamp": "2026-11-12T15:54:28",
+            "total_cost": 1.8,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 4,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 4
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "hammer"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "box"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 3,
+                    "program_slot_id": 3,
+                    "type": "bolt"
+                },
+                {
+                    "color": "red",
+                    "object_id": 4,
+                    "program_slot_id": 4,
+                    "type": "tray"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "program_name": "Return tools",
+            "timestamp": "2026-11-12T15:55:55",
+            "total_cost": 6.7,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Workshop",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "program_name": "Galvanize a gear",
+            "timestamp": "2026-11-12T16:17:06",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Workshop",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "program_name": "Galvanize a gear",
+            "timestamp": "2026-11-12T16:18:58",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 3,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "bolt"
+                },
+                {
+                    "color": "grey",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "box"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "program_name": "Galvanize a gear",
+            "timestamp": "2026-11-12T16:21:01",
+            "total_cost": 5,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 3,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 4
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "bolt"
+                },
+                {
+                    "color": "grey",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "box"
+                },
+                {
+                    "color": "green",
+                    "object_id": 3,
+                    "program_slot_id": 3,
+                    "type": "box"
+                },
+                {
+                    "color": "black",
+                    "object_id": 4,
+                    "program_slot_id": 4,
+                    "type": "box"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "program_name": "Galvanize a gear",
+            "timestamp": "2026-11-12T16:22:17",
+            "total_cost": 10,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "program_name": "Set up table",
+            "timestamp": "2026-11-12T16:42:28",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "program_name": "Prepare sensor assembly",
+            "timestamp": "2026-11-12T17:24:25",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "program_name": "Prepare sensor assembly",
+            "timestamp": "2026-11-12T17:27:53",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 7,
+            "program_name": "Prepare sensor assembly",
+            "timestamp": "2026-11-12T17:37:29",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "program_name": "Sort components",
+            "timestamp": "2026-11-12T17:55:02",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "program_name": "Sort components",
+            "timestamp": "2026-11-12T17:57:19",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "program_name": "Sort components",
+            "timestamp": "2026-11-12T17:59:39",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "program_name": "Sort components",
+            "timestamp": "2026-11-12T18:02:00",
+            "total_cost": 0,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": -0.1,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 5
+                }
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "button"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 2,
+                    "program_slot_id": 5,
+                    "type": "box"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "program_name": "Sort components",
+            "timestamp": "2026-11-12T18:04:26",
+            "total_cost": 0.8,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 5
+                }
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "button"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 3,
+                    "program_slot_id": 5,
+                    "type": "tray"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "program_name": "Sort components",
+            "timestamp": "2026-11-12T18:06:06",
+            "total_cost": 2.9,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 6
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 5
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 5,
+                    "program_parameter_id": 4
+                }
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 2,
+                    "program_slot_id": 1,
+                    "type": "button"
+                },
+                {
+                    "color": "yellow",
+                    "object_id": 3,
+                    "program_slot_id": 6,
+                    "type": "gear"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 4,
+                    "program_slot_id": 5,
+                    "type": "tray"
+                },
+                {
+                    "color": "black",
+                    "object_id": 5,
+                    "program_slot_id": 4,
+                    "type": "gear"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 8,
+            "program_name": "Sort components",
+            "timestamp": "2026-11-12T18:11:47",
+            "total_cost": 8.9,
+            "variant": ""
         }
     ]
 }

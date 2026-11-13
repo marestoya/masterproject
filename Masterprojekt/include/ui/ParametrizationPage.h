@@ -17,6 +17,13 @@ class ParametrizationPage : public QWidget
 public:
     explicit ParametrizationPage(QWidget* parent = nullptr);
     void setParticipantId(const QString& id);
+    void setStudyTask(
+        int programId,
+        const QString& mode,
+        const QString& variant);
+
+    bool runParametrization(bool showMessage = true);
+    void setStudyLanguage(const QString& language);
 
 signals:
     void backToMenuRequested();
@@ -34,6 +41,7 @@ private:
     QVBoxLayout* programLayout;
     QVBoxLayout* inputLayout;
     QString participantId;
+    QString studyVariant;
 
     std::vector<Program> programs;
     std::vector<Parameter> inputParameters;
@@ -45,6 +53,5 @@ private:
     void renderProgram(const Program& program);
     void addInputObject();
     void clearInputObjects();
-    void runParametrization();
     void updateAvailableObjectTypes();
 };

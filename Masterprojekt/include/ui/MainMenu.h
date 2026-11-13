@@ -18,9 +18,11 @@ public:
 signals:
     void parametrizationRequested();
     void plausibilityRequested();
+    void studyRequested();
 
 private:
     QLineEdit* participantIdInput;
     QPushButton* parametrizationButton;
     QPushButton* plausibilityButton;
+    QPushButton* studyButton;
 };

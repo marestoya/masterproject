@@ -1,57 +1,287 @@
-#include "ui/PlausibilityPage.h"
-
+﻿#include "ui/PlausibilityPage.h"
+#include "StudyTask.h"
 #include "ui/ProgramLoader.h"
-
-#include <nlohmann/json.hpp>
-
 #include <QApplication>
-#include <QColor>
 #include <QComboBox>
 #include <QDrag>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QFrame>
-#include <QFont>
-#include <QPixmap>
-#include <QPen>
-#include <QPoint>
-#include <QRect>
-#include <QStringList>
-#include <QVariant>
-#include <QGridLayout>
 #include <QHBoxLayout>
+#include <QInputDialog>
 #include <QLabel>
-#include <QLayout>
+#include <QLineEdit>
 #include <QMessageBox>
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QPainter>
-#include <QPaintEvent>
 #include <QPushButton>
+#include <QRegularExpression>
 #include <QScrollArea>
 #include <QVBoxLayout>
-#include <QInputDialog>
-#include <QLineEdit>
+#include <QVariant>
+#include <QWheelEvent>
+#include <QFontMetrics>
+#include <QFileInfo>
+#include <QDir>
 
 #include <algorithm>
 #include <fstream>
 #include <functional>
-#include <utility>
+#include <map>
 #include <set>
 #include <stdexcept>
 #include <string>
+#include <utility>
 
+#include <nlohmann/json.hpp>
+//TODO translation is ugly rn
 namespace
 {
-    constexpr const char* ParameterMimeType = "application/x-verbbot-plausibility-parameter";
+    constexpr const char* ParameterMimeType = "application/x-parameter-id";
+
+    bool isGerman(const QWidget* widget)
+    {
+        return widget && widget->property("studyLanguage").toString() == "German";
+    }
+
+    QString translatedText(const QString& english, bool german)
+    {
+        if (!german)
+            return english;
+
+        static const std::map<QString, QString> translations = {
+            {"Back to Main Menu", "Zurück zum Hauptmenü"},
+            {"Domain:", "Bereich:"},
+            {"Task:", "Aufgabe:"},
+            {"Variant:", "Variante:"},
+            {"Program", "Programm"},
+            {"Available objects", "Verfügbare Objekte"},
+            {"Reset all assignments", "Alle Zuordnungen zurücksetzen"},
+            {"Save user's choice", "Auswahl speichern"},
+            {"No task selected.", "Keine Aufgabe ausgewählt."},
+            {"No variants found for this task. Add its A/B/C/D entries to plausibility_stimuli.json.", "Für diese Aufgabe wurden keine Varianten gefunden. Bitte die A/B/C/D-Einträge in plausibility_stimuli.json ergänzen."},
+            {"Drag each object onto the corresponding slot in the program", "Ziehe jedes Objekt auf den entsprechenden Platz im Programm."},
+            {"There are no assignments to reset", "Es gibt keine Zuordnungen zum Zurücksetzen."},
+            {"All assignments for this task have been reset", "Alle Zuordnungen für diese Aufgabe wurden zurückgesetzt."},
+            {"Response saved for participant %1.", "Antwort für Teilnehmer %1 gespeichert."},
+            {"Response saved", "Antwort gespeichert"},
+            {"The choice for participant '%1' was saved successfully", "Die Auswahl für Teilnehmer '%1' wurde erfolgreich gespeichert."},
+            {"Participant identification", "Teilnehmeridentifikation"},
+            {"Enter participant ID or name:", "Teilnehmer-ID oder Namen eingeben:"},
+            {"Missing participant ID", "Teilnehmer-ID fehlt"},
+            {"Please enter a participant ID or name.", "Bitte eine Teilnehmer-ID oder einen Namen eingeben."},
+            {"No task selected", "Keine Aufgabe ausgewählt"},
+            {"Please select a task before saving", "Bitte vor dem Speichern eine Aufgabe auswählen."},
+            {"No stimulus selected", "Keine Stimulusvariante ausgewählt"},
+            {"Please select a valid stimulus variant before saving", "Bitte vor dem Speichern eine gültige Stimulusvariante auswählen."},
+            {"Could not read responses", "Antworten konnten nicht gelesen werden"},
+            {"Invalid response file", "Ungültige Antwortdatei"},
+            {"The response file must contain a JSON object", "Die Antwortdatei muss ein JSON-Objekt enthalten."},
+            {"The 'responses' field must be a JSON array", "Das Feld 'responses' muss ein JSON-Array enthalten."},
+            {"Could not save response", "Antwort konnte nicht gespeichert werden"},
+            {"An error occurred while writing the response file", "Beim Schreiben der Antwortdatei ist ein Fehler aufgetreten."},
+            {"Program loading error", "Fehler beim Laden des Programms"},
+            {"Could not load plausibility_programs.json.", "plausibility_programs.json konnte nicht geladen werden."},
+            {"Plausibility stimuli", "Plausibilitätsstimuli"},
+            {"Stimuli could not be loaded. Check plausibility_stimuli.json.", "Stimuli konnten nicht geladen werden. Bitte plausibility_stimuli.json überprüfen."},
+            {"Already assigned. Reset its slot to use this object again.", "Bereits zugeordnet. Setze den Platz zurück, um dieses Objekt erneut zu verwenden."}
+        };
+
+        const auto it = translations.find(english);
+        return it == translations.end() ? english : it->second;
+    }
+
+    QString translatedDomain(const QString& domain, bool german)
+    {
+        if (!german) return domain;
+        if (domain == "Workshop") return "Werkstatt";
+        if (domain == "Laboratory") return "Labor";
+        if (domain == "Catering") return "Gastronomie";
+        if (domain == "Electronics") return "Elektronik";
+        return domain;
+    }
+
+    QString translatedProgramName(const std::string& name, bool german)
+    {
+        if (!german) return QString::fromStdString(name);
+        static const std::map<std::string, QString> names = {
+            {"Prepare work zone", "Arbeitsbereich vorbereiten"},
+            {"Assemble table", "Tisch zusammenbauen"},
+            {"Organize storage", "Lager organisieren"},
+            {"Prepare sample storage", "Probenlager vorbereiten"},
+            {"Assemble setup", "Aufbau zusammenstellen"},
+            {"Mix a reagent", "Ein Reagenz mischen"},
+            {"Set up a serving station", "Servierstation vorbereiten"},
+            {"Prepare beverage service", "Getränkeservice vorbereiten"},
+            {"Arrange buffet", "Buffet anrichten"},
+            {"Assemble branches", "Zweige zusammenbauen"},
+            {"Prepare sensor circuits", "Sensorschaltungen vorbereiten"},
+            {"Organize control panels", "Bedienfelder organisieren"}
+        };
+        const auto it = names.find(name);
+        return it == names.end() ? QString::fromStdString(name) : it->second;
+    }
+
+
+    QString translatedParameterType(const QString& raw, bool german)
+    {
+        if (!german)
+            return raw;
+
+        static const std::map<QString, QString> names = {
+            {"toolbox", "Werkzeugkiste"}, {"storage 1", "Lager 1"},
+            {"storage 2", "Lager 2"}, {"wrench", "Schraubenschlüssel"},
+            {"table plate", "Tischplatte"}, {"working tray", "Arbeitsablage"},
+            {"long table leg", "langes Tischbein"}, {"short table leg", "kurzes Tischbein"},
+            {"screw", "Schraube"}, {"container", "Behälter"},
+            {"shelf a", "Regal A"}, {"shelf b", "Regal B"},
+            {"box", "Kiste"}, {"package", "Paket"}, {"sample rack", "Probenständer"},
+            {"table", "Tisch"}, {"sample", "Probe"}, {"stirrer", "Rührstab"},
+            {"beaker", "Becherglas"}, {"cotton pads", "Wattepads"},
+            {"thermometer", "Thermometer"}, {"liquid", "Flüssigkeit"},
+            {"serving tray", "Serviertablett"}, {"plate stack", "Tellerstapel"},
+            {"fork container", "Gabelbehälter"}, {"spoon container", "Löffelbehälter"},{"napkins", "Servietten"},
+            {"station a", "Station A"}, {"station b", "Station B"},
+            {"drinks", "Getränke"}, {"cups", "Becher"}, {"price tags", "Preisschilder"},  {"sale stickers", "Angebotssticker"},
+            {"cake stand", "Kuchenständer"}, {"muffins", "Muffins"}, {"cake", "Kuchen"},
+            {"chocolate fountain", "Schokoladenbrunnen"}, {"small table", "kleiner Tisch"},
+            {"plates", "Teller"}, {"light", "Lampe"}, {"branch 1", "Zweig 1"},
+            {"branch 2", "Zweig 2"}, {"resistor", "Widerstand"},
+            {"power connector", "Stromanschluss"}, {"temperature sensor", "Temperatursensor"},
+            {"circuit a", "Schaltung A"}, {"circuit b", "Schaltung B"},
+            {"connector", "Steckverbinder"}, {"id card", "Ausweis"},
+            {"switch", "Schalter"}, {"panel a", "Bedienfeld A"},
+            {"panel b", "Bedienfeld B"}, {"module", "Modul"},
+            {"testtubeholderfoam", "Reagenzglasständer"},
+            {"spoon", "Löffel"},
+            {"glass", "Glas"},
+            {"grey liquid", "graue Flüssigkeit"},
+            {"barometer", "Barometer"},
+            {"white package", "weißes Paket"},
+            {"blue toolbox", "blaue Werkzeugkiste"},
+            {"green wrench", "grüner Schraubenschlüssel"},
+            {"counter", "Schalter"},
+            {"bolt", "Bolzen"},
+            {"wire", "Draht"},
+            {"button", "Knopf"}
+
+        };
+
+        const QString key = raw.trimmed().toLower();
+        const auto it = names.find(key);
+
+        if (it != names.end())
+            return it->second;
+
+        QString result = raw.trimmed();
+        result.replace("_", " ");
+        result.replace(QRegularExpression("([a-z])([A-Z])"), "\\1 \\2");
+        return result.toLower();
+    }
+
+    QString translatedColor(const QString& raw, bool german)
+    {
+        if (!german) return raw.toLower();
+        static const std::map<QString, QString> colors = {
+            {"red", "rot"}, {"blue", "blau"}, {"green", "grün"},
+            {"white", "weiß"}, {"grey", "grau"}, {"gray", "grau"},
+            {"brown", "braun"}, {"sale", "Sale"}
+        };
+        const QString key = raw.toLower();
+        const auto it = colors.find(key);
+        return it == colors.end() ? key : it->second;
+    }
+
+    QString displayParameterName(const Parameter& parameter, bool german)
+    {
+        QString type = translatedParameterType(
+            QString::fromStdString(parameter.type),
+            german
+        );
+
+        const QString color = translatedColor(
+            QString::fromStdString(parameter.color),
+            german
+        );
+
+        if (color.isEmpty())
+            return type;
+
+        if (german)
+            return QString("%1 (%2)").arg(type, color);
+
+        return QString("%1 %2").arg(color, type);
+    }
+
+    QString translatedInstructionText(const std::string& raw, bool german)
+    {
+        QString text = QString::fromStdString(raw);
+        if (!german) return text;
+        static const std::map<QString, QString> fragments = {
+            {"Place the ", "Platziere "}, {"Put the ", "Lege "},
+            {" in the ", " in "}, {" in ", " in "},
+            {" on the ", " auf"}, {" on ", " auf "},
+            {" next to the ", " neben "}, {" on the left of the ", " links neben "},
+            {" on the right of the ", " rechts neben "}, {" and the ", " und "},
+            {"Pour the ", "Gieße "}, {"Stir with the ", "Rühre mit "},
+            {"Fasten the ", "Befestige "}, {"Glue the ", "Klebe "},
+            {"Put another ", "Lege ein weiteres "}, {"Place a ", "Platziere "},
+            {"Attach an ", "Befestige "}, {"Place ", "Platziere "},
+            {" on all ", " auf allen "}, {" at ", " an "},
+            {"Turn the ", "Schalte "}, {". ", ". "}, {" on.", " ein."}
+        };
+        const auto it = fragments.find(text);
+        if (it != fragments.end()) return it->second;
+        if (text == ".") return ".";
+        if (text == " and ") return " und ";
+        return text;
+    }
+
+    QString translatedContext(const QString& context, bool german)
+    {
+        if (!german || context.isEmpty()) return context;
+        static const std::map<QString, QString> contexts = {
+            {"The blue toolbox belongs to the green wrench.", "Die blaue Werkzeugkiste gehört zum grünen Schraubenschlüssel."},
+            {"The bolt should be used to fasten the long table leg.", "Die Schraube soll zur Befestigung des langen Tischbeins verwendet werden."},
+            {"The white package should be in the green container.", "Das weiße Paket soll sich im grünen Behälter befinden."},
+            {"The spoon should be placed on the left of the sample rack.", "Der Löffel soll links neben dem Probenständer platziert werden."},
+            {"The barometer should be inside the beaker.", "Das Barometer soll sich im Becherglas befinden."},
+            {"The glass should be filled with the grey liquid.", "Das Glas soll mit der grauen Flüssigkeit gefüllt werden."},
+            {"The spoon container should be at station B.", "Der Löffelbehälter soll an Station B stehen."},
+            {"Sale stickers should be placed on cups.", "Die Sale-Aufkleber sollen auf Bechern platziert werden."},
+            {"The red cake stand should be on the counter.", "Der rote Kuchenständer soll auf der Theke stehen."},
+            {"Green light needs to be in branch 1.", "Die grüne Lampe muss sich in Zweig 1 befinden."},
+            {"Blue wire needs to be in circuit A.", "Das blaue Kabel muss sich in Schaltung A befinden."},
+            {"Red button needs to be switched on.", "Der rote Knopf muss eingeschaltet werden."}
+        };
+        const auto it = contexts.find(context);
+        return it == contexts.end() ? context : it->second;
+    }
 
     QString parameterName(const Parameter& parameter)
     {
-        const QString color = QString::fromStdString(parameter.color).trimmed();
-        const QString type = QString::fromStdString(parameter.type).trimmed();
+        QString type = QString::fromStdString(parameter.type);
+
+        if (type == "testTubeHolderFoam")
+            type = "test tube holder";
+        else
+        {
+            type.replace("_", " ");
+            type.replace(
+                QRegularExpression("([a-z])([A-Z])"),
+                "\\1 \\2"
+            );
+        }
+
+        type = type.toLower();
+
+        QString color = QString::fromStdString(parameter.color).toLower();
+
         if (color.isEmpty())
             return type;
-        return QString("%1 %2").arg(color, type);
+
+        return QString("%1 (%2)").arg(type, color);
     }
 
     QColor parameterColor(const QString& colorName)
@@ -82,13 +312,13 @@ namespace
         return colors[(slotId - 1) % count];
     }
 
-    QString defaultSlotText(const Program& program, int slotId)
+    QString defaultSlotText(const Program& program, int slotId, bool german)
     {
         const auto it = std::find_if(program.parameters.begin(), program.parameters.end(),
             [slotId](const ParameterSlot& slot) { return slot.id == slotId; });
         if (it == program.parameters.end() || it->parameters.empty())
-            return QString("[Unknown parameter %1]").arg(slotId);
-        return parameterName(it->parameters.front());
+            return german ? QString("[Unbekannter Parameter %1]").arg(slotId) : QString("[Unknown parameter %1]").arg(slotId);
+        return displayParameterName(it->parameters.front(), german);
     }
     //draggable parameter
     class PlausibilityDraggableObject : public QLabel
@@ -97,8 +327,9 @@ namespace
         explicit PlausibilityDraggableObject(
             const Parameter& parameter,
             bool assigned,
+            bool german,
             QWidget* parent = nullptr)
-            : QLabel(parameterName(parameter), parent),
+            : QLabel(displayParameterName(parameter, german), parent),
             parameterId(parameter.id),
             colorName(QString::fromStdString(parameter.color)),
             isAssigned(assigned)
@@ -115,7 +346,7 @@ namespace
                 setStyleSheet(
                     "QLabel { background: #e0e0e0; border: 1px solid #999999;"
                     " border-radius: 6px; padding: 6px; color: #777777; }");
-                setToolTip("Already assigned. Reset its slot to use this object again.");
+                setToolTip(german ? "Bereits zugeordnet. Setze den Platz zurück, um dieses Objekt erneut zu verwenden." : "Already assigned. Reset its slot to use this object again.");
             }
             else
             {
@@ -124,7 +355,7 @@ namespace
                     "QLabel { background: #e8f0fe; border: 1px solid #8aa9e6;"
                     " border-radius: 6px; padding: 6px; color: #202124; }");
                 setToolTip(QString("%1 (ID: %2)")
-                    .arg(parameterName(parameter))
+                    .arg(displayParameterName(parameter, german))
                     .arg(parameter.id));
             }
         }
@@ -178,43 +409,107 @@ namespace
     public:
         using AssignmentCallback = std::function<void(int, int)>;
 
-        PlausibilityDropSlot(int slotId, const QString& initialText,
-            AssignmentCallback callback, QWidget* parent = nullptr)
-            : QLabel(initialText, parent), slotId(slotId), callback(std::move(callback))
+        PlausibilityDropSlot(
+            int slotId,
+            const QString& initialText,
+            bool german,
+            AssignmentCallback callback,
+            QWidget* parent = nullptr)
+            : QLabel(initialText, parent),
+            slotId(slotId),
+            originalText(initialText),
+            callback(std::move(callback))
         {
             setProperty("slotId", slotId);
             setAcceptDrops(true);
             setAlignment(Qt::AlignCenter);
-            setContentsMargins(5, 13, 24, 5);
-            setMinimumSize(135, 42);
+            setContentsMargins(5, 23, 24, 5);
+            setMinimumSize(135, 55);
             setMaximumWidth(220);
             setWordWrap(true);
             setFrameShape(QFrame::StyledPanel);
-            setToolTip(QString("Program slot %1").arg(slotId));
-            const QColor bgColor = slotBackgroundColor(slotId);
-            setStyleSheet(QString(
-                "QLabel { background-color: %1; color: black; border: 2px solid %2;"
-                " border-radius: 6px; padding: 5px; }")
-                .arg(bgColor.name(), bgColor.darker(125).name()));
+
+            setToolTip(german ? QString("Programmplatz %1").arg(slotId) : QString("Program slot %1").arg(slotId));
+
+            updateStyle();
+        }
+
+        void setAssignment(const QString& assignedText)
+        {
+            isAssigned = !assignedText.isEmpty();
+
+            setText(
+                isAssigned
+                ? assignedText
+                : originalText
+            );
+
+            updateStyle();
+            update();
         }
 
     protected:
         void paintEvent(QPaintEvent* event) override
         {
             QLabel::paintEvent(event);
+
             QPainter painter(this);
             painter.setRenderHint(QPainter::Antialiasing);
+
+            //add the original param in the corner
+            if (isAssigned)
+            {
+                QFont font = painter.font();
+                font.setBold(true);
+                font.setPointSize(8);
+                painter.setFont(font);
+
+                const QFontMetrics metrics(font);
+                const int textWidth =
+                    metrics.horizontalAdvance(originalText) + 12;
+
+                const QRect nameRect(
+                    4,
+                    4,
+                    std::min(textWidth, width() - 34),
+                    17
+                );
+
+                painter.setPen(QPen(QColor("#388e3c"), 1));
+                painter.setBrush(QColor("#c8e6c9"));
+                painter.drawRoundedRect(nameRect, 4, 4);
+
+                painter.setPen(QColor("#1b5e20"));
+                painter.drawText(
+                    nameRect,
+                    Qt::AlignCenter,
+                    metrics.elidedText(
+                        originalText,
+                        Qt::ElideRight,
+                        nameRect.width() - 6
+                    )
+                );
+            }
+
             const QRect badgeRect(width() - 25, 4, 19, 17);
             const QColor badgeColor = slotBackgroundColor(slotId).darker(118);
+
             painter.setPen(QPen(badgeColor.darker(145), 1));
             painter.setBrush(badgeColor);
             painter.drawRoundedRect(badgeRect, 4, 4);
+
             painter.setPen(Qt::black);
+
             QFont font = painter.font();
             font.setBold(true);
             font.setPointSize(8);
             painter.setFont(font);
-            painter.drawText(badgeRect, Qt::AlignCenter, slotIdentifier(slotId));
+
+            painter.drawText(
+                badgeRect,
+                Qt::AlignCenter,
+                slotIdentifier(slotId)
+            );
         }
 
         void dragEnterEvent(QDragEnterEvent* event) override
@@ -232,20 +527,55 @@ namespace
                 event->ignore();
                 return;
             }
+
             bool ok = false;
-            const int objectId = QString::fromUtf8(event->mimeData()->data(ParameterMimeType)).toInt(&ok);
+
+            const int objectId =
+                QString::fromUtf8(
+                    event->mimeData()->data(ParameterMimeType)
+                ).toInt(&ok);
+
             if (!ok)
             {
                 event->ignore();
                 return;
             }
+
             if (callback)
                 callback(objectId, slotId);
+
             event->acceptProposedAction();
         }
 
     private:
+        void updateStyle()
+        {
+            if (isAssigned)
+            {
+                setStyleSheet(
+                    "QLabel { background-color: #e8f5e9; color: #1b5e20;"
+                    " border: 2px solid #66bb6a; border-radius: 6px;"
+                    " padding: 5px; }"
+                );
+            }
+            else
+            {
+                const QColor bgColor = slotBackgroundColor(slotId);
+
+                setStyleSheet(QString(
+                    "QLabel { background-color: %1; color: black;"
+                    " border: 2px solid %2; border-radius: 6px;"
+                    " padding: 5px; }"
+                ).arg(
+                    bgColor.name(),
+                    bgColor.darker(125).name()
+                ));
+            }
+        }
+
         int slotId;
+        QString originalText;
+        bool isAssigned = false;
         AssignmentCallback callback;
     };
 }
@@ -266,15 +596,22 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
     pageLayout->setContentsMargins(8, 8, 8, 8);
 
     auto* backButton = new QPushButton("Back to Main Menu", this);
+    backButton->setObjectName("backButton");
     pageLayout->addWidget(backButton, 0, Qt::AlignLeft);
     connect(backButton, &QPushButton::clicked, this, &PlausibilityPage::backToMenuRequested);
 
     auto* selectors = new QHBoxLayout;
-    selectors->addWidget(new QLabel("Domain:"));
+    auto* domainLabel = new QLabel("Domain:", this);
+    domainLabel->setObjectName("domainLabel");
+    selectors->addWidget(domainLabel);
     selectors->addWidget(domainCombo, 1);
-    selectors->addWidget(new QLabel("Task:"));
+    auto* taskLabel = new QLabel("Task:", this);
+    taskLabel->setObjectName("taskLabel");
+    selectors->addWidget(taskLabel);
     selectors->addWidget(programCombo, 2);
-    selectors->addWidget(new QLabel("Variant:"));
+    auto* variantLabel = new QLabel("Variant:", this);
+    variantLabel->setObjectName("variantLabel");
+    selectors->addWidget(variantLabel);
     selectors->addWidget(variantCombo);
     pageLayout->addLayout(selectors);
 
@@ -283,6 +620,7 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
     auto* rightPanel = new QVBoxLayout;
 
     auto* programTitle = new QLabel("Program", this);
+    programTitle->setObjectName("programTitle");
     programTitle->setStyleSheet("font-size: 18px; font-weight: bold;");
     leftPanel->addWidget(programTitle);
     programPanel->setLayout(programLayout);
@@ -292,6 +630,7 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
     leftPanel->addWidget(programScroll, 1);
 
     auto* objectsTitle = new QLabel("Available objects", this);
+    objectsTitle->setObjectName("objectsTitle");
     objectsTitle->setStyleSheet("font-size: 18px; font-weight: bold;");
     rightPanel->addWidget(objectsTitle);
 
@@ -322,8 +661,8 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
     contentLayout->addWidget(leftContainer, 1);
     contentLayout->addWidget(rightContainer, 1);
     pageLayout->addLayout(contentLayout, 1);
-    //reset button
     auto* resetAllButton = new QPushButton("Reset all assignments", this);
+    resetAllButton->setObjectName("resetAllButton");
     resetAllButton->setMinimumHeight(40);
     resetAllButton->setStyleSheet(
         "QPushButton { background-color: #c62828; color: white;"
@@ -337,7 +676,7 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
         {
             if (objectToSlot.empty())
             {
-                statusLabel->setText("There are no assignments to reset");
+                statusLabel->setText(translatedText("There are no assignments to reset", isGerman(this)));
                 return;
             }
 
@@ -357,11 +696,11 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
 
             renderObjects();
 
-            statusLabel->setText("All assignments for this task have been reset");
+            statusLabel->setText(translatedText("All assignments for this task have been reset", isGerman(this)));
         });
 
-    //save the current mapping
     auto* saveButton = new QPushButton("Save user's choice", this);
+    saveButton->setObjectName("saveButton");
     saveButton->setMinimumHeight(40);
     saveButton->setStyleSheet(
         "QPushButton { background-color: #2e7d32; color: white;"
@@ -372,7 +711,10 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
     pageLayout->addWidget(saveButton, 0, Qt::AlignRight);
 
     connect(saveButton, &QPushButton::clicked,
-        this, &PlausibilityPage::saveUserChoice);
+        this, [this]()
+        {
+            saveUserChoice();
+        });
     connect(domainCombo, &QComboBox::currentIndexChanged, this, [this](int) { updateProgramList(); });
     connect(programCombo, &QComboBox::currentIndexChanged, this, [this](int) { updateVariantList(); });
     connect(variantCombo, &QComboBox::currentIndexChanged, this, [this](int) { loadSelectedStimulus(); });
@@ -389,8 +731,8 @@ void PlausibilityPage::loadProgramsAndStimuli()
     }
     catch (const std::exception& e)
     {
-        QMessageBox::critical(this, "Program loading error", QString::fromStdString(e.what()));
-        statusLabel->setText("Could not load plausibility_programs.json.");
+        QMessageBox::critical(this, translatedText("Program loading error", isGerman(this)), QString::fromStdString(e.what()));
+        statusLabel->setText(translatedText("Could not load plausibility_programs.json.", isGerman(this)));
         return;
     }
 
@@ -465,8 +807,8 @@ void PlausibilityPage::loadProgramsAndStimuli()
     }
     catch (const std::exception& e)
     {
-        QMessageBox::warning(this, "Plausibility stimuli", QString::fromStdString(e.what()));
-        statusLabel->setText("Stimuli could not be loaded. Check plausibility_stimuli.json.");
+        QMessageBox::warning(this, translatedText("Plausibility stimuli", isGerman(this)), QString::fromStdString(e.what()));
+        statusLabel->setText(translatedText("Stimuli could not be loaded. Check plausibility_stimuli.json.", isGerman(this)));
     }
 
     std::set<std::string> domains;
@@ -476,14 +818,14 @@ void PlausibilityPage::loadProgramsAndStimuli()
             domains.insert(program.domain);
     }
     for (const std::string& domain : domains)
-        domainCombo->addItem(QString::fromStdString(domain));
+        domainCombo->addItem(translatedDomain(QString::fromStdString(domain), isGerman(this)), QString::fromStdString(domain));
 
     updateProgramList();
 }
 
 void PlausibilityPage::updateProgramList()
 {
-    const QString selectedDomain = domainCombo->currentText();
+    const QString selectedDomain = domainCombo->currentData().toString();
     programCombo->blockSignals(true);
     programCombo->clear();
     for (const Program& program : programs)
@@ -491,7 +833,7 @@ void PlausibilityPage::updateProgramList()
         if (QString::fromStdString(program.domain) == selectedDomain &&
             variantsByProgram.find(program.id) != variantsByProgram.end())
         {
-            programCombo->addItem(QString::fromStdString(program.name), program.id);
+            programCombo->addItem(translatedProgramName(program.name, isGerman(this)), program.id);
         }
     }
     programCombo->blockSignals(false);
@@ -527,7 +869,7 @@ void PlausibilityPage::loadSelectedStimulus()
     if (programIt == programs.end())
     {
         clearLayout(programLayout);
-        programLayout->addWidget(new QLabel("No task selected."));
+        programLayout->addWidget(new QLabel(translatedText("No task selected.", isGerman(this))));
         renderObjects();
         contextLabel->hide();
         statusLabel->setText({});
@@ -541,7 +883,7 @@ void PlausibilityPage::loadSelectedStimulus()
         currentDisplayProgram = *programIt;
         renderProgram(currentDisplayProgram);
         contextLabel->hide();
-        statusLabel->setText("No variants found for this task. Add its A/B/C/D entries to plausibility_stimuli.json.");
+        statusLabel->setText(translatedText("No variants found for this task. Add its A/B/C/D entries to plausibility_stimuli.json.", isGerman(this)));
         renderObjects();
         return;
     }
@@ -597,11 +939,11 @@ void PlausibilityPage::loadSelectedStimulus()
     }
     else
     {
-        contextLabel->setText(stimulus.context);
+        contextLabel->setText(translatedContext(stimulus.context, isGerman(this)));
         contextLabel->show();
     }
 
-    statusLabel->setText("Drag each object onto the corresponding slot in the program");
+    statusLabel->setText(translatedText("Drag each object onto the corresponding slot in the program", isGerman(this)));
     renderObjects();
     refreshSlotLabels(currentDisplayProgram);
 }
@@ -614,7 +956,7 @@ void PlausibilityPage::renderProgram(
 {
     clearLayout(programLayout);
 
-    auto* title = new QLabel(QString::fromStdString(program.name));
+    auto* title = new QLabel(translatedProgramName(program.name, isGerman(this)));
     title->setWordWrap(true);
     title->setStyleSheet("font-size: 16px; font-weight: bold; padding: 8px;");
     programLayout->addWidget(title);
@@ -660,7 +1002,8 @@ void PlausibilityPage::renderProgram(
             {
                 auto* slot = new PlausibilityDropSlot(
                     segment.slotId,
-                    defaultSlotText(program, segment.slotId),
+                    defaultSlotText(program, segment.slotId, isGerman(this)),
+                    isGerman(this),
                     [this, program](int objectId, int slotId)
                     {
                         objectToSlot[objectId] = slotId;
@@ -673,7 +1016,7 @@ void PlausibilityPage::renderProgram(
             }
             else
             {
-                QString text = QString::fromStdString(segment.text);
+                QString text = translatedInstructionText(segment.text, isGerman(this));
 
                 //another should be plkaced at the first mention
                 if (segmentIndex + 1 < instruction.size() &&
@@ -693,25 +1036,26 @@ void PlausibilityPage::renderProgram(
                         !anotherAlreadyMentioned.count(nextSlotId))
                     {
                         const QString slotName =
-                            defaultSlotText(program, nextSlotId);
+                            defaultSlotText(program, nextSlotId, isGerman(this));
 
                         const bool pluralLabel =
-                            slotName.compare(
-                                "price tags",
-                                Qt::CaseInsensitive
-                            ) == 0;
+                            (slotName.compare("price tags", Qt::CaseInsensitive) == 0 ||
+                                slotName.compare("Preisschilder", Qt::CaseInsensitive) == 0);
 
-                        const QString replacement =
-                            pluralLabel ? "another set of " : "another ";
-
-                        if (text.endsWith("the ", Qt::CaseInsensitive))
-                            text.chop(4);
-                        else if (text.endsWith("a ", Qt::CaseInsensitive))
-                            text.chop(2);
-                        else if (text.endsWith("an ", Qt::CaseInsensitive))
-                            text.chop(3);
-
-                        text += replacement;
+                        if (isGerman(this))
+                        {
+                            // this is still pretty bad, maybe just roll back to always using "weiteres"
+                            if (!text.contains("ein weiteres", Qt::CaseInsensitive))
+                                text += pluralLabel ? "ein weiteres Set: " : "ein weiteres Objekt: ";
+                        }
+                        else
+                        {
+                            const QString replacement = pluralLabel ? "another set of " : "another ";
+                            if (text.endsWith("the ", Qt::CaseInsensitive)) text.chop(4);
+                            else if (text.endsWith("a ", Qt::CaseInsensitive)) text.chop(2);
+                            else if (text.endsWith("an ", Qt::CaseInsensitive)) text.chop(3);
+                            text += replacement;
+                        }
                         anotherAlreadyMentioned.insert(nextSlotId);
                     }
                 }
@@ -733,36 +1077,67 @@ void PlausibilityPage::renderProgram(
 void PlausibilityPage::renderObjects()
 {
     clearLayout(objectGridLayout);
+
     for (std::size_t i = 0; i < currentObjects.size(); ++i)
     {
-        auto* object = new PlausibilityDraggableObject(currentObjects[i], objectGridContainer);
-        objectGridLayout->addWidget(object, static_cast<int>(i / 2), static_cast<int>(i % 2), Qt::AlignTop | Qt::AlignLeft);
+        const bool assigned =
+            objectToSlot.find(currentObjects[i].id) != objectToSlot.end();
+
+        auto* object = new PlausibilityDraggableObject(
+            currentObjects[i],
+            assigned,
+            isGerman(this),
+            objectGridContainer
+        );
+
+        objectGridLayout->addWidget(
+            object,
+            static_cast<int>(i / 2),
+            static_cast<int>(i % 2),
+            Qt::AlignTop | Qt::AlignLeft
+        );
     }
-    objectGridLayout->setRowStretch(static_cast<int>((currentObjects.size() + 1) / 2), 1);
+
+    objectGridLayout->setRowStretch(
+        static_cast<int>((currentObjects.size() + 1) / 2), 1);
 }
 
 void PlausibilityPage::refreshSlotLabels(const Program& program)
 {
     const auto labels = programPanel->findChildren<QLabel*>();
+
     for (QLabel* label : labels)
     {
         const QVariant slotProperty = label->property("slotId");
+
         if (!slotProperty.isValid())
             continue;
 
         const int slotId = slotProperty.toInt();
+
         QStringList assignedNames;
+
         for (const auto& assignment : objectToSlot)
         {
             if (assignment.second != slotId)
                 continue;
-            const auto objectIt = std::find_if(currentObjects.begin(), currentObjects.end(),
-                [&assignment](const Parameter& parameter) { return parameter.id == assignment.first; });
+
+            const auto objectIt = std::find_if(
+                currentObjects.begin(),
+                currentObjects.end(),
+                [&assignment](const Parameter& parameter)
+                {
+                    return parameter.id == assignment.first;
+                }
+            );
+
             if (objectIt != currentObjects.end())
-                assignedNames.append(parameterName(*objectIt));
+                assignedNames.append(displayParameterName(*objectIt, isGerman(this)));
         }
 
-        label->setText(assignedNames.isEmpty() ? defaultSlotText(program, slotId) : assignedNames.join(" + "));
+        auto* slot = static_cast<PlausibilityDropSlot*>(label);
+
+        slot->setAssignment(assignedNames.join(" + "));
     }
 }
 
@@ -781,7 +1156,7 @@ void PlausibilityPage::clearLayout(QLayout* layout)
     }
 }
 
-void PlausibilityPage::saveUserChoice()
+bool PlausibilityPage::saveUserChoice(bool showMessage)
 {
     QString responseParticipantId = participantId.trimmed();
 
@@ -791,24 +1166,24 @@ void PlausibilityPage::saveUserChoice()
 
         responseParticipantId = QInputDialog::getText(
             this,
-            "Participant identification",
-            "Enter participant ID or name:",
+            translatedText("Participant identification", isGerman(this)),
+            translatedText("Enter participant ID or name:", isGerman(this)),
             QLineEdit::Normal,
             QString(),
             &ok
         ).trimmed();
 
         if (!ok)
-            return;
+            return false;
 
         if (responseParticipantId.isEmpty())
         {
             QMessageBox::warning(
                 this,
-                "Missing participant ID",
-                "Please enter a participant ID or name."
+                translatedText("Missing participant ID", isGerman(this)),
+                translatedText("Please enter a participant ID or name.", isGerman(this))
             );
-            return;
+            return false;
         }
 
         participantId = responseParticipantId;
@@ -828,10 +1203,10 @@ void PlausibilityPage::saveUserChoice()
     {
         QMessageBox::warning(
             this,
-            "No task selected",
-            "Please select a task before saving"
+            translatedText("No task selected", isGerman(this)),
+            translatedText("Please select a task before saving", isGerman(this))
         );
-        return;
+        return false;
     }
 
     const QString variantName = variantCombo->currentText();
@@ -842,10 +1217,10 @@ void PlausibilityPage::saveUserChoice()
     {
         QMessageBox::warning(
             this,
-            "No stimulus selected",
-            "Please select a valid stimulus variant before saving"
+            translatedText("No stimulus selected", isGerman(this)),
+            translatedText("Please select a valid stimulus variant before saving", isGerman(this))
         );
-        return;
+        return false;
     }
 
     const PlausibilityVariant& stimulus =
@@ -898,12 +1273,10 @@ void PlausibilityPage::saveUserChoice()
             {
                 QMessageBox::critical(
                     this,
-                    "Could not read responses",
-                    QString(
-                        "The existing response file contains invalid JSON:\n%1"
-                    ).arg(QString::fromStdString(e.what()))
+                    translatedText("Could not read responses", isGerman(this)),
+                    QString(isGerman(this) ? "Die vorhandene Antwortdatei enthält ungültiges JSON:\n%1" : "The existing response file contains invalid JSON:\n%1").arg(QString::fromStdString(e.what()))
                 );
-                return;
+                return false;
             }
         }
     }
@@ -915,10 +1288,10 @@ void PlausibilityPage::saveUserChoice()
     {
         QMessageBox::critical(
             this,
-            "Invalid response file",
-            "The response file must contain a JSON object"
+            translatedText("Invalid response file", isGerman(this)),
+            translatedText("The response file must contain a JSON object", isGerman(this))
         );
-        return;
+        return false;
     }
 
     if (!root.contains("responses"))
@@ -928,10 +1301,10 @@ void PlausibilityPage::saveUserChoice()
     {
         QMessageBox::critical(
             this,
-            "Invalid response file",
-            "The 'responses' field must be a JSON array"
+            translatedText("Invalid response file", isGerman(this)),
+            translatedText("The 'responses' field must be a JSON array", isGerman(this))
         );
-        return;
+        return false;
     }
 
     root["responses"].push_back(response);
@@ -943,10 +1316,10 @@ void PlausibilityPage::saveUserChoice()
         {
             QMessageBox::critical(
                 this,
-                "Could not save response",
-                "Could not open the response file for writing:\n" + outputPath
+                translatedText("Could not save response", isGerman(this)),
+                (isGerman(this) ? "Die Antwortdatei konnte nicht zum Schreiben geöffnet werden:\n" : "Could not open the response file for writing:\n") + outputPath
             );
-            return;
+            return false;
         }
 
         output << root.dump(4) << '\n';
@@ -955,24 +1328,69 @@ void PlausibilityPage::saveUserChoice()
         {
             QMessageBox::critical(
                 this,
-                "Could not save response",
-                "An error occurred while writing the response file"
+                translatedText("Could not save response", isGerman(this)),
+                translatedText("An error occurred while writing the response file", isGerman(this))
             );
-            return;
+            return false;
         }
     }
 
     statusLabel->setText(
-        QString("Response saved for participant %1.")
+        translatedText("Response saved for participant %1.", isGerman(this))
         .arg(responseParticipantId)
     );
 
-    QMessageBox::information(
-        this,
-        "Response saved",
-        QString("The choice for participant '%1' was saved successfully")
-        .arg(responseParticipantId)
-    );
+    if (showMessage)
+    {
+        QMessageBox::information(
+            this,
+            translatedText("Response saved", isGerman(this)),
+            translatedText("The choice for participant '%1' was saved successfully", isGerman(this))
+            .arg(responseParticipantId)
+        );
+    }
+
+    return true;
+}
+
+void PlausibilityPage::setStudyLanguage(const QString& language)
+{
+    const bool german = (language.compare("German", Qt::CaseInsensitive) == 0 ||
+        language.compare("Deutsch", Qt::CaseInsensitive) == 0);
+    setProperty("studyLanguage", german ? "German" : "English");
+
+    if (auto* label = findChild<QLabel*>("domainLabel"))
+        label->setText(translatedText("Domain:", german));
+    if (auto* label = findChild<QLabel*>("taskLabel"))
+        label->setText(translatedText("Task:", german));
+    if (auto* label = findChild<QLabel*>("variantLabel"))
+        label->setText(translatedText("Variant:", german));
+    if (auto* label = findChild<QLabel*>("programTitle"))
+        label->setText(translatedText("Program", german));
+    if (auto* label = findChild<QLabel*>("objectsTitle"))
+        label->setText(translatedText("Available objects", german));
+    if (auto* button = findChild<QPushButton*>("backButton"))
+        button->setText(translatedText("Back to Main Menu", german));
+    if (auto* button = findChild<QPushButton*>("resetAllButton"))
+        button->setText(translatedText("Reset all assignments", german));
+    if (auto* button = findChild<QPushButton*>("saveButton"))
+        button->setText(translatedText("Save user's choice", german));
+
+    domainCombo->blockSignals(true);
+    for (int i = 0; i < domainCombo->count(); ++i)
+    {
+        const QString raw = domainCombo->itemData(i).toString();
+        domainCombo->setItemText(i, translatedDomain(raw, german));
+    }
+    domainCombo->blockSignals(false);
+
+    const int currentProgramId = programCombo->currentData().toInt();
+    updateProgramList();
+    const int index = programCombo->findData(currentProgramId);
+    if (index >= 0)
+        programCombo->setCurrentIndex(index);
+
+    loadSelectedStimulus();
 }
 
 void PlausibilityPage::setParticipantId(const QString& participantId)
@@ -980,8 +1398,38 @@ void PlausibilityPage::setParticipantId(const QString& participantId)
     this->participantId = participantId;
 }
 
-
-void PlausibilityPage::setParticipantId(const QString& participantId)
+void PlausibilityPage::setStudyTask(
+    int programId,
+    const QString& variant)
 {
-    this->participantId = participantId;
+    const auto programIt = std::find_if(
+        programs.begin(),
+        programs.end(),
+        [programId](const Program& program)
+        {
+            return program.id == programId;
+        });
+
+    if (programIt == programs.end())
+        return;
+
+    const QString domain =
+        QString::fromStdString(programIt->domain);
+
+    domainCombo->setCurrentIndex(domainCombo->findData(domain));
+
+    const int programIndex =
+        programCombo->findData(programId);
+
+    if (programIndex < 0)
+        return;
+
+    programCombo->setCurrentIndex(programIndex);
+
+    const int variantIndex =
+        variantCombo->findText(variant);
+
+    if (variantIndex >= 0)
+        variantCombo->setCurrentIndex(variantIndex);
 }
+

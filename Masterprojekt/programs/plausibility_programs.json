@@ -744,7 +744,7 @@
         {
           "id": 1,
           "type": "switch",
-          "color": "red"
+          "color": "blue"
         },
         {
           "id": 2,
@@ -769,7 +769,7 @@
         {
           "id": 6,
           "type": "switch",
-          "color": "blue"
+          "color": "red"
         }
       ],
       "instructions": [

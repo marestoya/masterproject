@@ -157,6 +157,12 @@ AssignmentResult GlobalImplicit::parametrize(
 
             if (!costMatrix.getCost(slot, input).has_value())
             {
+                std::cerr
+                    << "Incompatible assignment:"
+                    << "\n  Program slot: " << programParameters[slot].type
+                    << "\n  Input object: " << inputParameters[input].type
+                    << '\n';
+
                 throw std::runtime_error(
                     "Global implicit parametrization failed: "
                     "no complete compatible assignment exists");

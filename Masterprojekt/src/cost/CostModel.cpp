@@ -11,16 +11,34 @@ std::optional<double> CostModel::calculateCost(
     const Parameter& programParameter,
     const Parameter& inputParameter) const
 {
-    const auto typeCost = calculateTypeCost(programParameter.type, inputParameter.type);
+    const auto typeCost =
+        calculateTypeCost(programParameter.type, inputParameter.type);
+
     if (!typeCost.has_value())
         return std::nullopt;
 
-    const double colorCost = calculateColorCost(programParameter.color, inputParameter.color);
+    const double colorCost =
+        calculateColorCost(programParameter.color, inputParameter.color);
+
     const double numberCost = useNumber
         ? calculateNumberCost(programParameter.number, inputParameter.number)
         : 0.0;
 
-    return typeWeight * typeCost.value() + colorWeight * colorCost + numberCost;
+    //add this or change the weight later, TODO: decide
+    constexpr double EXACT_TYPE_BONUS = 0.1;
+
+    double totalCost =
+        typeWeight * typeCost.value()
+        + colorWeight * colorCost
+        + numberCost;
+
+    if (Ontology::normalizeTypeName(programParameter.type) ==
+        Ontology::normalizeTypeName(inputParameter.type))
+    {
+        totalCost -= EXACT_TYPE_BONUS;
+    }
+
+    return totalCost;
 }
 
 std::optional<double> CostModel::calculateTypeCost(

@@ -454,8 +454,8 @@
       "objects": [
         {
           "id": 1,
-          "type": "stickers",
-          "color": "sale"
+          "type": "sale stickers",
+          "color": ""
         }
       ],
       "context": ""
@@ -466,8 +466,8 @@
       "objects": [
         {
           "id": 1,
-          "type": "stickers",
-          "color": "sale"
+          "type": "sale stickers",
+          "color": ""
         }
       ],
       "context": "Sale stickers should be placed on cups."
@@ -478,8 +478,8 @@
       "objects": [
         {
           "id": 1,
-          "type": "stickers",
-          "color": "sale"
+          "type": "sale stickers",
+          "color": ""
         }
       ],
       "context": "",
@@ -498,8 +498,8 @@
       "objects": [
         {
           "id": 1,
-          "type": "stickers",
-          "color": "sale"
+          "type": "sale stickers",
+          "color": ""
         }
       ],
       "context": "Sale stickers should be placed on cups.",

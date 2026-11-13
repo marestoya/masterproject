@@ -18,28 +18,8 @@
       "parent": "object"
     },
     {
-      "name": "light",
+      "name": "control_component",
       "parent": "electronic_component"
-    },
-    {
-      "name": "resistor",
-      "parent": "electronic_component"
-    },
-    {
-      "name": "connector",
-      "parent": "electronic_component"
-    },
-    {
-      "name": "power_connector",
-      "parent": "connector"
-    },
-    {
-      "name": "wire",
-      "parent": "electronic_component"
-    },
-    {
-      "name": "cable",
-      "parent": "wire"
     },
     {
       "name": "battery",
@@ -47,10 +27,18 @@
     },
     {
       "name": "button",
+      "parent": "control_component"
+    },
+    {
+      "name": "connector",
       "parent": "electronic_component"
     },
     {
-      "name": "switch",
+      "name": "gear",
+      "parent": "object"
+    },
+    {
+      "name": "light",
       "parent": "electronic_component"
     },
     {
@@ -58,7 +46,19 @@
       "parent": "electronic_component"
     },
     {
-      "name": "power_unit",
+      "name": "panel",
+      "parent": "object"
+    },
+    {
+      "name": "conductorPlate",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "powerUnit",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "resistor",
       "parent": "electronic_component"
     },
     {
@@ -66,11 +66,27 @@
       "parent": "electronic_component"
     },
     {
+      "name": "switch",
+      "parent": "control_component"
+    },
+    {
       "name": "temperature_sensor",
       "parent": "sensor"
     },
     {
-      "name": "ID_card",
+      "name": "tray",
+      "parent": "container"
+    },
+    {
+      "name": "conductor",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "bolt",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "id_card",
       "parent": "object"
     },
     {
@@ -79,10 +95,6 @@
     },
     {
       "name": "circuit",
-      "parent": "object"
-    },
-    {
-      "name": "panel",
       "parent": "object"
     }
   ]

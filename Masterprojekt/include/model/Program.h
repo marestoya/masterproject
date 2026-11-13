@@ -4,6 +4,7 @@
 #include <vector>
 #include <stdexcept>
 #include "Parameter.h"
+#include "Command.h"
 
 struct ParameterSlot
 {
@@ -23,8 +24,9 @@ struct Program
     int id;
     std::string name;
     std::vector<ParameterSlot> parameters;
+    std::vector<Command> commands;
 
-    // Additional data for the UI
+    //ui stuff
     std::string domain;
     std::vector<std::vector<InstructionSegment>> instructions;
 };
@@ -39,7 +41,7 @@ inline std::vector<Parameter> getFirstParameters(
     {
         if (slot.parameters.empty())
             throw std::runtime_error(
-                "A program slot has no parameters.");
+                "A program slot has no parameters");
 
         result.push_back(slot.parameters.front());
     }

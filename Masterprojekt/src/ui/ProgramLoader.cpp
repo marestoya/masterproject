@@ -24,13 +24,14 @@ std::vector<Program> loadPrograms(const std::string& filePath)
 
     for (const auto& item : root.at("programs"))
     {
-        Program program{
-            item.at("id").get<int>(),
-            item.at("name").get<std::string>(),
-            {},
-            item.at("domain").get<std::string>(),
-            {}
-        };
+            Program program{
+         item.at("id").get<int>(),
+         item.at("name").get<std::string>(),
+         {},  //parameters
+         {},  //commands
+         item.at("domain").get<std::string>(),
+         {}   //instructions
+            };
 
         for (const auto& parameterJson : item.at("parameters"))
         {
@@ -79,6 +80,95 @@ std::vector<Program> loadPrograms(const std::string& filePath)
             }
 
             program.instructions.push_back(std::move(instruction));
+        }
+
+        if (item.contains("commands"))
+        {
+            for (const auto& commandJson : item.at("commands"))
+            {
+                const std::string type =
+                    commandJson.at("type").get<std::string>();
+
+                if (type == "PickUp")
+                {
+                    program.commands.push_back(
+                        PickUpCommand{
+                            commandJson.at("objectSlotId").get<int>()
+                        }
+                    );
+                }
+                else if (type == "Place")
+                {
+                    const std::string relation =
+                        commandJson.at("relation").get<std::string>();
+
+                    PlacementRelation placementRelation;
+
+                    if (relation == "On")
+                        placementRelation = PlacementRelation::On;
+                    else if (relation == "In")
+                        placementRelation = PlacementRelation::In;
+                    else if (relation == "NextTo")
+                        placementRelation = PlacementRelation::NextTo;
+                    else if (relation == "InFrontOf")
+                        placementRelation = PlacementRelation::InFrontOf;
+                    else if (relation == "InMiddleOf")
+                        placementRelation = PlacementRelation::InMiddleOf;
+                    else if (relation == "Above")
+                        placementRelation = PlacementRelation::Above;
+                    else if (relation == "High")
+                        placementRelation = PlacementRelation::High;
+                    else if (relation == "Behind")
+                        placementRelation = PlacementRelation::Behind;
+                    else if (relation == "Beside")
+                        placementRelation = PlacementRelation::Beside;
+                    else if (relation == "NextTo2")
+                        placementRelation = PlacementRelation::NextTo2;
+                    else
+                        throw std::runtime_error(
+                            "Unknown placement relation: " + relation);
+
+                    program.commands.push_back(
+                        PlaceCommand{
+                            commandJson.at("objectSlotId").get<int>(),
+                            commandJson.at("targetSlotId").get<int>(),
+                            placementRelation
+                        }
+                    );
+                }
+                else if (type == "Press")
+                {
+                    program.commands.push_back(
+                        PressCommand{
+                            commandJson.at("objectSlotId").get<int>()
+                        }
+                    );
+                }
+                else if (type == "Dip")
+                {
+                    const int objectSlotId = commandJson.at("objectSlotId").get<int>();
+                    const int targetSlotId = commandJson.at("targetSlotId").get<int>();
+
+                    const std::string relation =
+                        commandJson.at("relation").get<std::string>();
+
+                    if (relation != "In")
+                        throw std::runtime_error("Dip only supports the In relation.");
+
+                    program.commands.push_back(
+                        DipCommand{
+                            objectSlotId,
+                            targetSlotId,
+                            PlacementRelation::In
+                        }
+                    );
+                }
+                else
+                {
+                    throw std::runtime_error(
+                        "Unknown command type: " + type);
+                }
+            }
         }
 
         programs.push_back(std::move(program));

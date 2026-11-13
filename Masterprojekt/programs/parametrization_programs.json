@@ -22,99 +22,88 @@
         },
         {
           "id": 4,
-          "type": "rack",
+          "type": "testTubeHolderFoam",
           "color": ""
         },
         {
           "id": 5,
           "type": "thermometer",
-          "color": ""
+          "color": "green"
         },
         {
           "id": 6,
-          "type": "stirrer",
-          "color": "yellow"
+          "type": "box",
+          "color": "black"
+        }
+      ],
+      "commands": [
+        {
+          "type": "PickUp",
+          "objectSlotId": 1
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 1,
+          "targetSlotId": 2,
+          "relation": "On"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 3
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 3,
+          "targetSlotId": 4,
+          "relation": "On"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 5
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 5,
+          "targetSlotId": 6,
+          "relation": "In"
         }
       ],
       "instructions": [
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": " on the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 1 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 1 },
+          { "text": " on the " },
+          { "slot": 2 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 5
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 3 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 5
-          },
-          {
-            "text": " next to the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 3 },
+          { "text": " in the " },
+          { "slot": 4 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 6
-          },
-          {
-            "text": " next to the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 5 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Place the " },
+          { "slot": 5 },
+          { "text": " in the " },
+          { "slot": 6 },
+          { "text": "." }
         ]
       ]
     },
@@ -130,12 +119,12 @@
         },
         {
           "id": 2,
-          "type": "testTubeRack",
-          "color": ""
+          "type": "testTubeHolderFoam",
+          "color": "grey"
         },
         {
           "id": 3,
-          "type": "sampleTube",
+          "type": "testTube",
           "color": "blue"
         },
         {
@@ -144,90 +133,74 @@
           "color": "white"
         }
       ],
+      "commands": [
+        {
+          "type": "PickUp",
+          "objectSlotId": 1
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 1,
+          "targetSlotId": 2,
+          "relation": "In"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 3
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 3,
+          "targetSlotId": 1,
+          "relation": "Beside"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 4
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 4,
+          "targetSlotId": 3,
+          "relation": "Beside"
+        }
+      ],
       "instructions": [
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 1 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Put the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Put the " },
+          { "slot": 1 },
+          { "text": " in the " },
+          { "slot": 2 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 3 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 3 },
+          { "text": " in the " },
+          { "slot": 2 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 4 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": " in the middle of the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 4 },
+          { "text": " in the middle of the " },
+          { "slot": 2 },
+          { "text": "." }
         ]
       ]
     },
@@ -254,93 +227,77 @@
         {
           "id": 4,
           "type": "spoon",
-          "color": ""
+          "color": "grey"
+        }
+      ],
+      "commands": [
+        {
+          "type": "PickUp",
+          "objectSlotId": 1
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 1,
+          "targetSlotId": 2,
+          "relation": "In"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 3
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 3,
+          "targetSlotId": 1,
+          "relation": "On"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 4
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 4,
+          "targetSlotId": 3,
+          "relation": "On"
         }
       ],
       "instructions": [
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 1 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": " on the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 1 },
+          { "text": " on the " },
+          { "slot": 2 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 3 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": " on the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 3 },
+          { "text": " on the " },
+          { "slot": 1 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 4 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": " on the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 4 },
+          { "text": " on the " },
+          { "slot": 3 },
+          { "text": "." }
         ]
       ]
     },
@@ -351,13 +308,13 @@
       "parameters": [
         {
           "id": 1,
-          "type": "plate",
+          "type": "smallPlate",
           "color": "white"
         },
         {
           "id": 2,
           "type": "tray",
-          "color": ""
+          "color": "brown"
         },
         {
           "id": 3,
@@ -366,99 +323,105 @@
         },
         {
           "id": 4,
-          "type": "spoon",
+          "type": "matchaTeaBag",
           "color": ""
         },
         {
           "id": 5,
-          "type": "kettle",
+          "type": "spoon",
           "color": ""
+        }
+      ],
+      "commands": [
+        {
+          "type": "PickUp",
+          "objectSlotId": 1
         },
         {
-          "id": 6,
-          "type": "tea",
-          "color": ""
+          "type": "Place",
+          "objectSlotId": 1,
+          "targetSlotId": 2,
+          "relation": "On"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 3
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 3,
+          "targetSlotId": 1,
+          "relation": "On"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 4
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 4,
+          "targetSlotId": 3,
+          "relation": "NextTo2"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 5
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 5,
+          "targetSlotId": 3,
+          "relation": "In"
         }
       ],
       "instructions": [
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": " on the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 1 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": " next to the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 1 },
+          { "text": " on the " },
+          { "slot": 2 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 3 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 5
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 3 },
+          { "text": " on the " },
+          { "slot": 1 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Pour the "
-          },
-          {
-            "slot": 6
-          },
-          {
-            "text": " into the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 4 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Place the " },
+          { "slot": 4 },
+          { "text": " in the " },
+          { "slot": 3 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Pick up the " },
+          { "slot": 5 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Place the " },
+          { "slot": 5 },
+          { "text": " in the " },
+          { "slot": 3 },
+          { "text": "." }
         ]
       ]
     },
@@ -474,12 +437,12 @@
         },
         {
           "id": 2,
-          "type": "container",
+          "type": "box",
           "color": "red"
         },
         {
           "id": 3,
-          "type": "screwdriver",
+          "type": "drill",
           "color": "blue"
         },
         {
@@ -488,62 +451,52 @@
           "color": "brown"
         }
       ],
+      "commands": [
+        {
+          "type": "PickUp",
+          "objectSlotId": 1
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 1,
+          "targetSlotId": 2,
+          "relation": "High"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 3
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 3,
+          "targetSlotId": 4,
+          "relation": "Above"
+        }
+      ],
       "instructions": [
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 1 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 1 },
+          { "text": " in the " },
+          { "slot": 2 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 3 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": " on the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 3 },
+          { "text": " on the " },
+          { "slot": 4 },
+          { "text": "." }
         ]
       ]
     },
@@ -559,12 +512,12 @@
         },
         {
           "id": 2,
-          "type": "vault",
+          "type": "vat",
           "color": "grey"
         },
         {
           "id": 3,
-          "type": "vault",
+          "type": "vat",
           "color": "green"
         },
         {
@@ -573,90 +526,56 @@
           "color": ""
         }
       ],
+      "commands": [
+        {
+          "type": "PickUp",
+          "objectSlotId": 1
+        },
+        {
+          "type": "Dip",
+          "objectSlotId": 1,
+          "targetSlotId": 2,
+          "relation": "In"
+        },
+        {
+          "type": "Dip",
+          "objectSlotId": 1,
+          "targetSlotId": 3,
+          "relation": "In"
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 1,
+          "targetSlotId": 4,
+          "relation": "On"
+        }
+      ],
       "instructions": [
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 1 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Dip the " },
+          { "slot": 1 },
+          { "text": " in the " },
+          { "slot": 2 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
+          { "text": "Dip the " },
+          { "slot": 1 },
+          { "text": " in the " },
+          { "slot": 3 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": "."
-          }
-        ],
-        [
-          {
-            "text": "Pick up the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
-        ],
-        [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": " on the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 1 },
+          { "text": " on the " },
+          { "slot": 4 },
+          { "text": "." }
         ]
       ]
     },
@@ -667,87 +586,102 @@
       "parameters": [
         {
           "id": 1,
-          "type": "wire",
-          "color": "red"
+          "type": "conductor",
+          "color": "green"
         },
         {
           "id": 2,
-          "type": "battery",
+          "type": "conductorPlate",
           "color": ""
         },
         {
           "id": 3,
-          "type": "wire",
+          "type": "conductor",
           "color": "blue"
         },
         {
           "id": 4,
           "type": "button",
-          "color": ""
+          "color": "red"
+        }
+      ],
+      "commands": [
+        {
+          "type": "PickUp",
+          "objectSlotId": 1
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 1,
+          "targetSlotId": 2,
+          "relation": "Behind"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 3
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 3,
+          "targetSlotId": 1,
+          "relation": "Behind"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 4
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 4,
+          "targetSlotId": 2,
+          "relation": "On"
+        },
+        {
+          "type": "Press",
+          "objectSlotId": 4
         }
       ],
       "instructions": [
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": " next to the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 1 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": " next to the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 1 },
+          { "text": " next to the " },
+          { "slot": 2 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": " in front of the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 3 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Press the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 3 },
+          { "text": " next to the " },
+          { "slot": 1 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Pick up the " },
+          { "slot": 4 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Place the " },
+          { "slot": 4 },
+          { "text": " in front of the " },
+          { "slot": 2 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Press the " },
+          { "slot": 4 },
+          { "text": "." }
         ]
       ]
     },
@@ -763,7 +697,7 @@
         },
         {
           "id": 2,
-          "type": "container",
+          "type": "box",
           "color": "red"
         },
         {
@@ -773,88 +707,110 @@
         },
         {
           "id": 4,
-          "type": "wire",
+          "type": "conductor",
           "color": "black"
         },
         {
           "id": 5,
-          "type": "container",
+          "type": "box",
           "color": "blue"
         },
         {
           "id": 6,
-          "type": "wire",
+          "type": "conductor",
           "color": "yellow"
+        }
+      ],
+      "commands": [
+        {
+          "type": "PickUp",
+          "objectSlotId": 1
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 1,
+          "targetSlotId": 2,
+          "relation": "In"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 3
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 3,
+          "targetSlotId": 2,
+          "relation": "In"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 4
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 4,
+          "targetSlotId": 5,
+          "relation": "In"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 6
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 6,
+          "targetSlotId": 5,
+          "relation": "In"
         }
       ],
       "instructions": [
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 1
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 1 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 3
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 2
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 1 },
+          { "text": " in the " },
+          { "slot": 2 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 4
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 5
-          },
-          {
-            "text": "."
-          }
+          { "text": "Pick up the " },
+          { "slot": 3 },
+          { "text": "." }
         ],
         [
-          {
-            "text": "Place the "
-          },
-          {
-            "slot": 6
-          },
-          {
-            "text": " in the "
-          },
-          {
-            "slot": 5
-          },
-          {
-            "text": "."
-          }
+          { "text": "Place the " },
+          { "slot": 3 },
+          { "text": " in the " },
+          { "slot": 2 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Pick up the " },
+          { "slot": 4 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Place the " },
+          { "slot": 4 },
+          { "text": " in the " },
+          { "slot": 5 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Pick up the " },
+          { "slot": 6 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Place the " },
+          { "slot": 6 },
+          { "text": " in the " },
+          { "slot": 5 },
+          { "text": "." }
         ]
       ]
     }
