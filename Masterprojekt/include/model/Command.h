@@ -14,7 +14,9 @@ enum class PlacementRelation
     High,
     Behind,
     Beside,
-    NextTo2
+    NextTo2,
+    OnLEFT,
+    OnRIGHT
 };
 
 struct PickUpCommand

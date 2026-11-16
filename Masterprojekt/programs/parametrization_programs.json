@@ -70,11 +70,6 @@
       ],
       "instructions": [
         [
-          { "text": "Pick up the " },
-          { "slot": 1 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 1 },
           { "text": " on the " },
@@ -82,20 +77,10 @@
           { "text": "." }
         ],
         [
-          { "text": "Pick up the " },
-          { "slot": 3 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 3 },
           { "text": " in the " },
           { "slot": 4 },
-          { "text": "." }
-        ],
-        [
-          { "text": "Pick up the " },
-          { "slot": 5 },
           { "text": "." }
         ],
         [
@@ -166,11 +151,7 @@
         }
       ],
       "instructions": [
-        [
-          { "text": "Pick up the " },
-          { "slot": 1 },
-          { "text": "." }
-        ],
+        
         [
           { "text": "Put the " },
           { "slot": 1 },
@@ -179,11 +160,6 @@
           { "text": "." }
         ],
         [
-          { "text": "Pick up the " },
-          { "slot": 3 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 3 },
           { "text": " in the " },
@@ -191,14 +167,9 @@
           { "text": "." }
         ],
         [
-          { "text": "Pick up the " },
-          { "slot": 4 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 4 },
-          { "text": " in the middle of the " },
+          { "text": " in the " },
           { "slot": 2 },
           { "text": "." }
         ]
@@ -264,11 +235,6 @@
       ],
       "instructions": [
         [
-          { "text": "Pick up the " },
-          { "slot": 1 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 1 },
           { "text": " on the " },
@@ -276,20 +242,10 @@
           { "text": "." }
         ],
         [
-          { "text": "Pick up the " },
-          { "slot": 3 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 3 },
           { "text": " on the " },
           { "slot": 1 },
-          { "text": "." }
-        ],
-        [
-          { "text": "Pick up the " },
-          { "slot": 4 },
           { "text": "." }
         ],
         [
@@ -341,7 +297,7 @@
           "type": "Place",
           "objectSlotId": 1,
           "targetSlotId": 2,
-          "relation": "On"
+          "relation": "OnLEFT"
         },
         {
           "type": "PickUp",
@@ -350,8 +306,8 @@
         {
           "type": "Place",
           "objectSlotId": 3,
-          "targetSlotId": 1,
-          "relation": "On"
+          "targetSlotId": 2,
+          "relation": "OnRIGHT"
         },
         {
           "type": "PickUp",
@@ -361,7 +317,7 @@
           "type": "Place",
           "objectSlotId": 4,
           "targetSlotId": 3,
-          "relation": "NextTo2"
+          "relation": "InFrontOf"
         },
         {
           "type": "PickUp",
@@ -376,11 +332,6 @@
       ],
       "instructions": [
         [
-          { "text": "Pick up the " },
-          { "slot": 1 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 1 },
           { "text": " on the " },
@@ -388,38 +339,23 @@
           { "text": "." }
         ],
         [
-          { "text": "Pick up the " },
-          { "slot": 3 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 3 },
-          { "text": " on the " },
+          { "text": " next to the " },
           { "slot": 1 },
           { "text": "." }
         ],
         [
-          { "text": "Pick up the " },
-          { "slot": 4 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 4 },
-          { "text": " in the " },
+          { "text": " in front of the " },
           { "slot": 3 },
           { "text": "." }
         ],
         [
-          { "text": "Pick up the " },
-          { "slot": 5 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 5 },
-          { "text": " in the " },
+          { "text": " on the " },
           { "slot": 3 },
           { "text": "." }
         ]
@@ -475,20 +411,10 @@
       ],
       "instructions": [
         [
-          { "text": "Pick up the " },
-          { "slot": 1 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 1 },
           { "text": " in the " },
           { "slot": 2 },
-          { "text": "." }
-        ],
-        [
-          { "text": "Pick up the " },
-          { "slot": 3 },
           { "text": "." }
         ],
         [
@@ -552,11 +478,6 @@
       ],
       "instructions": [
         [
-          { "text": "Pick up the " },
-          { "slot": 1 },
-          { "text": "." }
-        ],
-        [
           { "text": "Dip the " },
           { "slot": 1 },
           { "text": " in the " },
@@ -579,30 +500,52 @@
         ]
       ]
     },
+
+
     {
       "id": 7,
-      "name": "Prepare sensor assembly",
+      "name": "Connect conductors",
       "domain": "Electronics",
       "parameters": [
         {
           "id": 1,
           "type": "conductor",
-          "color": "green"
+          "color": "red"
         },
         {
           "id": 2,
           "type": "conductorPlate",
-          "color": ""
+          "color": "orange"
         },
         {
           "id": 3,
+          "type": "conductorPlate",
+          "color": "green"
+        },
+        {
+          "id": 4,
+          "type": "conductor",
+          "color": "green"
+        },
+        {
+          "id": 5,
+          "type": "conductorPlate",
+          "color": "blue"
+        },
+        {
+          "id": 6,
+          "type": "conductorPlate",
+          "color": "yellow"
+        },
+        {
+          "id": 7,
           "type": "conductor",
           "color": "blue"
         },
         {
-          "id": 4,
-          "type": "button",
-          "color": "red"
+          "id": 8,
+          "type": "conductor",
+          "color": "black"
         }
       ],
       "commands": [
@@ -614,17 +557,7 @@
           "type": "Place",
           "objectSlotId": 1,
           "targetSlotId": 2,
-          "relation": "Behind"
-        },
-        {
-          "type": "PickUp",
-          "objectSlotId": 3
-        },
-        {
-          "type": "Place",
-          "objectSlotId": 3,
-          "targetSlotId": 1,
-          "relation": "Behind"
+          "relation": "On"
         },
         {
           "type": "PickUp",
@@ -633,91 +566,117 @@
         {
           "type": "Place",
           "objectSlotId": 4,
+          "targetSlotId": 5,
+          "relation": "On"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 7
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 7,
           "targetSlotId": 2,
           "relation": "On"
         },
         {
-          "type": "Press",
-          "objectSlotId": 4
+          "type": "PickUp",
+          "objectSlotId": 8
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 8,
+          "targetSlotId": 3,
+          "relation": "On"
         }
       ],
       "instructions": [
         [
-          { "text": "Pick up the " },
-          { "slot": 1 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 1 },
-          { "text": " next to the " },
+          { "text": " between the " },
           { "slot": 2 },
-          { "text": "." }
-        ],
-        [
-          { "text": "Pick up the " },
+          { "text": " and the " },
           { "slot": 3 },
           { "text": "." }
         ],
         [
           { "text": "Place the " },
-          { "slot": 3 },
-          { "text": " next to the " },
-          { "slot": 1 },
-          { "text": "." }
-        ],
-        [
-          { "text": "Pick up the " },
           { "slot": 4 },
+          { "text": " between the " },
+          { "slot": 5 },
+          { "text": " and the " },
+          { "slot": 6 },
           { "text": "." }
         ],
         [
           { "text": "Place the " },
-          { "slot": 4 },
-          { "text": " in front of the " },
+          { "slot": 7 },
+          { "text": " between the " },
           { "slot": 2 },
+          { "text": " and the " },
+          { "slot": 5 },
           { "text": "." }
         ],
         [
-          { "text": "Press the " },
-          { "slot": 4 },
+          { "text": "Place the " },
+          { "slot": 8 },
+          { "text": " between the " },
+          { "slot": 3 },
+          { "text": " and the " },
+          { "slot": 6 },
           { "text": "." }
         ]
       ]
     },
     {
       "id": 8,
-      "name": "Sort components",
+      "name": "Connect more conductors",
       "domain": "Electronics",
       "parameters": [
         {
           "id": 1,
-          "type": "button",
-          "color": "black"
+          "type": "conductor",
+          "color": "orange"
         },
         {
           "id": 2,
-          "type": "box",
-          "color": "red"
+          "type": "conductorPlate",
+          "color": "orange"
         },
         {
           "id": 3,
-          "type": "battery",
-          "color": ""
+          "type": "conductorPlate",
+          "color": "green"
         },
         {
           "id": 4,
           "type": "conductor",
-          "color": "black"
+          "color": "white"
         },
         {
           "id": 5,
-          "type": "box",
-          "color": "blue"
+          "type": "conductorPlate",
+          "color": "red"
         },
         {
           "id": 6,
           "type": "conductor",
+          "color": "yellow"
+        },
+        {
+          "id": 7,
+          "type": "conductorPlate",
+          "color": "blue"
+        },
+        {
+          "id": 8,
+          "type": "conductor",
+          "color": "grey"
+        },
+        {
+          "id": 9,
+          "type": "conductorPlate",
           "color": "yellow"
         }
       ],
@@ -730,17 +689,7 @@
           "type": "Place",
           "objectSlotId": 1,
           "targetSlotId": 2,
-          "relation": "In"
-        },
-        {
-          "type": "PickUp",
-          "objectSlotId": 3
-        },
-        {
-          "type": "Place",
-          "objectSlotId": 3,
-          "targetSlotId": 2,
-          "relation": "In"
+          "relation": "On"
         },
         {
           "type": "PickUp",
@@ -749,8 +698,8 @@
         {
           "type": "Place",
           "objectSlotId": 4,
-          "targetSlotId": 5,
-          "relation": "In"
+          "targetSlotId": 3,
+          "relation": "On"
         },
         {
           "type": "PickUp",
@@ -759,57 +708,55 @@
         {
           "type": "Place",
           "objectSlotId": 6,
-          "targetSlotId": 5,
-          "relation": "In"
+          "targetSlotId": 2,
+          "relation": "On"
+        },
+        {
+          "type": "PickUp",
+          "objectSlotId": 8
+        },
+        {
+          "type": "Place",
+          "objectSlotId": 8,
+          "targetSlotId": 3,
+          "relation": "On"
         }
       ],
       "instructions": [
         [
-          { "text": "Pick up the " },
-          { "slot": 1 },
-          { "text": "." }
-        ],
-        [
           { "text": "Place the " },
           { "slot": 1 },
-          { "text": " in the " },
+          { "text": " between the " },
           { "slot": 2 },
-          { "text": "." }
-        ],
-        [
-          { "text": "Pick up the " },
+          { "text": " and the " },
           { "slot": 3 },
           { "text": "." }
         ],
         [
           { "text": "Place the " },
+          { "slot": 4 },
+          { "text": " between the " },
           { "slot": 3 },
-          { "text": " in the " },
+          { "text": " and the " },
+          { "slot": 5 },
+          { "text": "." }
+        ],
+        [
+          { "text": "Place the " },
+          { "slot": 6 },
+          { "text": " between the " },
           { "slot": 2 },
-          { "text": "." }
-        ],
-        [
-          { "text": "Pick up the " },
-          { "slot": 4 },
-          { "text": "." }
-        ],
-        [
-          { "text": "Place the " },
-          { "slot": 4 },
-          { "text": " in the " },
-          { "slot": 5 },
-          { "text": "." }
-        ],
-        [
-          { "text": "Pick up the " },
-          { "slot": 6 },
+          { "text": " and the " },
+          { "slot": 7 },
           { "text": "." }
         ],
         [
           { "text": "Place the " },
-          { "slot": 6 },
-          { "text": " in the " },
-          { "slot": 5 },
+          { "slot": 8 },
+          { "text": " between the " },
+          { "slot": 3 },
+          { "text": " and the " },
+          { "slot": 9 },
           { "text": "." }
         ]
       ]

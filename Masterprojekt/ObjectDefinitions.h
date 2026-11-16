@@ -162,7 +162,8 @@ namespace ObjectDefinitions
         else if (parameter.type == "matchaTeaBag")
         {
             parameter.graspable = GraspableProperties{
-                makeTransform(Eigen::Vector3f(0.05f, 0.2f, 0), xAxis, pi)
+               // makeTransform(Eigen::Vector3f(0.05f, 0.2f, 0), xAxis, pi)
+                 makeTransform(Eigen::Vector3f(0, 0, 0), xAxis, pi)
             };
         }
         else if (parameter.type == "chamomileTea" )
@@ -174,7 +175,7 @@ namespace ObjectDefinitions
         else if (parameter.type == "spoon")
         {
             parameter.graspable = GraspableProperties{
-                makeTransform(Eigen::Vector3f(0, 0, 0.09f), xAxis, pi)
+                makeTransform(Eigen::Vector3f(0, 0, 0.1f), xAxis, pi)
             };
         }
         else if (parameter.type == "fork")
@@ -182,7 +183,7 @@ namespace ObjectDefinitions
          
             parameter.graspable = GraspableProperties{
                 makeTransform(
-                    Eigen::Vector3f(0.05f, 0, -0.07f),
+                    Eigen::Vector3f(0.05f, 0, -0.09f),
                     xAxis,
                     pi
                 )
@@ -192,10 +193,10 @@ namespace ObjectDefinitions
             parameter.type == "smallPlate")
         {
             const float graspRadius =
-                parameter.type == "plate" ? 0.12f : 0.06f;
+                parameter.type == "plate" ? 0.07f : 0.06f;
 
             const float graspHeight =
-                parameter.type == "plate" ? 0.045f : 0.06f;
+                parameter.type == "plate" ? 0.08f : 0.08f;
 
             parameter.graspable = GraspableProperties{
                 makeTransform(
@@ -209,13 +210,24 @@ namespace ObjectDefinitions
         {
             parameter.graspable = GraspableProperties{
                 makeTransform(
-                    Eigen::Vector3f(0.09f, 0, 0.03f),
+                    Eigen::Vector3f(0.08f, 0, 0.04f),
                     xAxis,
                     pi
                 )
             };
         }
         else if (parameter.type == "conductor")
+        {
+            parameter.graspable = GraspableProperties{
+                makeTransform(
+                    Eigen::Vector3f(0, 0, 0.02f),
+                    xAxis,
+                    pi
+                )
+            };
+            }
+
+        else if (parameter.type == "conductorLight")
         {
             parameter.graspable = GraspableProperties{
                 makeTransform(

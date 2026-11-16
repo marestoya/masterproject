@@ -34,6 +34,22 @@
       "parent": "electronic_component"
     },
     {
+      "name": "conductor_component",
+      "parent": "electronic_component"
+    },
+    {
+      "name": "conductor",
+      "parent": "conductor_component"
+    },
+    {
+      "name": "conductorLight",
+      "parent": "conductor_component"
+    },
+    {
+      "name": "conductorPlate",
+      "parent": "electronic_component"
+    },
+    {
       "name": "gear",
       "parent": "object"
     },
@@ -48,10 +64,6 @@
     {
       "name": "panel",
       "parent": "object"
-    },
-    {
-      "name": "conductorPlate",
-      "parent": "electronic_component"
     },
     {
       "name": "powerUnit",
@@ -76,10 +88,6 @@
     {
       "name": "tray",
       "parent": "container"
-    },
-    {
-      "name": "conductor",
-      "parent": "electronic_component"
     },
     {
       "name": "bolt",

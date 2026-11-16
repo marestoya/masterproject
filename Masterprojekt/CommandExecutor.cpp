@@ -4,7 +4,9 @@
 #include <type_traits>
 #include <variant>
 #include <iostream>
+#include <cmath>
 
+constexpr float PI = 3.14159265358979323846f;
 CommandExecutor::CommandExecutor(RobotController& robotController)
     : robotController_(robotController)
 {
@@ -31,7 +33,7 @@ Parameter& CommandExecutor::getParameterForSlot(
 
     return slot->parameters.front();
 }
-
+//TODO: THE TERRIBLE HARD CODING NEEDS TO GO
 void CommandExecutor::executeCommand(
     Program& program,
     const Command& command)
@@ -72,7 +74,8 @@ void CommandExecutor::executeCommand(
                 constexpr float IN_HEIGHT = 0.03f;
                 constexpr float DIP_DEPTH = 0.01f;
 
-                Eigen::Affine3f world_T_object_dip = object.world_T_object;
+                Eigen::Affine3f world_T_object_dip =
+                    object.world_T_object;
 
                 world_T_object_dip.translation() =
                     target.world_T_object.translation();
@@ -80,13 +83,14 @@ void CommandExecutor::executeCommand(
                 world_T_object_dip.translation().z() += IN_HEIGHT;
 
                 const Eigen::Affine3f world_T_tcp_dip =
-                    world_T_object_dip * object.graspable->object_T_grasp;
+                    world_T_object_dip *
+                    object.graspable->object_T_grasp;
 
                 robotController_.dip(world_T_tcp_dip, DIP_DEPTH);
             }
+
             else if constexpr (std::is_same_v<T, PlaceCommand>)
             {
-                //TODO: make this better, move the placement logic to containers
                 Parameter& object =
                     getParameterForSlot(program, cmd.objectSlotId);
 
@@ -105,23 +109,26 @@ void CommandExecutor::executeCommand(
                 constexpr float HIGH_HEIGHT = 0.2f;
                 constexpr float IN_HEIGHT = 0.03f;
                 constexpr float NEXT_TO_OFFSET = 0.20f;
+
                 const float NEXT_TO2_OFFSET =
                     object.type == "chamomileTea" ? 0.0f : 0.3f;
+
                 constexpr float BEHIND_OFFSET = 0.07f;
+                constexpr float ONLEFT_OFFSET = 0.07f;
                 constexpr float BESIDE_OFFSET = 0.05f;
                 constexpr float IN_FRONT_OFFSET = 0.15f;
 
                 Eigen::Vector3f placementPosition;
 
-                
-             
-                
+                Eigen::Affine3f world_T_object_place =
+                    object.world_T_object;
+
                 if (object.type == "switch")
                 {
                     placementPosition =
                         target.world_T_object.translation();
 
-                    placementPosition.y()-= 0.2f;
+                    placementPosition.y() -= 0.2f;
                 }
                 else if (target.type == "testTubeHolderFoam")
                 {
@@ -131,16 +138,15 @@ void CommandExecutor::executeCommand(
                     placementPosition.z() += 0.1f;
                     placementPosition.x() += 0.08f;
                 }
-                else if (target.type == "testTubeHolderFoam" && program.name=="Set up experiment")
+                else if (target.type == "testTubeHolderFoam" &&
+                    program.name == "Set up experiment")
                 {
                     placementPosition =
                         target.world_T_object.translation();
 
                     placementPosition.z() += 0.1f;
                 }
-
-                
-                else if (object.type=="hammer" &&target.type == "box")
+                else if (object.type == "hammer" && target.type == "box")
                 {
                     placementPosition =
                         target.world_T_object.translation();
@@ -151,73 +157,61 @@ void CommandExecutor::executeCommand(
                     placementPosition -= targetY * 0.09f;
                     placementPosition.z() += 0.12f;
                 }
-              else if (object.type == "beaker" && target.type == "tray")
+                else if (object.type == "beaker" && target.type == "tray")
                 {
                     placementPosition =
                         target.world_T_object.translation();
 
-                    placementPosition.z() += 0.2f;
+                    placementPosition.z() += 0.12f;
                     placementPosition.x() += 0.05f;
                 }
-              else if (object.type == "drill")
+                else if (object.type == "drill")
                 {
                     placementPosition =
                         target.world_T_object.translation();
 
                     placementPosition.z() += 0.2f;
-               
                 }
-              else if (object.type == "bowl")
+                else if (object.type == "testTube" &&
+                    target.type == "beaker")
                 {
                     placementPosition =
                         target.world_T_object.translation();
 
-                    placementPosition.z() += 0.1f;
+                    placementPosition.y() += 0.05f;
                 }
-              else if (target.type == "bowl")
+                else if (object.type == "spoon" &&
+                    target.type == "spoon")
+                {
+                    placementPosition =
+                        target.world_T_object.translation();
+
+                    placementPosition.y() += 0.05f;
+                }
+                else if (object.type == "spoon" &&
+                    target.type == "beaker")
                 {
                     placementPosition =
                         target.world_T_object.translation();
 
                     placementPosition.z() -= 0.05f;
                 }
-                else if (object.type == "testTube" && target.type == "beaker")
+                else if (object.type == "spoon" &&
+                    target.type == "cup")
                 {
                     placementPosition =
                         target.world_T_object.translation();
-                    placementPosition.y() += 0.05f;
-                }
-                else if (object.type == "spoon" && target.type == "beaker")
-                {
-                    placementPosition =
-                        target.world_T_object.translation();
-                    placementPosition.y() += 0.05f;
-                }
-                else if (object.type == "spoon" && target.type == "cup")
-                {
-                    placementPosition =
-                        target.world_T_object.translation();
+
                     placementPosition.z() -= 0.05f;
                 }
-                else if (object.type == "fork" && target.type == "cup")
+                else if (object.type == "fork" &&
+                    target.type == "cup")
                 {
                     placementPosition =
                         target.world_T_object.translation();
-                    placementPosition.z() += 0.09f;
-                }
-                else if (object.type == "chamomileTea" )
-                {
-                    placementPosition =
-                        target.world_T_object.translation();
-                    placementPosition.y() += 0.09f;
-                    placementPosition.x() += 0.02f;
-                    placementPosition.z() += 0.1f;
-                }
-                else if (object.type == "glass")
-                {
-                    placementPosition =
-                        target.world_T_object.translation();
-                    placementPosition.x() -= 0.03f;
+
+                    placementPosition.z() += 0.15f;
+                    placementPosition.x() -= 0.02f;
                 }
                 else
                 {
@@ -229,14 +223,85 @@ void CommandExecutor::executeCommand(
 
                     const Eigen::Vector3f targetY =
                         target.world_T_object.linear().col(1).normalized();
+                    const Eigen::Vector3f targetZ =
+                        target.world_T_object.linear().col(2).normalized();
 
                     switch (cmd.relation)
                     {
                     case PlacementRelation::On:
+                    {
                         placementPosition.z() += ON_HEIGHT;
+
+                        if (target.type == "conductorPlate")
+                        {
+                            placementPosition.z() -= 0.03f;
+
+              
+                            if (object.color == "red")
+                            {
+                                placementPosition -= targetX * 0.01f;
+                                placementPosition -= targetY * 0.05f;
+                            }
+                            else if (object.color == "green"|| object.color == "orange")
+                            {
+                                placementPosition.x() += 0.05f;
+                            }
+                            else if ( object.color == "white")
+                            {
+                                placementPosition.x() += 0.07f;
+                                placementPosition.y() -= 0.01f;
+                            }
+       
+                            else if (object.color == "blue" ||
+                                object.color == "black" || object.color == "yellow" || object.color == "grey")
+                            {
+                                constexpr float PI =
+                                    3.14159265358979323846f;
+
+                                Eigen::AngleAxisf rotation(
+                                    PI / 2.0f,
+                                    target.world_T_object.linear()
+                                    .col(2).normalized()
+                                );
+
+                                world_T_object_place.linear() =
+                                    rotation.toRotationMatrix() *
+                                    world_T_object_place.linear();
+                                if (object.color == "blue" ) {
+                                    placementPosition.x() -= 0.02f;
+                                    placementPosition.y() += 0.03f;
+                                    placementPosition.z() -= 0.01f;
+                                }
+                                else if (object.color == "black") {
+                                    placementPosition.x() += 0.025f;
+                                    placementPosition.y() += 0.03f;
+                                    placementPosition.z() -= 0.01f;
+                                }
+                                else if (object.color == "yellow") {
+                                    placementPosition.x() += 0.025f;
+                                    placementPosition.y() += 0.055f;
+                                    placementPosition.z() -= 0.01f;
+                                }
+                                else if (object.color == "grey") {
+                                    placementPosition.x() += 0.025f;
+                                    placementPosition.y() += 0.06f;
+                                    placementPosition.z() -= 0.01f;
+                                }
+                            }
+                        }
+
                         break;
+                    }
 
                     case PlacementRelation::In:
+                        if (object.type == "longSpoon")
+                        {
+                            placementPosition.y() += 0.05f;
+                            placementPosition.x() += 0.05f;
+                            placementPosition.z() -= 0.03f;
+                        }
+
+       
                     case PlacementRelation::InMiddleOf:
                         placementPosition.z() += IN_HEIGHT;
                         break;
@@ -247,8 +312,16 @@ void CommandExecutor::executeCommand(
                         break;
 
                     case PlacementRelation::InFrontOf:
-                        placementPosition += targetY * IN_FRONT_OFFSET;
-                        placementPosition.z() += DROP_HEIGHT;
+                        if (object.type == "chamomileTea")
+                        {
+                            placementPosition.y() += 0.12f;
+                            placementPosition.x() += 0.08f;
+                            placementPosition.z() -= 0.03f;
+                        }
+                        else
+                        {
+                            placementPosition.x() += 0.07f;
+                        }
                         break;
 
                     case PlacementRelation::Above:
@@ -258,17 +331,37 @@ void CommandExecutor::executeCommand(
                     case PlacementRelation::High:
                         placementPosition.z() += HIGH_HEIGHT;
                         break;
+
                     case PlacementRelation::Behind:
                         placementPosition -= targetX * BEHIND_OFFSET;
-                        placementPosition.z() += DROP_HEIGHT-0.01f;
+                        placementPosition.z() += DROP_HEIGHT - 0.01f;
                         break;
+
                     case PlacementRelation::Beside:
                         placementPosition -= targetX * BESIDE_OFFSET;
                         placementPosition.z() += DROP_HEIGHT - 0.02f;
                         break;
+
                     case PlacementRelation::NextTo2:
                         placementPosition -= targetX * NEXT_TO2_OFFSET;
                         placementPosition.z() += DROP_HEIGHT;
+                        break;
+
+                    case PlacementRelation::OnLEFT:
+                        placementPosition.y() -= 0.05f;
+
+                        if (object.type == "bowl")
+                            placementPosition.z() += 0.1f;
+
+                        break;
+
+                    case PlacementRelation::OnRIGHT:
+                        placementPosition.y() += 0.05f;
+                        placementPosition.z() += 0.1f;
+
+                        if (object.type == "cup")
+                            placementPosition.y() += 0.02f;
+
                         break;
 
                     default:
@@ -276,9 +369,6 @@ void CommandExecutor::executeCommand(
                             "Unknown placement relation");
                     }
                 }
-
-                Eigen::Affine3f world_T_object_place =
-                    object.world_T_object;
 
                 world_T_object_place.translation() =
                     placementPosition;
@@ -294,10 +384,8 @@ void CommandExecutor::executeCommand(
 
             else if constexpr (std::is_same_v<T, PressCommand>)
             {
-               
-
                 robotController_.press();
-}
+            }
         },
         command);
 }

@@ -175,7 +175,8 @@ namespace
                 {"silver", "Silber"},
                 {"glass", "Glas"},
                 {"grey", "Grau"},
-                {"black", "Schwarz"}
+                {"black", "Schwarz"},
+                {"orange","Orange"}
             };
 
             auto it = colorTranslations.find(parameterColorName);
@@ -186,7 +187,7 @@ namespace
             return QString("%1 (%2)").arg(type, parameterColorName);
         }
 
-        return QString("%1 %2").arg(parameterColorName, type);
+        return QString("%1 (%2)").arg(type, parameterColorName);
     }
     QColor parameterColor(const QString& colorName)
     {
@@ -729,6 +730,7 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     objectColorCombo->addItem("Grey", "grey");
     objectColorCombo->addItem("Black", "black");
     objectColorCombo->addItem("No color", "");
+    objectColorCombo->addItem("Orange", "orange");
 
     auto* objectControls = new QHBoxLayout;
 
@@ -1313,6 +1315,9 @@ void ParametrizationPage::updateAvailableObjectTypes()
         addObjectType("Box", "box");
         addObjectType("Button", "button");
         addObjectType("Circuit", "circuit");
+        addObjectType("Conductor", "conductor");
+        addObjectType("Light conductor", "conductorLight");
+        addObjectType("Conductor Plate", "conductorPlate");
         addObjectType("Connector", "connector");
         addObjectType("Container", "container");
         addObjectType("Gear", "gear");
@@ -1327,6 +1332,7 @@ void ParametrizationPage::updateAvailableObjectTypes()
         addObjectType("Temperature sensor", "temperature_sensor");
         addObjectType("Tray", "tray");
         addObjectType("Wire", "wire");
+    
     }
 }
 

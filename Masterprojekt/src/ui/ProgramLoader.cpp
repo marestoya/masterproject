@@ -124,6 +124,10 @@ std::vector<Program> loadPrograms(const std::string& filePath)
                         placementRelation = PlacementRelation::Beside;
                     else if (relation == "NextTo2")
                         placementRelation = PlacementRelation::NextTo2;
+                    else if (relation == "OnLEFT")
+                        placementRelation = PlacementRelation::OnLEFT;
+                    else if (relation == "OnRIGHT")
+                        placementRelation = PlacementRelation::OnRIGHT;
                     else
                         throw std::runtime_error(
                             "Unknown placement relation: " + relation);

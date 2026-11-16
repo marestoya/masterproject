@@ -170,17 +170,19 @@ void MainWindow::showStudyTask()
 
         // PARAMETRIZATION
 
-        { StudyPageType::Parametrization, "Laboratory", 1, 1, "E2" },
-        { StudyPageType::Parametrization, "Laboratory", 2, 2, "I2" },
+        // PARAMETRIZATION
 
-        { StudyPageType::Parametrization, "Catering", 3, 1, "E4" },
-        { StudyPageType::Parametrization, "Catering", 4, 2, "I4" },
+        { StudyPageType::Parametrization, "Laboratory", 1, 1, "" },
+        { StudyPageType::Parametrization, "Laboratory", 2, 2, "" },
 
-        { StudyPageType::Parametrization, "Workshop", 5, 1, "E2" },
-        { StudyPageType::Parametrization, "Workshop", 6, 2, "I2" },
+        { StudyPageType::Parametrization, "Catering", 3, 1, "" },
+        { StudyPageType::Parametrization, "Catering", 4, 2, "" },
 
-        { StudyPageType::Parametrization, "Electronics", 7, 1, "E4" },
-        { StudyPageType::Parametrization, "Electronics", 8, 2, "I4" }
+        { StudyPageType::Parametrization, "Workshop", 5, 1, "" },
+        { StudyPageType::Parametrization, "Workshop", 6, 2, "" },
+
+        { StudyPageType::Parametrization, "Electronics", 7, 1, "" },
+        { StudyPageType::Parametrization, "Electronics", 8, 2, "" }         
     };
 
     //selector based on the id
@@ -204,14 +206,14 @@ void MainWindow::showStudyTask()
 
     static const QStringList parametrizationVariants[8] =
     {
+        { "I2", "E2", "I4", "E4" },
         { "E2", "I2", "E4", "I4" },
-        { "I2", "E4", "I4", "E2" },
+        { "I4", "E4", "I2", "E2" },
         { "E4", "I4", "E2", "I2" },
-        { "I4", "E2", "I2", "E4" },
+        { "I2", "E2", "I4", "E4" },
         { "E2", "I2", "E4", "I4" },
-        { "I2", "E4", "I4", "E2" },
-        { "E4", "I4", "E2", "I2" },
-        { "I4", "E2", "I2", "E4" }
+        { "I4", "E4", "I2", "E2" },
+        { "E4", "I4", "E2", "I2" }
     };
 
     if (task.pageType == StudyPageType::Plausibility)
@@ -237,7 +239,7 @@ void MainWindow::showStudyTask()
         const int parametrizationIndex = studyTaskIndex - 12;
 
         task.variant =
-            parametrizationVariants[parametrizationIndex][studyListNumber];
+            parametrizationVariants[studyListNumber][parametrizationIndex];
 
         const QString mode =
             task.variant.startsWith("E")
