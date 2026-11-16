@@ -136,7 +136,10 @@ namespace
                 {"table_plate", "Tischplatte"},
                 {"toolbox", "Werkzeugkasten"},
                 {"wrench", "Schraubenschlüssel"},
-                {"chocolate_fountain", "Schokoladenbrunnen"}
+                {"chocolate_fountain", "Schokoladenbrunnen"},
+                {"conductor", "Leiter"},
+                {"conductorPlate", "Leiterplatte"},
+                {"conductorLight", "Lochleiter"}
 
             };
 
@@ -316,8 +319,8 @@ namespace
             {"Set up table", "Tisch decken"},
             {"Return tools", "Werkzeuge zurücklegen"},
             {"Galvanize a gear", "Ein Zahnrad verzinken"},
-            {"Prepare sensor assembly", "Sensorbaugruppe vorbereiten"},
-            {"Sort components", "Bauteile sortieren"}
+            {"Connect conductors", "Leiter verbinden"},
+            {"Connect more conductors", "Weitere Leiter verbinden"}
         };
 
         auto it = translations.find(raw);
@@ -338,7 +341,9 @@ namespace
             {" in the middle of the ", " in die Mitte von "},
             {" next to the ", " neben "},
             {" in front of the ", " vor "},
-            {"Press the ", "Drücke "}
+            {"Press the ", "Drücke "},
+            {" between the ", "zwischen"},
+            {" and the ", " und "}
         };
 
         auto it = translations.find(raw);
@@ -772,8 +777,8 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     auto* rightContainer = new QWidget;
     rightContainer->setLayout(rightPanel);
 
-    contentLayout->addWidget(leftContainer, 1);
-    contentLayout->addWidget(rightContainer, 1);
+    contentLayout->addWidget(leftContainer, 3);
+    contentLayout->addWidget(rightContainer, 2);
 
     mainLayout->addLayout(contentLayout, 1);
 
