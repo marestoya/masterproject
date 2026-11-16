@@ -163,7 +163,7 @@ namespace
             {"green wrench", "grüner Schraubenschlüssel"},
             {"counter", "Schalter"},
             {"bolt", "Bolzen"},
-            {"wire", "Draht"},
+            {"wire", "Kabel"},
             {"button", "Knopf"}
 
         };
@@ -186,7 +186,7 @@ namespace
         static const std::map<QString, QString> colors = {
             {"red", "rot"}, {"blue", "blau"}, {"green", "grün"},
             {"white", "weiß"}, {"grey", "grau"}, {"gray", "grau"},
-            {"brown", "braun"}, {"sale", "Sale"}
+            {"brown", "braun"}
         };
         const QString key = raw.toLower();
         const auto it = colors.find(key);
@@ -229,7 +229,8 @@ namespace
             {"Put another ", "Lege ein weiteres "}, {"Place a ", "Platziere "},
             {"Attach an ", "Befestige "}, {"Place ", "Platziere "},
             {" on all ", " auf allen "}, {" at ", " an "},
-            {"Turn the ", "Schalte "}, {". ", ". "}, {" on.", " ein."}
+            {"Turn the ", "Schalte "}, {". ", ". "}, {" on.", " ein."}, {"Wipe", " Wische"},
+            {" in the corner of the ", "in der Ecke von "}, {"on the left of the ", "links neben "}, {"on the right of the ", "rechts neben "}, {" with the ", " mit "}
         };
         const auto it = fragments.find(text);
         if (it != fragments.end()) return it->second;
@@ -242,15 +243,15 @@ namespace
     {
         if (!german || context.isEmpty()) return context;
         static const std::map<QString, QString> contexts = {
-            {"The blue toolbox belongs to the green wrench.", "Die blaue Werkzeugkiste gehört zum grünen Schraubenschlüssel."},
-            {"The bolt should be used to fasten the long table leg.", "Die Schraube soll zur Befestigung des langen Tischbeins verwendet werden."},
+            {"The blue toolbox should be placed where the green wrench is.", "Die blaue Werkzeugkiste soll da platziert werden, wo der grüne Schraubenschlüssel ist."},
+            {"The bolt should be used to fasten the long table leg.", "Der Bolzen soll zur Befestigung des langen Tischbeins verwendet werden."},
             {"The white package should be in the green container.", "Das weiße Paket soll sich im grünen Behälter befinden."},
             {"The spoon should be placed on the left of the sample rack.", "Der Löffel soll links neben dem Probenständer platziert werden."},
             {"The barometer should be inside the beaker.", "Das Barometer soll sich im Becherglas befinden."},
             {"The glass should be filled with the grey liquid.", "Das Glas soll mit der grauen Flüssigkeit gefüllt werden."},
             {"The spoon container should be at station B.", "Der Löffelbehälter soll an Station B stehen."},
-            {"Sale stickers should be placed on cups.", "Die Sale-Aufkleber sollen auf Bechern platziert werden."},
-            {"The red cake stand should be on the counter.", "Der rote Kuchenständer soll auf der Theke stehen."},
+            {"Sale stickers should be placed on cups.", "Die Angebotssticker sollen auf Bechern platziert werden."},
+            {"The red cake stand should be on the counter.", "Der rote Kuchenständer soll auf dem Schalter stehen."},
             {"Green light needs to be in branch 1.", "Die grüne Lampe muss sich in Zweig 1 befinden."},
             {"Blue wire needs to be in circuit A.", "Das blaue Kabel muss sich in Schaltung A befinden."},
             {"Red button needs to be switched on.", "Der rote Knopf muss eingeschaltet werden."}
@@ -699,22 +700,7 @@ PlausibilityPage::PlausibilityPage(QWidget* parent)
             statusLabel->setText(translatedText("All assignments for this task have been reset", isGerman(this)));
         });
 
-    auto* saveButton = new QPushButton("Save user's choice", this);
-    saveButton->setObjectName("saveButton");
-    saveButton->setMinimumHeight(40);
-    saveButton->setStyleSheet(
-        "QPushButton { background-color: #2e7d32; color: white;"
-        " font-weight: bold; padding: 8px 16px; border-radius: 5px; }"
-        "QPushButton:hover { background-color: #388e3c; }"
-    );
-
-    pageLayout->addWidget(saveButton, 0, Qt::AlignRight);
-
-    connect(saveButton, &QPushButton::clicked,
-        this, [this]()
-        {
-            saveUserChoice();
-        });
+   
     connect(domainCombo, &QComboBox::currentIndexChanged, this, [this](int) { updateProgramList(); });
     connect(programCombo, &QComboBox::currentIndexChanged, this, [this](int) { updateVariantList(); });
     connect(variantCombo, &QComboBox::currentIndexChanged, this, [this](int) { loadSelectedStimulus(); });

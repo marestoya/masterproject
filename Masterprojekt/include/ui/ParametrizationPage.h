@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QWidget>
+#include <QMediaPlayer>
+#include <QVideoWidget>
 #include "model/Program.h"
 #include "model/Parameter.h"
 #include <map>
@@ -10,6 +12,7 @@ class QComboBox;
 class QGridLayout;
 class QVBoxLayout;
 class QWidget;
+class QSlider;
 
 class ParametrizationPage : public QWidget
 {
@@ -24,6 +27,7 @@ public:
 
     bool runParametrization(bool showMessage = true);
     void setStudyLanguage(const QString& language);
+    void setStudyMode(bool enabled);
 
 signals:
     void backToMenuRequested();
@@ -42,11 +46,19 @@ private:
     QVBoxLayout* inputLayout;
     QString participantId;
     QString studyVariant;
+    QMediaPlayer* programPlayer = nullptr;
+    QMediaPlayer* goalPlayer = nullptr;
+    QVideoWidget* programVideoWidget = nullptr;
+    QVideoWidget* goalVideoWidget = nullptr;
+    QWidget* videoContainer = nullptr;
+    QSlider* programVideoSlider;
+    QSlider* goalVideoSlider;
 
     std::vector<Program> programs;
     std::vector<Parameter> inputParameters;
     std::map<int, int> explicitAssignments;
     int nextInputParameterId = 1;
+    bool studyMode = false;
 
     void updateProgramList();
     void updateProgram();
@@ -54,4 +66,8 @@ private:
     void addInputObject();
     void clearInputObjects();
     void updateAvailableObjectTypes();
+    void updateStudyVideos();
+
+protected:
+    bool eventFilter(QObject* watched, QEvent* event) override;
 };

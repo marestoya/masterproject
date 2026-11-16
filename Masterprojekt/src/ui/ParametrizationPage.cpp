@@ -44,6 +44,9 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QUrl>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QSlider>
 
 #include <algorithm>
 #include <exception>
@@ -812,14 +815,165 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     auto* inputScroll = new QScrollArea;
     inputScroll->setWidgetResizable(true);
     inputScroll->setWidget(inputGridContainer);
+    inputScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    inputScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-    inputScroll->setHorizontalScrollBarPolicy(
-        Qt::ScrollBarAlwaysOff);
+    rightPanel->addWidget(inputScroll, 1);
 
-    inputScroll->setVerticalScrollBarPolicy(
-        Qt::ScrollBarAsNeeded);
+    //VIDEOS
 
-    rightPanel->addWidget(inputScroll);
+    videoContainer = new QWidget(this);
+    auto* videoLayout = new QHBoxLayout(videoContainer);
+    videoLayout->setContentsMargins(0, 5, 0, 0);
+    videoLayout->setSpacing(10);
+
+    auto* programVideoLayout = new QVBoxLayout;
+
+    auto* programVideoLabel = new QLabel("Program video", this);
+    programVideoLabel->setAlignment(Qt::AlignCenter);
+    programVideoLayout->addWidget(programVideoLabel);
+
+    programVideoWidget = new QVideoWidget(this);
+    programVideoWidget->installEventFilter(this);
+    programVideoWidget->setMinimumHeight(130);
+    programVideoWidget->setSizePolicy(
+        QSizePolicy::Expanding,
+        QSizePolicy::Expanding
+    );
+
+    programVideoLayout->addWidget(programVideoWidget);
+    programVideoSlider = new QSlider(Qt::Horizontal, this);
+    programVideoSlider->setRange(0, 0);
+    programVideoSlider->setEnabled(false);
+
+    programVideoLayout->addWidget(programVideoSlider);
+    auto* programPlayButton =
+    new QPushButton("Pause", this);
+
+programVideoLayout->addWidget(
+    programPlayButton,
+    0,
+    Qt::AlignCenter
+);
+
+connect(programPlayButton, &QPushButton::clicked,
+    this, [this, programPlayButton]()
+    {
+        if (programPlayer->playbackState() ==
+            QMediaPlayer::PlayingState)
+        {
+            programPlayer->pause();
+            programPlayButton->setText("Play");
+        }
+        else
+        {
+            programPlayer->play();
+            programPlayButton->setText("Pause");
+        }
+    });
+    auto* programFullscreenButton =
+        new QPushButton("Fullscreen", this);
+
+    programVideoLayout->addWidget(
+        programFullscreenButton,
+        0,
+        Qt::AlignCenter
+    );
+
+    auto* goalVideoLayout = new QVBoxLayout;
+
+    auto* goalVideoLabel = new QLabel("Goal video", this);
+    goalVideoLabel->setAlignment(Qt::AlignCenter);
+    goalVideoLayout->addWidget(goalVideoLabel);
+
+    goalVideoWidget = new QVideoWidget(this);
+    goalVideoWidget->installEventFilter(this);
+    goalVideoWidget->setMinimumHeight(130);
+    goalVideoWidget->setSizePolicy(
+        QSizePolicy::Expanding,
+        QSizePolicy::Expanding
+    );
+    goalVideoLayout->addWidget(goalVideoWidget);
+    goalVideoSlider = new QSlider(Qt::Horizontal, this);
+    goalVideoSlider->setRange(0, 0);
+    goalVideoSlider->setEnabled(false);
+
+    goalVideoLayout->addWidget(goalVideoSlider);
+
+    auto* goalFullscreenButton =
+        new QPushButton("Fullscreen", this);
+
+    goalVideoLayout->addWidget(
+        goalFullscreenButton,
+        0,
+        Qt::AlignCenter
+    );
+
+    videoLayout->addLayout(programVideoLayout);
+    videoLayout->addLayout(goalVideoLayout);
+
+    videoContainer->setFixedHeight(210);
+    videoContainer->setVisible(false);
+
+    rightPanel->addWidget(videoContainer);
+
+
+    programPlayer = new QMediaPlayer(this);
+    programPlayer->setVideoOutput(programVideoWidget);
+
+    goalPlayer = new QMediaPlayer(this);
+    goalPlayer->setVideoOutput(goalVideoWidget);
+   
+    //SLIDERS
+    connect(programPlayer, &QMediaPlayer::positionChanged,
+        this, [this](qint64 position)
+        {
+            if (!programVideoSlider->isSliderDown())
+                programVideoSlider->setValue(static_cast<int>(position));
+        });
+
+    connect(programPlayer, &QMediaPlayer::durationChanged,
+        this, [this](qint64 duration)
+        {
+            programVideoSlider->setRange(0, static_cast<int>(duration));
+            programVideoSlider->setEnabled(duration > 0);
+        });
+
+    connect(programVideoSlider, &QSlider::sliderMoved,
+        programPlayer, &QMediaPlayer::setPosition);
+
+
+    connect(goalPlayer, &QMediaPlayer::positionChanged,
+        this, [this](qint64 position)
+        {
+            if (!goalVideoSlider->isSliderDown())
+                goalVideoSlider->setValue(static_cast<int>(position));
+        });
+
+    connect(goalPlayer, &QMediaPlayer::durationChanged,
+        this, [this](qint64 duration)
+        {
+            goalVideoSlider->setRange(0, static_cast<int>(duration));
+            goalVideoSlider->setEnabled(duration > 0);
+        });
+
+    connect(goalVideoSlider, &QSlider::sliderMoved,
+        goalPlayer, &QMediaPlayer::setPosition);
+    connect(programFullscreenButton, &QPushButton::clicked,
+        this, [this]()
+        {
+            programVideoWidget->setFullScreen(
+                !programVideoWidget->isFullScreen()
+            );
+        });
+
+    connect(goalFullscreenButton, &QPushButton::clicked,
+        this, [this]()
+        {
+            goalVideoWidget->setFullScreen(
+                !goalVideoWidget->isFullScreen()
+            );
+        });
 
     auto* leftContainer = new QWidget;
     leftContainer->setLayout(leftPanel);
@@ -1321,6 +1475,25 @@ void ParametrizationPage::updateAvailableObjectTypes()
                 parameterName(parameter, german),
                 internalName
             );
+
+            const int index = objectTypeCombo->count() - 1;
+
+            if (QFileInfo::exists(imagePath))
+            {
+                const QString imageUrl =
+                    QUrl::fromLocalFile(imagePath).toString();
+
+                const QString tooltip =
+                    QString(
+                        "<img src='%1' width='140'>"
+                    ).arg(imageUrl);
+
+                objectTypeCombo->setItemData(
+                    index,
+                    tooltip,
+                    Qt::ToolTipRole
+                );
+            }
         };
 
     if (domain == "Laboratory")
@@ -1769,7 +1942,10 @@ void ParametrizationPage::setStudyTask(
     const QString domain =
         QString::fromStdString(programIt->domain);
 
-    domainCombo->setCurrentText(domain);
+    const int domainIndex = domainCombo->findData(domain);
+
+    if (domainIndex >= 0)
+        domainCombo->setCurrentIndex(domainIndex);
 
     const int programIndex =
         programCombo->findData(programId);
@@ -1780,12 +1956,13 @@ void ParametrizationPage::setStudyTask(
     programCombo->setCurrentIndex(programIndex);
 
     const int modeIndex =
-        modeCombo->findText(mode);
+        modeCombo->findData(mode);
 
     if (modeIndex >= 0)
         modeCombo->setCurrentIndex(modeIndex);
 
     studyVariant = variant;
+    updateStudyVideos();
 }
 
 
@@ -1905,4 +2082,100 @@ void ParametrizationPage::setStudyLanguage(const QString& language)
     );
 
     updateProgramList();
+}
+
+void ParametrizationPage::setStudyMode(bool enabled)
+{
+    studyMode = enabled;
+    videoContainer->setVisible(enabled);
+}
+
+void ParametrizationPage::updateStudyVideos()
+{
+    if (!studyMode || studyVariant.isEmpty())
+        return;
+
+    const auto programIt = std::find_if(
+        programs.begin(),
+        programs.end(),
+        [this](const Program& program)
+        {
+            return program.id == programCombo->currentData().toInt();
+        });
+
+    if (programIt == programs.end())
+        return;
+
+    QString programName = QString::fromStdString(programIt->name);
+
+    programName.remove(' ');
+
+    const QString suffix = studyVariant.right(1);
+
+    if (suffix != "2" && suffix != "4")
+        return;
+
+    const QString videosPath =
+        "C:/Users/marsp/source/repos/Masterprojekt/"
+        "Masterprojekt/videos";
+
+    const QString programVideoPath =
+        QDir(videosPath).filePath(programName + ".mp4");
+
+    const QString goalVideoPath =
+        QDir(videosPath).filePath(programName + suffix + ".mp4");
+
+    programPlayer->stop();
+    goalPlayer->stop();
+
+    if (QFileInfo::exists(programVideoPath))
+    {
+        programPlayer->setSource(
+            QUrl::fromLocalFile(programVideoPath)
+        );
+        programPlayer->play();
+    }
+    else
+    {
+        qWarning() << "Program video not found:" << programVideoPath;
+        programPlayer->setSource(QUrl());
+    }
+
+    if (QFileInfo::exists(goalVideoPath))
+    {
+        goalPlayer->setSource(
+            QUrl::fromLocalFile(goalVideoPath)
+        );
+        goalPlayer->play();
+    }
+    else
+    {
+        qWarning() << "Goal video not found:" << goalVideoPath;
+        goalPlayer->setSource(QUrl());
+    }
+}
+
+bool ParametrizationPage::eventFilter(QObject* watched, QEvent* event)
+{
+    if (event->type() == QEvent::KeyPress)
+    {
+        auto* keyEvent = static_cast<QKeyEvent*>(event);
+
+        if (keyEvent->key() == Qt::Key_Escape)
+        {
+            if (programVideoWidget->isFullScreen())
+            {
+                programVideoWidget->setFullScreen(false);
+                return true;
+            }
+
+            if (goalVideoWidget->isFullScreen())
+            {
+                goalVideoWidget->setFullScreen(false);
+                return true;
+            }
+        }
+    }
+
+    return QWidget::eventFilter(watched, event);
 }

@@ -3251,6 +3251,78 @@
             "timestamp": "2026-11-16T11:30:11",
             "total_cost": 8,
             "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 3
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 3,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                }
+            ],
+            "participant_id": "5",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-16T20:16:26",
+            "total_cost": 0.9,
+            "variant": ""
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 3,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 5
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "bowl"
+                },
+                {
+                    "color": "white",
+                    "object_id": 2,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                },
+                {
+                    "color": "grey",
+                    "object_id": 3,
+                    "program_slot_id": 5,
+                    "type": "longSpoon"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "program_name": "Set up table",
+            "timestamp": "2026-11-16T20:23:05",
+            "total_cost": 8,
+            "variant": ""
         }
     ]
 }

@@ -115,6 +115,8 @@
         ],
         [
           { "text": "Fasten the " },
+          { "slot": 3 },
+          { "text": " with the " },
           { "slot": 4 },
           { "text": "." }
         ],
@@ -243,7 +245,7 @@
         [
           { "text": "Put the " },
           { "slot": 3 },
-          { "text": " on the left of the " },
+          { "text": " on the " },
           { "slot": 1 },
           { "text": "." }
         ],
@@ -257,7 +259,7 @@
         [
           { "text": "Put the " },
           { "slot": 5 },
-          { "text": " next to the " },
+          { "text": " on the left of the " },
           { "slot": 1 },
           { "text": "." }
         ]
@@ -571,7 +573,7 @@
         [
           { "text": "Put the " },
           { "slot": 1 },
-          { "text": " on the left " },
+          { "text": " on the left of the " },
           { "slot": 2 },
           { "text": "." }
         ],

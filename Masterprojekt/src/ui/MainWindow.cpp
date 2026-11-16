@@ -90,7 +90,7 @@ void MainWindow::showMainMenu()
 {
     studyMode = false;
     nextStudyButton->hide();
-
+    parametrizationPage->setStudyMode(false);
     stackedWidget->setCurrentWidget(mainMenu);
     setWindowTitle("Study");
 }
@@ -239,12 +239,13 @@ void MainWindow::showStudyTask()
         const int parametrizationIndex = studyTaskIndex - 12;
 
         task.variant =
-            parametrizationVariants[studyListNumber][parametrizationIndex];
-
+            parametrizationVariants[parametrizationIndex][studyListNumber];
         const QString mode =
             task.variant.startsWith("E")
             ? "Explicit"
             : "Implicit";
+
+        parametrizationPage->setStudyMode(true);
         parametrizationPage->setStudyLanguage(studyLanguage);
         parametrizationPage->setStudyTask(
             task.programId,
@@ -270,19 +271,14 @@ void MainWindow::advanceStudy()
     if (!studyMode)
         return;
 
-    bool success = false;
-
     if (studyTaskIndex < 12)
     {
-        success = plausibilityPage->saveUserChoice(false);
-    }
-    else
-    {
-        success = parametrizationPage->runParametrization(false);
-    }
+        const bool success =
+            plausibilityPage->saveUserChoice(false);
 
-    if (!success)
-        return;
+        if (!success)
+            return;
+    }
 
     ++studyTaskIndex;
 
