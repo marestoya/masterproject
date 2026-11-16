@@ -40,6 +40,10 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDateTime>
+#include <QIcon>
+#include <QFileInfo>
+#include <QStandardPaths>
+#include <QUrl>
 
 #include <algorithm>
 #include <exception>
@@ -125,7 +129,7 @@ namespace
                 {"cotton_pad", "Wattepad"},
                 {"liquid", "Flüssigkeit"},
                 {"stirrer", "Rührstab"},
-                {"testTubeRack", "Reagenzglasständer"},
+                {"testTubeHolder", "Reagenzglasständer"},
                 {"long_table_leg", "Langes Tischbein"},
                 {"package", "Paket"},
                 {"screw", "Schraube"},
@@ -349,6 +353,31 @@ namespace
         auto it = translations.find(raw);
         return it != translations.end() ? it->second : raw;
     }
+
+    QString objectImagePath(const QString& type)
+    {
+        QString filename;
+        bool capitalizeNext = true;
+
+        for (const QChar character : type)
+        {
+            if (character == '_')
+            {
+                capitalizeNext = true;
+                continue;
+            }
+
+            filename += capitalizeNext
+                ? character.toUpper()
+                : character;
+
+            capitalizeNext = false;
+        }
+
+     
+
+        return QDir::currentPath() + "/pics/" + filename + ".png";
+    }
 }
 
 //draggable for input param for the explicit parametrization
@@ -450,6 +479,7 @@ public:
     DropSlot(
         int slotId,
         const QString& initialText,
+        const QString& imagePath,
         QObject* modeOwner,
         AssignmentCallback callback,
         QWidget* parent = nullptr)
@@ -468,7 +498,22 @@ public:
         setWordWrap(true);
         setFrameShape(QFrame::StyledPanel);
 
-        setToolTip(QString("Program slot %1").arg(slotId));
+        if (QFileInfo::exists(imagePath))
+        {
+            const QString imageUrl =
+                QUrl::fromLocalFile(imagePath).toString();
+
+            setToolTip(
+                QString(
+                    "<div>Program slot %1</div>"
+                    "<img src=\"%2\" width=\"180\">"
+                ).arg(slotId).arg(imageUrl)
+            );
+        }
+        else
+        {
+            setToolTip(QString("Program slot %1").arg(slotId));
+        }
 
         updateStyle();
     }
@@ -724,27 +769,32 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
 
     rightPanel->addWidget(inputTitle);
 
-    objectColorCombo->addItem("Red", "red");
-    objectColorCombo->addItem("Brown", "brown");
-    objectColorCombo->addItem("Green", "green");
-    objectColorCombo->addItem("Blue", "blue");
-    objectColorCombo->addItem("Yellow", "yellow");
-    objectColorCombo->addItem("White", "white");
-    objectColorCombo->addItem("Silver", "silver");
-    objectColorCombo->addItem("Glass", "glass");
-    objectColorCombo->addItem("Grey", "grey");
-    objectColorCombo->addItem("Black", "black");
     objectColorCombo->addItem("No color", "");
+    objectColorCombo->addItem("Black", "black");
+    objectColorCombo->addItem("Blue", "blue");
+    objectColorCombo->addItem("Brown", "brown");
+    objectColorCombo->addItem("Glass", "glass");
+    objectColorCombo->addItem("Green", "green");
+    objectColorCombo->addItem("Grey", "grey");
     objectColorCombo->addItem("Orange", "orange");
-
+    objectColorCombo->addItem("Red", "red");
+    objectColorCombo->addItem("Silver", "silver");
+    objectColorCombo->addItem("White", "white");
+    objectColorCombo->addItem("Yellow", "yellow");
+   
+  
+    objectColorCombo->setFixedHeight(40);
     auto* objectControls = new QHBoxLayout;
 
     objectControls->addWidget(objectTypeCombo);
     objectControls->addWidget(objectColorCombo);
 
+
+    objectTypeCombo->setIconSize(QSize(28, 28));
+
     auto* addButton = new QPushButton("+ Add object", this);
     addButton->setObjectName("addButton");
-
+	addButton->setFixedHeight(40);
     objectControls->addWidget(addButton);
 
     rightPanel->addLayout(objectControls);
@@ -1049,6 +1099,25 @@ void ParametrizationPage::renderProgram(const Program& program)
             refreshSlotDisplays();
         };
 
+    auto getSlotImagePath = [&program](int slotId)
+        {
+            auto it = std::find_if(
+                program.parameters.begin(),
+                program.parameters.end(),
+                [slotId](const ParameterSlot& slot)
+                {
+                    return slot.id == slotId;
+                }
+            );
+
+            if (it == program.parameters.end() || it->parameters.empty())
+                return QString();
+
+            return objectImagePath(
+                QString::fromStdString(it->parameters.front().type)
+            );
+        };
+
     for (const auto& instruction : program.instructions)
     {
         auto* instructionWidget = new QWidget(programPanel);
@@ -1068,6 +1137,7 @@ void ParametrizationPage::renderProgram(const Program& program)
                         segment.slotId,
                         german
                     ),
+                    getSlotImagePath(segment.slotId),
                     this,
                     updateAssignment,
                     instructionWidget
@@ -1228,7 +1298,7 @@ void ParametrizationPage::updateAvailableObjectTypes()
 {
     const bool german = isGerman(this);
     const QString domain = domainCombo->currentData().toString();
-
+  
     objectTypeCombo->clear();
 
     auto addObjectType = [this, german](
@@ -1239,7 +1309,15 @@ void ParametrizationPage::updateAvailableObjectTypes()
             parameter.type = internalName.toStdString();
             parameter.color = "";
 
+            const QString imagePath = objectImagePath(internalName);
+
+            QIcon icon;
+
+            if (QFileInfo::exists(imagePath))
+                icon = QIcon(imagePath);
+
             objectTypeCombo->addItem(
+                icon,
                 parameterName(parameter, german),
                 internalName
             );
@@ -1247,97 +1325,62 @@ void ParametrizationPage::updateAvailableObjectTypes()
 
     if (domain == "Laboratory")
     {
-        addObjectType("Barometer", "barometer");
+       
+        //Parametrization
         addObjectType("Beaker", "beaker");
         addObjectType("Box", "box");
-        addObjectType("Cotton pad", "cotton_pad");
-        addObjectType("Glass", "glass");
-        addObjectType("Liquid", "liquid");
-        addObjectType("Spoon", "spoon");
-        addObjectType("Stirrer", "stirrer");
-        addObjectType("Table", "table");
         addObjectType("Test tube", "testTube");
         addObjectType("Thermometer", "thermometer");
         addObjectType("Tray", "tray");
-        addObjectType("Tube rack", "testTubeRack");
+        addObjectType("Tube tube holder", "testTubeHolder");
+        addObjectType("Glass", "glass");
+
+        addObjectType("Spoon", "spoon");
     }
     else if (domain == "Catering")
     {
+		
+
+		//Parametrization
         addObjectType("Bowl", "bowl");
-        addObjectType("Cake stand", "cake_stand");
         addObjectType("Chamomile Tea", "chamomileTea");
-        addObjectType("Chocolate fountain", "chocolate_fountain");
-        addObjectType("Counter", "counter");
         addObjectType("Cutting Board", "cuttingBoard");
+        addObjectType("Glass", "glass");
         addObjectType("Cup", "cup");
         addObjectType("Fork", "fork");
-        addObjectType("Fork container", "fork_container");
-        addObjectType("Glass", "glass");
-        addObjectType("Juice", "juice");
         addObjectType("Large Cup", "largeCup");
         addObjectType("Long Spoon", "longSpoon");
-        addObjectType("Muffin", "muffin");
-        addObjectType("Napkin", "napkin");
         addObjectType("Plate", "plate");
-        addObjectType("Plate stack", "plate_stack");
-        addObjectType("Price tag", "price_tag");
-        addObjectType("Sale sticker", "sale_sticker");
         addObjectType("Small Plate", "smallPlate");
-        addObjectType("Small table", "small_table");
         addObjectType("Spoon", "spoon");
-        addObjectType("Spoon container", "spoon_container");
-        addObjectType("Table", "table");
-        addObjectType("Tea bag", "tea_bag");
+        addObjectType("Matcha tea bag", "matchaTeaBag");
         addObjectType("Tray", "tray");
+
     }
     else if (domain == "Workshop")
     {
+		
+		//Parametrization
+
         addObjectType("Bolt", "bolt");
         addObjectType("Box", "box");
         addObjectType("Drill", "drill");
         addObjectType("Gear", "gear");
         addObjectType("Hammer", "hammer");
-        addObjectType("Long table leg", "long_table_leg");
-        addObjectType("Package", "package");
-        addObjectType("Screw", "screw");
-        addObjectType("Screwdriver", "screwdriver");
-        addObjectType("Shelf", "shelf");
-        addObjectType("Shelf", "shelf");
-        addObjectType("Short table leg", "short_table_leg");
-        addObjectType("Storage", "storage");
-        addObjectType("Table", "table");
-        addObjectType("Table plate", "table_plate");
-        addObjectType("Toolbox", "toolbox");
         addObjectType("Tray", "tray");
         addObjectType("Vat", "vat");
-        addObjectType("Wrench", "wrench");
     }
     else if (domain == "Electronics")
     {
-        addObjectType("Battery", "battery");
-        addObjectType("Branch", "branch");
+		
+		//Parametrization
         addObjectType("Bolt", "bolt");
         addObjectType("Box", "box");
-        addObjectType("Button", "button");
-        addObjectType("Circuit", "circuit");
         addObjectType("Conductor", "conductor");
         addObjectType("Light conductor", "conductorLight");
         addObjectType("Conductor Plate", "conductorPlate");
-        addObjectType("Connector", "connector");
-        addObjectType("Container", "container");
         addObjectType("Gear", "gear");
-        addObjectType("ID card", "id_card");
-        addObjectType("Light", "light");
-        addObjectType("Module", "module");
-        addObjectType("Panel", "panel");
-        addObjectType("Power unit", "powerUnit");
-        addObjectType("Resistor", "resistor");
-        addObjectType("Sensor", "sensor");
-        addObjectType("Switch", "switch");
-        addObjectType("Temperature sensor", "temperature_sensor");
         addObjectType("Tray", "tray");
-        addObjectType("Wire", "wire");
-    
     }
 }
 
@@ -1476,7 +1519,6 @@ bool ParametrizationPage::runParametrization(bool showMessage)
         {
             ursim::unity_simulation simulation;
             std::this_thread::sleep_for(std::chrono::seconds(2));
-
             RobotController robotController(simulation);
 
             if (!robotController.initializeScene(instantiatedProgram))

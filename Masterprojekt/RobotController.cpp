@@ -132,13 +132,11 @@ void RobotController::moveToTcpPose(
 void RobotController::openGripper()
 {
     simulation_.control.open_gripper();
-    std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 void RobotController::closeGripper()
 {
     simulation_.control.close_gripper();
-    std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 
 void RobotController::pickUp(const Parameter& object)
