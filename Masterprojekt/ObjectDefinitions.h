@@ -102,7 +102,7 @@ namespace ObjectDefinitions
         {
             parameter.graspable = GraspableProperties{
                 makeTransform(
-                    Eigen::Vector3f(0, 0, 0),
+                    Eigen::Vector3f(0, 0, 0.01f),
                     xAxis,
                     pi
                 )

@@ -829,7 +829,10 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
 
     auto* programVideoLayout = new QVBoxLayout;
 
+    const bool german = isGerman(this);
+
     auto* programVideoLabel = new QLabel("Program video", this);
+    programVideoLabel->setObjectName("programVideoLabel");
     programVideoLabel->setAlignment(Qt::AlignCenter);
     programVideoLayout->addWidget(programVideoLabel);
 
@@ -847,42 +850,44 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     programVideoSlider->setEnabled(false);
 
     programVideoLayout->addWidget(programVideoSlider);
-    auto* programPlayButton =
-    new QPushButton("Pause", this);
+    auto* programControlsLayout = new QHBoxLayout;
 
-programVideoLayout->addWidget(
-    programPlayButton,
-    0,
-    Qt::AlignCenter
-);
+    auto* programPlayButton = new QPushButton("Play", this);
+    auto* programFullscreenButton = new QPushButton("Fullscreen", this);
+    programPlayButton->setObjectName("programPlayButton");
+    programFullscreenButton->setObjectName("programFullscreenButton");
 
-connect(programPlayButton, &QPushButton::clicked,
-    this, [this, programPlayButton]()
-    {
-        if (programPlayer->playbackState() ==
-            QMediaPlayer::PlayingState)
+    programControlsLayout->addWidget(programPlayButton);
+    programControlsLayout->addWidget(programFullscreenButton);
+
+    programVideoLayout->addLayout(programControlsLayout);
+
+    connect(programPlayButton, &QPushButton::clicked,
+        this, [this, programPlayButton]()
         {
-            programPlayer->pause();
-            programPlayButton->setText("Play");
-        }
-        else
-        {
-            programPlayer->play();
-            programPlayButton->setText("Pause");
-        }
-    });
-    auto* programFullscreenButton =
-        new QPushButton("Fullscreen", this);
+            const bool german = isGerman(this);
 
-    programVideoLayout->addWidget(
-        programFullscreenButton,
-        0,
-        Qt::AlignCenter
-    );
+            if (programPlayer->playbackState() ==
+                QMediaPlayer::PlayingState)
+            {
+                programPlayer->pause();
+                programPlayButton->setText(
+                    german ? "Abspielen" : "Play"
+                );
+            }
+            else
+            {
+                programPlayer->play();
+                programPlayButton->setText(
+                    german ? "Pausieren" : "Pause"
+                );
+            }
+        });
 
     auto* goalVideoLayout = new QVBoxLayout;
 
     auto* goalVideoLabel = new QLabel("Goal video", this);
+    goalVideoLabel->setObjectName("goalVideoLabel");
     goalVideoLabel->setAlignment(Qt::AlignCenter);
     goalVideoLayout->addWidget(goalVideoLabel);
 
@@ -900,14 +905,17 @@ connect(programPlayButton, &QPushButton::clicked,
 
     goalVideoLayout->addWidget(goalVideoSlider);
 
-    auto* goalFullscreenButton =
-        new QPushButton("Fullscreen", this);
+    auto* goalControlsLayout = new QHBoxLayout;
 
-    goalVideoLayout->addWidget(
-        goalFullscreenButton,
-        0,
-        Qt::AlignCenter
-    );
+    auto* goalPlayButton = new QPushButton("Play", this);
+    auto* goalFullscreenButton = new QPushButton( "Fullscreen", this);
+    goalPlayButton->setObjectName("goalPlayButton");
+    goalFullscreenButton->setObjectName("goalFullscreenButton");
+
+    goalControlsLayout->addWidget(goalPlayButton);
+    goalControlsLayout->addWidget(goalFullscreenButton);
+
+    goalVideoLayout->addLayout(goalControlsLayout);
 
     videoLayout->addLayout(programVideoLayout);
     videoLayout->addLayout(goalVideoLayout);
@@ -923,6 +931,27 @@ connect(programPlayButton, &QPushButton::clicked,
 
     goalPlayer = new QMediaPlayer(this);
     goalPlayer->setVideoOutput(goalVideoWidget);
+    connect(goalPlayButton, &QPushButton::clicked,
+        this, [this, goalPlayButton]()
+        {
+            const bool german = isGerman(this);
+
+            if (goalPlayer->playbackState() ==
+                QMediaPlayer::PlayingState)
+            {
+                goalPlayer->pause();
+                goalPlayButton->setText(
+                    german ? "Abspielen" : "Play"
+                );
+            }
+            else
+            {
+                goalPlayer->play();
+                goalPlayButton->setText(
+                    german ? "Pausieren" : "Pause"
+                );
+            }
+        });
    
     //SLIDERS
     connect(programPlayer, &QMediaPlayer::positionChanged,
@@ -981,8 +1010,8 @@ connect(programPlayButton, &QPushButton::clicked,
     auto* rightContainer = new QWidget;
     rightContainer->setLayout(rightPanel);
 
-    contentLayout->addWidget(leftContainer, 3);
-    contentLayout->addWidget(rightContainer, 2);
+    contentLayout->addWidget(leftContainer, 4);
+    contentLayout->addWidget(rightContainer, 3);
 
     mainLayout->addLayout(contentLayout, 1);
 
@@ -1980,6 +2009,16 @@ void ParametrizationPage::setStudyLanguage(const QString& language)
     auto* modeLabel = findChild<QLabel*>("modeLabel");
     auto* programTitle = findChild<QLabel*>("programTitle");
     auto* inputTitle = findChild<QLabel*>("inputTitle");
+    auto* programVideoLabel = findChild<QLabel*>("programVideoLabel");
+    auto* goalVideoLabel =findChild<QLabel*>("goalVideoLabel");
+    auto* programPlayButton =findChild<QPushButton*>("programPlayButton");
+    auto* goalPlayButton =findChild<QPushButton*>("goalPlayButton");
+    auto* programFullscreenButton =findChild<QPushButton*>("programFullscreenButton");
+    auto* goalFullscreenButton =findChild<QPushButton*>("goalFullscreenButton");
+    auto* backButton = findChild<QPushButton*>("backButton");
+    auto* addButton = findChild<QPushButton*>("addButton");
+    auto* clearButton = findChild<QPushButton*>("clearButton");
+    auto* runButton = findChild<QPushButton*>("runButton");
 
     if (domainLabel)
         domainLabel->setText(german ? "Bereich:" : "Domain:");
@@ -1997,11 +2036,6 @@ void ParametrizationPage::setStudyLanguage(const QString& language)
         inputTitle->setText(
             german ? "Eingabeobjekte" : "Input objects"
         );
-
-    auto* backButton = findChild<QPushButton*>("backButton");
-    auto* addButton = findChild<QPushButton*>("addButton");
-    auto* clearButton = findChild<QPushButton*>("clearButton");
-    auto* runButton = findChild<QPushButton*>("runButton");
 
     if (backButton)
         backButton->setText(german ? "Zurück" : "Back");
@@ -2024,6 +2058,42 @@ void ParametrizationPage::setStudyLanguage(const QString& language)
             ? "Parametrisierung starten"
             : "Run parametrization"
         );
+
+    // Video translations
+    if (programVideoLabel)
+        programVideoLabel->setText(
+            german ? "Programmvideo" : "Program video"
+        );
+
+    if (goalVideoLabel)
+        goalVideoLabel->setText(
+            german ? "Zielvideo" : "Goal video"
+        );
+
+    if (programPlayButton)
+        programPlayButton->setText(
+            programPlayer->playbackState() == QMediaPlayer::PlayingState
+            ? (german ? "Pausieren" : "Pause")
+            : (german ? "Abspielen" : "Play")
+        );
+
+    if (goalPlayButton)
+        goalPlayButton->setText(
+            goalPlayer->playbackState() == QMediaPlayer::PlayingState
+            ? (german ? "Pausieren" : "Pause")
+            : (german ? "Abspielen" : "Play")
+        );
+
+    if (programFullscreenButton)
+        programFullscreenButton->setText(
+            german ? "Vollbild" : "Fullscreen"
+        );
+
+    if (goalFullscreenButton)
+        goalFullscreenButton->setText(
+            german ? "Vollbild" : "Fullscreen"
+        );
+
 
     for (int i = 0; i < domainCombo->count(); ++i)
     {
@@ -2134,6 +2204,7 @@ void ParametrizationPage::updateStudyVideos()
             QUrl::fromLocalFile(programVideoPath)
         );
         programPlayer->play();
+        programPlayer->stop();
     }
     else
     {
@@ -2147,6 +2218,7 @@ void ParametrizationPage::updateStudyVideos()
             QUrl::fromLocalFile(goalVideoPath)
         );
         goalPlayer->play();
+		goalPlayer->stop();
     }
     else
     {

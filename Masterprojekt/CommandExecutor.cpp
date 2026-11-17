@@ -162,7 +162,7 @@ void CommandExecutor::executeCommand(
                     placementPosition =
                         target.world_T_object.translation();
 
-                    placementPosition.z() += 0.12f;
+                    placementPosition.z() += 0.09f;
                     placementPosition.x() += 0.05f;
                 }
                 else if (object.type == "drill")
@@ -186,7 +186,7 @@ void CommandExecutor::executeCommand(
                     placementPosition =
                         target.world_T_object.translation();
 
-                    placementPosition.y() += 0.05f;
+                    placementPosition.y() += 0.08f;
                 }
                 else if (object.type == "spoon" &&
                     target.type == "beaker")
