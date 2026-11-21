@@ -58,7 +58,14 @@
 #include <vector>
 #include <optional>
 #include <iostream>
-
+#include <QShortcut>
+#include <QKeySequence>
+#include <QApplication>
+#include <QLineEdit>
+#include <QTextEdit>
+#include <QPlainTextEdit>
+#include <QAbstractSpinBox>
+#include <limits>
 //TODO: Translation could be saved in json, for now thats fine i think
 namespace
 {
@@ -350,7 +357,8 @@ namespace
             {" in front of the ", " vor "},
             {"Press the ", "Drücke "},
             {" between the ", "zwischen"},
-            {" and the ", " und "}
+            {" and the ", " und "},
+            {"Dip the ", "Tunke "}
         };
 
         auto it = translations.find(raw);
@@ -399,7 +407,7 @@ public:
         setProperty("parameterId", parameterId);
         setFrameShape(QFrame::StyledPanel);
         setAlignment(Qt::AlignCenter);
-        setFixedSize(150, 64);
+        setFixedSize(120, 48);
         setWordWrap(true);
         setCursor(Qt::OpenHandCursor);
 
@@ -762,7 +770,7 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     programScroll->setWidgetResizable(true);
     programScroll->setWidget(programPanel);
 
-    leftPanel->addWidget(programScroll);
+    leftPanel->addWidget(programScroll, 3);
 
     auto* inputTitle = new QLabel("Input objects", this);
     inputTitle->setObjectName("inputTitle");
@@ -770,7 +778,7 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     inputTitle->setStyleSheet(
         "font-size: 18px; font-weight: bold;");
 
-    rightPanel->addWidget(inputTitle);
+    leftPanel->addWidget(inputTitle);
 
     objectColorCombo->addItem("No color", "");
     objectColorCombo->addItem("Black", "black");
@@ -784,8 +792,8 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     objectColorCombo->addItem("Silver", "silver");
     objectColorCombo->addItem("White", "white");
     objectColorCombo->addItem("Yellow", "yellow");
-   
-  
+
+
     objectColorCombo->setFixedHeight(40);
     auto* objectControls = new QHBoxLayout;
 
@@ -797,17 +805,17 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
 
     auto* addButton = new QPushButton("+ Add object", this);
     addButton->setObjectName("addButton");
-	addButton->setFixedHeight(40);
+    addButton->setFixedHeight(40);
     objectControls->addWidget(addButton);
 
-    rightPanel->addLayout(objectControls);
+    leftPanel->addLayout(objectControls);
 
     auto* clearButton = new QPushButton(
         "Clear all input objects", this);
 
     clearButton->setObjectName("clearButton");
 
-    rightPanel->addWidget(clearButton);
+    leftPanel->addWidget(clearButton);
 
     inputGridLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
     inputGridLayout->setSpacing(10);
@@ -818,18 +826,19 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     inputScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     inputScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-    rightPanel->addWidget(inputScroll, 1);
+    leftPanel->addWidget(inputScroll, 1);
 
-    //VIDEOS
+    // VIDEOS
 
     videoContainer = new QWidget(this);
-    auto* videoLayout = new QHBoxLayout(videoContainer);
+    auto* videoLayout = new QVBoxLayout(videoContainer);
     videoLayout->setContentsMargins(0, 5, 0, 0);
-    videoLayout->setSpacing(10);
-
-    auto* programVideoLayout = new QVBoxLayout;
+    videoLayout->setSpacing(8);
 
     const bool german = isGerman(this);
+
+    // Program video
+    auto* programVideoLayout = new QVBoxLayout;
 
     auto* programVideoLabel = new QLabel("Program video", this);
     programVideoLabel->setObjectName("programVideoLabel");
@@ -843,47 +852,18 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
         QSizePolicy::Expanding,
         QSizePolicy::Expanding
     );
+    programVideoLayout->addWidget(programVideoWidget, 1);
 
-    programVideoLayout->addWidget(programVideoWidget);
-    programVideoSlider = new QSlider(Qt::Horizontal, this);
-    programVideoSlider->setRange(0, 0);
-    programVideoSlider->setEnabled(false);
-
-    programVideoLayout->addWidget(programVideoSlider);
-    auto* programControlsLayout = new QHBoxLayout;
-
-    auto* programPlayButton = new QPushButton("Play", this);
-    auto* programFullscreenButton = new QPushButton("Fullscreen", this);
-    programPlayButton->setObjectName("programPlayButton");
+    auto* programFullscreenButton =
+        new QPushButton("Fullscreen", this);
     programFullscreenButton->setObjectName("programFullscreenButton");
+    programVideoLayout->addWidget(
+        programFullscreenButton,
+        0,
+        Qt::AlignRight
+    );
 
-    programControlsLayout->addWidget(programPlayButton);
-    programControlsLayout->addWidget(programFullscreenButton);
-
-    programVideoLayout->addLayout(programControlsLayout);
-
-    connect(programPlayButton, &QPushButton::clicked,
-        this, [this, programPlayButton]()
-        {
-            const bool german = isGerman(this);
-
-            if (programPlayer->playbackState() ==
-                QMediaPlayer::PlayingState)
-            {
-                programPlayer->pause();
-                programPlayButton->setText(
-                    german ? "Abspielen" : "Play"
-                );
-            }
-            else
-            {
-                programPlayer->play();
-                programPlayButton->setText(
-                    german ? "Pausieren" : "Pause"
-                );
-            }
-        });
-
+    // Goal video
     auto* goalVideoLayout = new QVBoxLayout;
 
     auto* goalVideoLabel = new QLabel("Goal video", this);
@@ -898,111 +878,319 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
         QSizePolicy::Expanding,
         QSizePolicy::Expanding
     );
-    goalVideoLayout->addWidget(goalVideoWidget);
-    goalVideoSlider = new QSlider(Qt::Horizontal, this);
-    goalVideoSlider->setRange(0, 0);
-    goalVideoSlider->setEnabled(false);
+    goalVideoLayout->addWidget(goalVideoWidget, 1);
 
-    goalVideoLayout->addWidget(goalVideoSlider);
-
-    auto* goalControlsLayout = new QHBoxLayout;
-
-    auto* goalPlayButton = new QPushButton("Play", this);
-    auto* goalFullscreenButton = new QPushButton( "Fullscreen", this);
-    goalPlayButton->setObjectName("goalPlayButton");
+    auto* goalFullscreenButton =
+        new QPushButton("Fullscreen", this);
     goalFullscreenButton->setObjectName("goalFullscreenButton");
+    goalVideoLayout->addWidget(
+        goalFullscreenButton,
+        0,
+        Qt::AlignRight
+    );
 
-    goalControlsLayout->addWidget(goalPlayButton);
-    goalControlsLayout->addWidget(goalFullscreenButton);
+    // Stack the two videos vertically.
+    videoLayout->addLayout(programVideoLayout, 1);
+    videoLayout->addLayout(goalVideoLayout, 1);
 
-    goalVideoLayout->addLayout(goalControlsLayout);
+    // One shared timeline for both videos.
+    auto* videoSlider = new QSlider(Qt::Horizontal, this);
+    videoSlider->setObjectName("videoSlider");
+    videoSlider->setRange(0, 0);
+    videoSlider->setEnabled(false);
+    videoLayout->addWidget(videoSlider);
 
-    videoLayout->addLayout(programVideoLayout);
-    videoLayout->addLayout(goalVideoLayout);
+    // One shared Play/Pause button.
+    auto* videoControlsLayout = new QHBoxLayout;
+    auto* videoPlayButton = new QPushButton("Play", this);
+    videoPlayButton->setObjectName("videoPlayButton");
 
-    videoContainer->setFixedHeight(210);
+    videoControlsLayout->addStretch();
+    videoControlsLayout->addWidget(videoPlayButton);
+    videoControlsLayout->addStretch();
+    videoLayout->addLayout(videoControlsLayout);
+
+    videoContainer->setMinimumHeight(450);
+    videoContainer->setSizePolicy(
+        QSizePolicy::Expanding,
+        QSizePolicy::Expanding
+    );
     videoContainer->setVisible(false);
 
-    rightPanel->addWidget(videoContainer);
+    rightPanel->addWidget(videoContainer, 1);
 
-
+    // Media players
     programPlayer = new QMediaPlayer(this);
     programPlayer->setVideoOutput(programVideoWidget);
 
     goalPlayer = new QMediaPlayer(this);
     goalPlayer->setVideoOutput(goalVideoWidget);
-    connect(goalPlayButton, &QPushButton::clicked,
-        this, [this, goalPlayButton]()
-        {
-            const bool german = isGerman(this);
 
-            if (goalPlayer->playbackState() ==
-                QMediaPlayer::PlayingState)
+    // Shared timeline duration: use the longer of the two videos.
+    auto updateSharedDuration = [this, videoSlider]()
+        {
+            const qint64 duration = std::max(
+                programPlayer->duration(),
+                goalPlayer->duration()
+            );
+
+            videoSlider->setRange(
+                0,
+                static_cast<int>(std::min<qint64>(
+                    duration,
+                    std::numeric_limits<int>::max()
+                ))
+            );
+            videoSlider->setEnabled(duration > 0);
+        };
+
+    connect(
+        programPlayer,
+        &QMediaPlayer::durationChanged,
+        this,
+        [updateSharedDuration](qint64) { updateSharedDuration(); }
+    );
+
+    connect(
+        goalPlayer,
+        &QMediaPlayer::durationChanged,
+        this,
+        [updateSharedDuration](qint64) { updateSharedDuration(); }
+    );
+
+    // Keep the shared slider updated from whichever video is further ahead.
+    auto updateSharedPosition = [this, videoSlider]()
+        {
+            if (videoSlider->isSliderDown())
+                return;
+
+            const qint64 position = std::max(
+                programPlayer->position(),
+                goalPlayer->position()
+            );
+
+            videoSlider->setValue(static_cast<int>(
+                std::min<qint64>(
+                    position,
+                    std::numeric_limits<int>::max()
+                )
+                ));
+        };
+
+    connect(
+        programPlayer,
+        &QMediaPlayer::positionChanged,
+        this,
+        [updateSharedPosition](qint64) { updateSharedPosition(); }
+    );
+
+    connect(
+        goalPlayer,
+        &QMediaPlayer::positionChanged,
+        this,
+        [updateSharedPosition](qint64) { updateSharedPosition(); }
+    );
+
+    // Seek both videos, clamping the position to each video's duration.
+    auto seekBothVideos = [this](qint64 position)
+        {
+            if (programPlayer->isSeekable() && programPlayer->duration() > 0)
             {
-                goalPlayer->pause();
-                goalPlayButton->setText(
-                    german ? "Abspielen" : "Play"
+                programPlayer->setPosition(
+                    std::min<qint64>(position, programPlayer->duration())
                 );
+            }
+
+            if (goalPlayer->isSeekable() && goalPlayer->duration() > 0)
+            {
+                goalPlayer->setPosition(
+                    std::min<qint64>(position, goalPlayer->duration())
+                );
+            }
+        };
+
+    connect(
+        videoSlider,
+        &QSlider::sliderReleased,
+        this,
+        [videoSlider, seekBothVideos]()
+        {
+            seekBothVideos(videoSlider->value());
+        }
+    );
+
+    // Update the shared Play/Pause label in the current study language.
+    auto updatePlayButtonText = [this, videoPlayButton]()
+        {
+            const bool playing =
+                programPlayer->playbackState() == QMediaPlayer::PlayingState ||
+                goalPlayer->playbackState() == QMediaPlayer::PlayingState;
+
+            const bool german = isGerman(this);
+            videoPlayButton->setText(
+                playing
+                ? (german ? "Pausieren" : "Pause")
+                : (german ? "Abspielen" : "Play")
+            );
+        };
+
+    connect(
+        videoPlayButton,
+        &QPushButton::clicked,
+        this,
+        [this, updatePlayButtonText]()
+        {
+            const bool playing =
+                programPlayer->playbackState() == QMediaPlayer::PlayingState ||
+                goalPlayer->playbackState() == QMediaPlayer::PlayingState;
+
+            if (playing)
+            {
+                programPlayer->pause();
+                goalPlayer->pause();
             }
             else
             {
-                goalPlayer->play();
-                goalPlayButton->setText(
-                    german ? "Pausieren" : "Pause"
-                );
+                if (!programPlayer->source().isEmpty())
+                    programPlayer->play();
+
+                if (!goalPlayer->source().isEmpty())
+                    goalPlayer->play();
             }
-        });
-   
-    //SLIDERS
-    connect(programPlayer, &QMediaPlayer::positionChanged,
-        this, [this](qint64 position)
+
+            updatePlayButtonText();
+        }
+    );
+
+    connect(
+        programPlayer,
+        &QMediaPlayer::playbackStateChanged,
+        this,
+        [updatePlayButtonText](QMediaPlayer::PlaybackState)
         {
-            if (!programVideoSlider->isSliderDown())
-                programVideoSlider->setValue(static_cast<int>(position));
-        });
+            updatePlayButtonText();
+        }
+    );
 
-    connect(programPlayer, &QMediaPlayer::durationChanged,
-        this, [this](qint64 duration)
+    connect(
+        goalPlayer,
+        &QMediaPlayer::playbackStateChanged,
+        this,
+        [updatePlayButtonText](QMediaPlayer::PlaybackState)
         {
-            programVideoSlider->setRange(0, static_cast<int>(duration));
-            programVideoSlider->setEnabled(duration > 0);
-        });
+            updatePlayButtonText();
+        }
+    );
 
-    connect(programVideoSlider, &QSlider::sliderMoved,
-        programPlayer, &QMediaPlayer::setPosition);
-
-
-    connect(goalPlayer, &QMediaPlayer::positionChanged,
-        this, [this](qint64 position)
-        {
-            if (!goalVideoSlider->isSliderDown())
-                goalVideoSlider->setValue(static_cast<int>(position));
-        });
-
-    connect(goalPlayer, &QMediaPlayer::durationChanged,
-        this, [this](qint64 duration)
-        {
-            goalVideoSlider->setRange(0, static_cast<int>(duration));
-            goalVideoSlider->setEnabled(duration > 0);
-        });
-
-    connect(goalVideoSlider, &QSlider::sliderMoved,
-        goalPlayer, &QMediaPlayer::setPosition);
-    connect(programFullscreenButton, &QPushButton::clicked,
-        this, [this]()
+    // Fullscreen remains independent for each video.
+    connect(
+        programFullscreenButton,
+        &QPushButton::clicked,
+        this,
+        [this]()
         {
             programVideoWidget->setFullScreen(
                 !programVideoWidget->isFullScreen()
             );
-        });
+        }
+    );
 
-    connect(goalFullscreenButton, &QPushButton::clicked,
-        this, [this]()
+    connect(
+        goalFullscreenButton,
+        &QPushButton::clicked,
+        this,
+        [this]()
         {
             goalVideoWidget->setFullScreen(
                 !goalVideoWidget->isFullScreen()
             );
-        });
+        }
+    );
+
+    // Keyboard controls: Space = Play/Pause, Left/Right = seek 5 seconds.
+    auto* playShortcut = new QShortcut(QKeySequence(Qt::Key_Space), this);
+    playShortcut->setContext(Qt::WidgetWithChildrenShortcut);
+
+    connect(
+        playShortcut,
+        &QShortcut::activated,
+        this,
+        [this, videoPlayButton]()
+        {
+            QWidget* focus = QApplication::focusWidget();
+
+            if (qobject_cast<QLineEdit*>(focus) ||
+                qobject_cast<QTextEdit*>(focus) ||
+                qobject_cast<QPlainTextEdit*>(focus) ||
+                qobject_cast<QComboBox*>(focus) ||
+                qobject_cast<QAbstractSpinBox*>(focus))
+            {
+                return;
+            }
+
+            videoPlayButton->click();
+        }
+    );
+
+    auto* rewindShortcut = new QShortcut(QKeySequence(Qt::Key_Left), this);
+    rewindShortcut->setContext(Qt::WidgetWithChildrenShortcut);
+
+    auto* forwardShortcut = new QShortcut(QKeySequence(Qt::Key_Right), this);
+    forwardShortcut->setContext(Qt::WidgetWithChildrenShortcut);
+
+    auto seekBy = [videoSlider, seekBothVideos](qint64 offset)
+        {
+            const qint64 target = qBound<qint64>(
+                0LL,
+                static_cast<qint64>(videoSlider->value()) + offset,
+                static_cast<qint64>(videoSlider->maximum())
+            );
+
+            videoSlider->setValue(static_cast<int>(target));
+            seekBothVideos(target);
+        };
+
+    connect(
+        rewindShortcut,
+        &QShortcut::activated,
+        this,
+        [this, seekBy]()
+        {
+            QWidget* focus = QApplication::focusWidget();
+
+            if (qobject_cast<QLineEdit*>(focus) ||
+                qobject_cast<QTextEdit*>(focus) ||
+                qobject_cast<QPlainTextEdit*>(focus) ||
+                qobject_cast<QComboBox*>(focus) ||
+                qobject_cast<QAbstractSpinBox*>(focus))
+            {
+                return;
+            }
+
+            seekBy(-5000);
+        }
+    );
+
+    connect(
+        forwardShortcut,
+        &QShortcut::activated,
+        this,
+        [this, seekBy]()
+        {
+            QWidget* focus = QApplication::focusWidget();
+
+            if (qobject_cast<QLineEdit*>(focus) ||
+                qobject_cast<QTextEdit*>(focus) ||
+                qobject_cast<QPlainTextEdit*>(focus) ||
+                qobject_cast<QComboBox*>(focus) ||
+                qobject_cast<QAbstractSpinBox*>(focus))
+            {
+                return;
+            }
+
+            seekBy(5000);
+        }
+    );
 
     auto* leftContainer = new QWidget;
     leftContainer->setLayout(leftPanel);
@@ -1010,8 +1198,8 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
     auto* rightContainer = new QWidget;
     rightContainer->setLayout(rightPanel);
 
-    contentLayout->addWidget(leftContainer, 4);
-    contentLayout->addWidget(rightContainer, 3);
+    contentLayout->addWidget(leftContainer, 1);
+    contentLayout->addWidget(rightContainer, 1);
 
     mainLayout->addLayout(contentLayout, 1);
 
@@ -1481,7 +1669,7 @@ void ParametrizationPage::updateAvailableObjectTypes()
 {
     const bool german = isGerman(this);
     const QString domain = domainCombo->currentData().toString();
-  
+
     objectTypeCombo->clear();
 
     auto addObjectType = [this, german](
@@ -1527,7 +1715,7 @@ void ParametrizationPage::updateAvailableObjectTypes()
 
     if (domain == "Laboratory")
     {
-       
+
         //Parametrization
         addObjectType("Beaker", "beaker");
         addObjectType("Box", "box");
@@ -1541,9 +1729,9 @@ void ParametrizationPage::updateAvailableObjectTypes()
     }
     else if (domain == "Catering")
     {
-		
 
-		//Parametrization
+
+        //Parametrization
         addObjectType("Bowl", "bowl");
         addObjectType("Chamomile Tea", "chamomileTea");
         addObjectType("Cutting Board", "cuttingBoard");
@@ -1561,8 +1749,8 @@ void ParametrizationPage::updateAvailableObjectTypes()
     }
     else if (domain == "Workshop")
     {
-		
-		//Parametrization
+
+        //Parametrization
 
         addObjectType("Bolt", "bolt");
         addObjectType("Box", "box");
@@ -1574,8 +1762,8 @@ void ParametrizationPage::updateAvailableObjectTypes()
     }
     else if (domain == "Electronics")
     {
-		
-		//Parametrization
+
+        //Parametrization
         addObjectType("Bolt", "bolt");
         addObjectType("Box", "box");
         addObjectType("Conductor", "conductor");
@@ -1587,6 +1775,7 @@ void ParametrizationPage::updateAvailableObjectTypes()
 }
 
 //run the parametrization depending on the mode (implicit or explicit)
+
 
 bool ParametrizationPage::runParametrization(bool showMessage)
 {
@@ -1695,14 +1884,7 @@ bool ParametrizationPage::runParametrization(bool showMessage)
             );
         }
 
-        ProgramInstantiator instantiator;
-
-        Program instantiatedProgram = instantiator.instantiate(
-            program,
-            inputParameters,
-            result
-        );
-
+        // Update explicit assignments
         explicitAssignments.clear();
 
         for (const Assignment& assignment : result.assignments)
@@ -1711,30 +1893,10 @@ bool ParametrizationPage::runParametrization(bool showMessage)
                 assignment.inputParameterId;
         }
 
-       //RENDER WITH ORIGINAL
+        // Display the parametrized program
         renderProgram(program);
 
-       //show the assignments before unity connection
-        QApplication::processEvents();
-
-        // Robot execution
-        {
-            ursim::unity_simulation simulation;
-            std::this_thread::sleep_for(std::chrono::seconds(2));
-            RobotController robotController(simulation);
-
-            if (!robotController.initializeScene(instantiatedProgram))
-            {
-                std::cerr << "Program execution aborted: scene validation failed\n";
-                return false;
-            }
-
-            CommandExecutor executor(robotController);
-            executor.execute(instantiatedProgram);
-        }
-
-        //No disconnection from unity needed, gets destroyed after leaving the scope!
-
+        // Prepare response data
         QJsonObject response;
 
         response["participant_id"] = participantId.trimmed();
@@ -1891,40 +2053,6 @@ bool ParametrizationPage::runParametrization(bool showMessage)
             return false;
         }
 
-        if (showMessage)
-        {
-            QMessageBox::information(
-                this,
-                german
-                ? "Parametrisierung erfolgreich"
-                : "Parametrization successful",
-                german
-                ? QString(
-                    "Die Parametrisierung wurde erfolgreich abgeschlossen\n\n"
-                    "Teilnehmer: %1\n"
-                    "Zuordnung: %2\n"
-                    "Zuordnungen: %3\n"
-                    "Gesamtkosten: %4\n\n"
-                    "Antwort gespeichert."
-                )
-                .arg(participantId.trimmed())
-                .arg(mode == "Implicit" ? "Implizit" : "Explizit")
-                .arg(static_cast<qulonglong>(result.assignments.size()))
-                .arg(result.totalCost)
-                : QString(
-                    "Parametrization completed successfully.\n\n"
-                    "Participant: %1\n"
-                    "Mode: %2\n"
-                    "Assignments: %3\n"
-                    "Total cost: %4\n\n"
-                    "Response saved."
-                )
-                .arg(participantId.trimmed())
-                .arg(mode)
-                .arg(static_cast<qulonglong>(result.assignments.size()))
-                .arg(result.totalCost)
-            );
-        }
 
         return true;
     }
@@ -1942,6 +2070,7 @@ bool ParametrizationPage::runParametrization(bool showMessage)
         return false;
     }
 }
+
 
 void ParametrizationPage::setParticipantId(const QString& id)
 {
@@ -2010,11 +2139,10 @@ void ParametrizationPage::setStudyLanguage(const QString& language)
     auto* programTitle = findChild<QLabel*>("programTitle");
     auto* inputTitle = findChild<QLabel*>("inputTitle");
     auto* programVideoLabel = findChild<QLabel*>("programVideoLabel");
-    auto* goalVideoLabel =findChild<QLabel*>("goalVideoLabel");
-    auto* programPlayButton =findChild<QPushButton*>("programPlayButton");
-    auto* goalPlayButton =findChild<QPushButton*>("goalPlayButton");
-    auto* programFullscreenButton =findChild<QPushButton*>("programFullscreenButton");
-    auto* goalFullscreenButton =findChild<QPushButton*>("goalFullscreenButton");
+    auto* goalVideoLabel = findChild<QLabel*>("goalVideoLabel");
+    auto* videoPlayButton = findChild<QPushButton*>("videoPlayButton");
+    auto* programFullscreenButton = findChild<QPushButton*>("programFullscreenButton");
+    auto* goalFullscreenButton = findChild<QPushButton*>("goalFullscreenButton");
     auto* backButton = findChild<QPushButton*>("backButton");
     auto* addButton = findChild<QPushButton*>("addButton");
     auto* clearButton = findChild<QPushButton*>("clearButton");
@@ -2055,7 +2183,7 @@ void ParametrizationPage::setStudyLanguage(const QString& language)
     if (runButton)
         runButton->setText(
             german
-            ? "Parametrisierung starten"
+            ? "Parametrisieren"
             : "Run parametrization"
         );
 
@@ -2070,19 +2198,18 @@ void ParametrizationPage::setStudyLanguage(const QString& language)
             german ? "Zielvideo" : "Goal video"
         );
 
-    if (programPlayButton)
-        programPlayButton->setText(
-            programPlayer->playbackState() == QMediaPlayer::PlayingState
-            ? (german ? "Pausieren" : "Pause")
-            : (german ? "Abspielen" : "Play")
-        );
+    if (videoPlayButton)
+    {
+        const bool playing =
+            programPlayer->playbackState() == QMediaPlayer::PlayingState ||
+            goalPlayer->playbackState() == QMediaPlayer::PlayingState;
 
-    if (goalPlayButton)
-        goalPlayButton->setText(
-            goalPlayer->playbackState() == QMediaPlayer::PlayingState
+        videoPlayButton->setText(
+            playing
             ? (german ? "Pausieren" : "Pause")
             : (german ? "Abspielen" : "Play")
         );
+    }
 
     if (programFullscreenButton)
         programFullscreenButton->setText(
@@ -2203,8 +2330,7 @@ void ParametrizationPage::updateStudyVideos()
         programPlayer->setSource(
             QUrl::fromLocalFile(programVideoPath)
         );
-        programPlayer->play();
-        programPlayer->stop();
+        programPlayer->setPosition(0);
     }
     else
     {
@@ -2218,12 +2344,24 @@ void ParametrizationPage::updateStudyVideos()
             QUrl::fromLocalFile(goalVideoPath)
         );
         goalPlayer->play();
-		goalPlayer->stop();
+        goalPlayer->stop();
     }
     else
     {
         qWarning() << "Goal video not found:" << goalVideoPath;
         goalPlayer->setSource(QUrl());
+    }
+
+    if (auto* videoSlider = findChild<QSlider*>("videoSlider"))
+    {
+        videoSlider->setValue(0);
+        videoSlider->setEnabled(false);
+    }
+
+    if (auto* videoPlayButton = findChild<QPushButton*>("videoPlayButton"))
+    {
+        const bool german = isGerman(this);
+        videoPlayButton->setText(german ? "Abspielen" : "Play");
     }
 }
 

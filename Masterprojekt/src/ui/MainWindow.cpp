@@ -204,18 +204,20 @@ void MainWindow::showStudyTask()
         { "D", "A", "B", "C" }
     };
 
-    static const QStringList parametrizationVariants[8] =
+    static const QStringList parametrizationVariants[4] =
     {
-        { "I2", "E2", "I4", "E4" },
-        { "E2", "I2", "E4", "I4" },
-        { "I4", "E4", "I2", "E2" },
-        { "E4", "I4", "E2", "I2" },
-        { "I2", "E2", "I4", "E4" },
-        { "E2", "I2", "E4", "I4" },
-        { "I4", "E4", "I2", "E2" },
-        { "E4", "I4", "E2", "I2" }
-    };
+        // List 1: Implicit first, condition 2 before 4
+        { "I2", "I2", "I4", "I4", "E2", "E2", "E4", "E4" },
 
+        // List 2: Explicit first, condition 2 before 4
+        { "E2", "E2", "E4", "E4", "I2", "I2", "I4", "I4" },
+
+        // List 3: Implicit first, condition 4 before 2
+        { "I4", "I4", "I2", "I2", "E4", "E4", "E2", "E2" },
+
+        // List 4: Explicit first, condition 4 before 2
+        { "E4", "E4", "E2", "E2", "I4", "I4", "I2", "I2" }
+    };
     if (task.pageType == StudyPageType::Plausibility)
     {
         task.variant =
@@ -239,7 +241,7 @@ void MainWindow::showStudyTask()
         const int parametrizationIndex = studyTaskIndex - 12;
 
         task.variant =
-            parametrizationVariants[parametrizationIndex][studyListNumber];
+            parametrizationVariants[studyListNumber][parametrizationIndex];
         const QString mode =
             task.variant.startsWith("E")
             ? "Explicit"

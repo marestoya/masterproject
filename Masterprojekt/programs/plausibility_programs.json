@@ -573,7 +573,7 @@
         [
           { "text": "Put the " },
           { "slot": 1 },
-          { "text": " on the left of the " },
+          { "text": " on the " },
           { "slot": 2 },
           { "text": "." }
         ],

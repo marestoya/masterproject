@@ -161,7 +161,7 @@ namespace
             {"white package", "weißes Paket"},
             {"blue toolbox", "blaue Werkzeugkiste"},
             {"green wrench", "grüner Schraubenschlüssel"},
-            {"counter", "Schalter"},
+            {"counter", "Theke"},
             {"bolt", "Bolzen"},
             {"wire", "Kabel"},
             {"button", "Knopf"}
@@ -230,7 +230,8 @@ namespace
             {"Attach an ", "Befestige "}, {"Place ", "Platziere "},
             {" on all ", " auf allen "}, {" at ", " an "},
             {"Turn the ", "Schalte "}, {". ", ". "}, {" on.", " ein."}, {"Wipe", " Wische"},
-            {" in the corner of the ", "in der Ecke von "}, {"on the left of the ", "links neben "}, {"on the right of the ", "rechts neben "}, {" with the ", " mit "}
+            {" in the corner of the ", "in der Ecke von "}, {"on the left of the ", "links neben "}, {"on the right of the ", "rechts neben "}, {" with the ", " mit "},
+            {" to the ", " am"}, {"Wipe the ", "Wische den "}
         };
         const auto it = fragments.find(text);
         if (it != fragments.end()) return it->second;
@@ -251,7 +252,7 @@ namespace
             {"The glass should be filled with the grey liquid.", "Das Glas soll mit der grauen Flüssigkeit gefüllt werden."},
             {"The spoon container should be at station B.", "Der Löffelbehälter soll an Station B stehen."},
             {"Sale stickers should be placed on cups.", "Die Angebotssticker sollen auf Bechern platziert werden."},
-            {"The red cake stand should be on the counter.", "Der rote Kuchenständer soll auf dem Schalter stehen."},
+            {"The red cake stand should be on the counter.", "Der rote Kuchenständer soll auf der Theke stehen."},
             {"Green light needs to be in branch 1.", "Die grüne Lampe muss sich in Zweig 1 befinden."},
             {"Blue wire needs to be in circuit A.", "Das blaue Kabel muss sich in Schaltung A befinden."},
             {"Red button needs to be switched on.", "Der rote Knopf muss eingeschaltet werden."}

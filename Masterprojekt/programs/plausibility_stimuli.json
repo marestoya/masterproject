@@ -54,7 +54,7 @@
           "color": "blue"
         }
       ],
-      "context": "The blue toolbox belongs to the green wrench.",
+      "context": "The blue toolbox should be placed where the green wrench is.",
       "programParameterOverrides": [
         {
           "id": 3,
