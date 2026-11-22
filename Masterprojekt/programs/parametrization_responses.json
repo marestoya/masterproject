@@ -516,6 +516,1270 @@
             "timestamp": "2026-11-18T11:03:25",
             "total_cost": 4,
             "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 5
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "",
+                    "object_id": 2,
+                    "program_slot_id": 5,
+                    "type": "thermometer"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-21T15:17:05",
+            "total_cost": 0.9,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 3,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 1
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "",
+                    "object_id": 3,
+                    "program_slot_id": 1,
+                    "type": "glass"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-21T15:17:13",
+            "total_cost": 3,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "brown",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-21T15:49:32",
+            "total_cost": 1.8,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "black",
+                    "object_id": 3,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-21T15:49:40",
+            "total_cost": 0.9,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 5,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 4
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "",
+                    "object_id": 1,
+                    "program_slot_id": 4,
+                    "type": "spoon"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-21T15:50:24",
+            "total_cost": 5,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 3
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 3,
+                    "program_slot_id": 3,
+                    "type": "drill"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "program_name": "Return tools",
+            "timestamp": "2026-11-21T15:51:02",
+            "total_cost": 0,
+            "variant": "E2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "brown",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-22T13:08:12",
+            "total_cost": 1.8,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 4,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "red",
+                    "object_id": 3,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "grey",
+                    "object_id": 4,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-22T13:08:35",
+            "total_cost": 6,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 2,
+                    "input_parameter_id": 5,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 4,
+                    "input_parameter_id": 6,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 7,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 8,
+                    "program_parameter_id": 4
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 5,
+                    "program_slot_id": 1,
+                    "type": "smallPlate"
+                },
+                {
+                    "color": "",
+                    "object_id": 6,
+                    "program_slot_id": 2,
+                    "type": "cuttingBoard"
+                },
+                {
+                    "color": "white",
+                    "object_id": 7,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                },
+                {
+                    "color": "white",
+                    "object_id": 8,
+                    "program_slot_id": 4,
+                    "type": "fork"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-22T13:09:20",
+            "total_cost": 9.9,
+            "variant": "I4"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 3,
+                    "input_parameter_id": 9,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 10,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 11,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 1,
+                    "input_parameter_id": 12,
+                    "program_parameter_id": 5
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 9,
+                    "program_slot_id": 1,
+                    "type": "bowl"
+                },
+                {
+                    "color": "white",
+                    "object_id": 10,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                },
+                {
+                    "color": "",
+                    "object_id": 11,
+                    "program_slot_id": 4,
+                    "type": "chamomileTea"
+                },
+                {
+                    "color": "",
+                    "object_id": 12,
+                    "program_slot_id": 5,
+                    "type": "longSpoon"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 4,
+            "program_name": "Set up table",
+            "timestamp": "2026-11-22T13:09:49",
+            "total_cost": 9,
+            "variant": "I4"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 1,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 1,
+                    "program_slot_id": 1,
+                    "type": "hammer"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 2,
+                    "program_slot_id": 2,
+                    "type": "box"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 5,
+            "program_name": "Return tools",
+            "timestamp": "2026-11-22T13:13:28",
+            "total_cost": 0,
+            "variant": "E2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 3,
+                    "program_slot_id": 1,
+                    "type": "bolt"
+                },
+                {
+                    "color": "green",
+                    "object_id": 4,
+                    "program_slot_id": 2,
+                    "type": "box"
+                }
+            ],
+            "participant_id": "1",
+            "program_id": 6,
+            "program_name": "Galvanize a gear",
+            "timestamp": "2026-11-22T13:14:03",
+            "total_cost": 0,
+            "variant": "E2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 2,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 3,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 2,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "brown",
+                    "object_id": 3,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                }
+            ],
+            "participant_id": "5",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-22T15:17:20",
+            "total_cost": 1.8,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 4,
+                    "input_parameter_id": 4,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 5,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": -0.1,
+                    "input_parameter_id": 6,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": -0.1,
+                    "input_parameter_id": 7,
+                    "program_parameter_id": 4
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "red",
+                    "object_id": 4,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "grey",
+                    "object_id": 5,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 6,
+                    "program_slot_id": 3,
+                    "type": "testTube"
+                },
+                {
+                    "color": "white",
+                    "object_id": 7,
+                    "program_slot_id": 4,
+                    "type": "testTube"
+                }
+            ],
+            "participant_id": "5",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-22T15:20:42",
+            "total_cost": 5.800000000000001,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 8,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 9,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 10,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 11,
+                    "program_parameter_id": 4
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 8,
+                    "program_slot_id": 1,
+                    "type": "plate"
+                },
+                {
+                    "color": "brown",
+                    "object_id": 9,
+                    "program_slot_id": 2,
+                    "type": "cuttingBoard"
+                },
+                {
+                    "color": "white",
+                    "object_id": 10,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                },
+                {
+                    "color": "white",
+                    "object_id": 11,
+                    "program_slot_id": 4,
+                    "type": "fork"
+                }
+            ],
+            "participant_id": "5",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-22T15:26:14",
+            "total_cost": 7.8,
+            "variant": "I4"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 3,
+                    "input_parameter_id": 12,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 3,
+                    "input_parameter_id": 13,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 14,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 15,
+                    "program_parameter_id": 5
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 12,
+                    "program_slot_id": 1,
+                    "type": "bowl"
+                },
+                {
+                    "color": "white",
+                    "object_id": 13,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                },
+                {
+                    "color": "",
+                    "object_id": 14,
+                    "program_slot_id": 4,
+                    "type": "chamomileTea"
+                },
+                {
+                    "color": "white",
+                    "object_id": 15,
+                    "program_slot_id": 5,
+                    "type": "longSpoon"
+                }
+            ],
+            "participant_id": "5",
+            "program_id": 4,
+            "program_name": "Set up table",
+            "timestamp": "2026-11-22T15:30:59",
+            "total_cost": 10,
+            "variant": "I4"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 18,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 19,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 18,
+                    "program_slot_id": 1,
+                    "type": "hammer"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 19,
+                    "program_slot_id": 2,
+                    "type": "box"
+                }
+            ],
+            "participant_id": "5",
+            "program_id": 5,
+            "program_name": "Return tools",
+            "timestamp": "2026-11-22T15:37:54",
+            "total_cost": 0,
+            "variant": "E2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 20,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 21,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 20,
+                    "program_slot_id": 1,
+                    "type": "bolt"
+                },
+                {
+                    "color": "grey",
+                    "object_id": 21,
+                    "program_slot_id": 2,
+                    "type": "box"
+                }
+            ],
+            "participant_id": "5",
+            "program_id": 6,
+            "program_name": "Galvanize a gear",
+            "timestamp": "2026-11-22T15:41:26",
+            "total_cost": 0,
+            "variant": "E2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 22,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 23,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 24,
+                    "program_parameter_id": 7
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 25,
+                    "program_parameter_id": 8
+                }
+            ],
+            "domain": "Electronics",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "red",
+                    "object_id": 22,
+                    "program_slot_id": 1,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "green",
+                    "object_id": 23,
+                    "program_slot_id": 4,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 24,
+                    "program_slot_id": 7,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "black",
+                    "object_id": 25,
+                    "program_slot_id": 8,
+                    "type": "conductorLight"
+                }
+            ],
+            "participant_id": "5",
+            "program_id": 7,
+            "program_name": "Connect conductors",
+            "timestamp": "2026-11-22T15:45:34",
+            "total_cost": 0,
+            "variant": "E4"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 26,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 27,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 28,
+                    "program_parameter_id": 6
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 29,
+                    "program_parameter_id": 8
+                }
+            ],
+            "domain": "Electronics",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "orange",
+                    "object_id": 26,
+                    "program_slot_id": 1,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "white",
+                    "object_id": 27,
+                    "program_slot_id": 4,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "yellow",
+                    "object_id": 28,
+                    "program_slot_id": 6,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "grey",
+                    "object_id": 29,
+                    "program_slot_id": 8,
+                    "type": "conductorLight"
+                }
+            ],
+            "participant_id": "5",
+            "program_id": 8,
+            "program_name": "Connect more conductors",
+            "timestamp": "2026-11-22T15:47:34",
+            "total_cost": 0,
+            "variant": "E4"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 31,
+                    "program_parameter_id": 1
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 31,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                }
+            ],
+            "participant_id": "6",
+            "program_id": 1,
+            "program_name": "Set up experiment",
+            "timestamp": "2026-11-22T16:05:48",
+            "total_cost": 0,
+            "variant": "E2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 32,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 33,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 34,
+                    "program_parameter_id": 3
+                }
+            ],
+            "domain": "Laboratory",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "red",
+                    "object_id": 32,
+                    "program_slot_id": 1,
+                    "type": "beaker"
+                },
+                {
+                    "color": "grey",
+                    "object_id": 33,
+                    "program_slot_id": 2,
+                    "type": "tray"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 34,
+                    "program_slot_id": 3,
+                    "type": "testTube"
+                }
+            ],
+            "participant_id": "6",
+            "program_id": 2,
+            "program_name": "Store samples",
+            "timestamp": "2026-11-22T16:08:51",
+            "total_cost": 0,
+            "variant": "E2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 35,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 36,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 37,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 38,
+                    "program_parameter_id": 4
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 35,
+                    "program_slot_id": 1,
+                    "type": "smallPlate"
+                },
+                {
+                    "color": "yellow",
+                    "object_id": 36,
+                    "program_slot_id": 2,
+                    "type": "cuttingBoard"
+                },
+                {
+                    "color": "white",
+                    "object_id": 37,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                },
+                {
+                    "color": "white",
+                    "object_id": 38,
+                    "program_slot_id": 4,
+                    "type": "fork"
+                }
+            ],
+            "participant_id": "6",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-22T16:15:02",
+            "total_cost": 0,
+            "variant": "E4"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 35,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 36,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 37,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 38,
+                    "program_parameter_id": 4
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 35,
+                    "program_slot_id": 1,
+                    "type": "smallPlate"
+                },
+                {
+                    "color": "yellow",
+                    "object_id": 36,
+                    "program_slot_id": 2,
+                    "type": "cuttingBoard"
+                },
+                {
+                    "color": "white",
+                    "object_id": 37,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                },
+                {
+                    "color": "white",
+                    "object_id": 38,
+                    "program_slot_id": 4,
+                    "type": "fork"
+                }
+            ],
+            "participant_id": "6",
+            "program_id": 3,
+            "program_name": "Clear table",
+            "timestamp": "2026-11-22T16:15:06",
+            "total_cost": 0,
+            "variant": "E4"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0,
+                    "input_parameter_id": 39,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 40,
+                    "program_parameter_id": 3
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 41,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 0,
+                    "input_parameter_id": 42,
+                    "program_parameter_id": 5
+                }
+            ],
+            "domain": "Catering",
+            "mode": "Explicit",
+            "objects": [
+                {
+                    "color": "white",
+                    "object_id": 39,
+                    "program_slot_id": 1,
+                    "type": "bowl"
+                },
+                {
+                    "color": "white",
+                    "object_id": 40,
+                    "program_slot_id": 3,
+                    "type": "cup"
+                },
+                {
+                    "color": "",
+                    "object_id": 41,
+                    "program_slot_id": 4,
+                    "type": "chamomileTea"
+                },
+                {
+                    "color": "white",
+                    "object_id": 42,
+                    "program_slot_id": 5,
+                    "type": "longSpoon"
+                }
+            ],
+            "participant_id": "6",
+            "program_id": 4,
+            "program_name": "Set up table",
+            "timestamp": "2026-11-22T16:18:37",
+            "total_cost": 0,
+            "variant": "E4"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 44,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 0.9,
+                    "input_parameter_id": 45,
+                    "program_parameter_id": 2
+                },
+                {
+                    "cost": -0.1,
+                    "input_parameter_id": 46,
+                    "program_parameter_id": 3
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "green",
+                    "object_id": 44,
+                    "program_slot_id": 1,
+                    "type": "hammer"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 45,
+                    "program_slot_id": 2,
+                    "type": "box"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 46,
+                    "program_slot_id": 3,
+                    "type": "drill"
+                }
+            ],
+            "participant_id": "6",
+            "program_id": 5,
+            "program_name": "Return tools",
+            "timestamp": "2026-11-22T16:23:37",
+            "total_cost": 1.7,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 4,
+                    "input_parameter_id": 47,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 48,
+                    "program_parameter_id": 2
+                }
+            ],
+            "domain": "Workshop",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "blue",
+                    "object_id": 47,
+                    "program_slot_id": 1,
+                    "type": "bolt"
+                },
+                {
+                    "color": "grey",
+                    "object_id": 48,
+                    "program_slot_id": 2,
+                    "type": "box"
+                }
+            ],
+            "participant_id": "6",
+            "program_id": 6,
+            "program_name": "Galvanize a gear",
+            "timestamp": "2026-11-22T16:26:37",
+            "total_cost": 6,
+            "variant": "I2"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 2,
+                    "input_parameter_id": 49,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 50,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 51,
+                    "program_parameter_id": 7
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 52,
+                    "program_parameter_id": 8
+                }
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "red",
+                    "object_id": 49,
+                    "program_slot_id": 1,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "green",
+                    "object_id": 50,
+                    "program_slot_id": 4,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "blue",
+                    "object_id": 51,
+                    "program_slot_id": 7,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "black",
+                    "object_id": 52,
+                    "program_slot_id": 8,
+                    "type": "conductorLight"
+                }
+            ],
+            "participant_id": "6",
+            "program_id": 7,
+            "program_name": "Connect conductors",
+            "timestamp": "2026-11-22T16:30:14",
+            "total_cost": 8,
+            "variant": "I4"
+        },
+        {
+            "assignments": [
+                {
+                    "cost": 2,
+                    "input_parameter_id": 53,
+                    "program_parameter_id": 1
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 54,
+                    "program_parameter_id": 4
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 55,
+                    "program_parameter_id": 6
+                },
+                {
+                    "cost": 2,
+                    "input_parameter_id": 56,
+                    "program_parameter_id": 8
+                }
+            ],
+            "domain": "Electronics",
+            "mode": "Implicit",
+            "objects": [
+                {
+                    "color": "orange",
+                    "object_id": 53,
+                    "program_slot_id": 1,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "white",
+                    "object_id": 54,
+                    "program_slot_id": 4,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "yellow",
+                    "object_id": 55,
+                    "program_slot_id": 6,
+                    "type": "conductorLight"
+                },
+                {
+                    "color": "grey",
+                    "object_id": 56,
+                    "program_slot_id": 8,
+                    "type": "conductorLight"
+                }
+            ],
+            "participant_id": "6",
+            "program_id": 8,
+            "program_name": "Connect more conductors",
+            "timestamp": "2026-11-22T16:32:18",
+            "total_cost": 8,
+            "variant": "I4"
         }
     ]
 }

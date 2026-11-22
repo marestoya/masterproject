@@ -86,7 +86,7 @@ namespace
             static const std::map<QString, QString> translations = {
                 {"beaker", "Becherglas"},
                 {"tray", "Tablett"},
-                {"testTube", "Reagenzglas"},
+                {"testTube", "Probe"},
                 {"thermometer", "Thermometer"},
                 {"box", "Box"},
                 {"plate", "Teller"},
@@ -96,7 +96,7 @@ namespace
                 {"glass", "Glas"},
                 {"matchaTeaBag", "Matcha-Teebeutel"},
                 {"hammer", "Hammer"},
-                {"drill", "Bohrer"},
+                {"drill", "Bohrmaschine"},
                 {"gear", "Zahnrad"},
                 {"vat", "Wanne"},
                 {"wire", "Kabel"},
@@ -110,8 +110,6 @@ namespace
                 {"fork", "Gabel"},
                 {"fork_container", "Gabelbehälter"},
                 {"juice", "Saft"},
-                {"largeCup", "Große Tasse"},
-                {"longSpoon", "Langer Löffel"},
                 {"muffin", "Muffin"},
                 {"napkin", "Serviette"},
                 {"plate_stack", "Tellerstapel"},
@@ -314,7 +312,8 @@ namespace
             {"silver", "Silber"},
             {"glass", "Glas"},
             {"grey", "Grau"},
-            {"black", "Schwarz"}
+            {"black", "Schwarz"},
+			{"orange","Orange"}
         };
 
         const auto it = translations.find(raw.toLower());
@@ -531,12 +530,25 @@ public:
 
     void setAssignment(const QString& assignedText)
     {
+        correctnessEvaluated = false;
+
         isAssigned = !assignedText.isEmpty();
-
         setText(isAssigned ? assignedText : originalText);
-
         updateStyle();
         update();
+    }
+
+    void setCorrectness(bool correct)
+    {
+        correctnessEvaluated = true;
+        isCorrect = correct;
+        updateStyle();
+    }
+
+    void clearCorrectness()
+    {
+        correctnessEvaluated = false;
+        updateStyle();
     }
 
 protected:
@@ -639,9 +651,34 @@ private:
 
     QString originalText;
     bool isAssigned = false;
+    bool correctnessEvaluated = false;
+    bool isCorrect = false;
 
     void updateStyle()
     {
+        if (correctnessEvaluated)
+        {
+            const QString background = isCorrect
+                ? "#e8f5e9"
+                : "#ffebee";
+
+            const QString border = isCorrect
+                ? "#4caf50"
+                : "#f44336";
+
+            setStyleSheet(QString(
+                "QLabel {"
+                " background-color: %1;"
+                " color: #202124;"
+                " border: 2px solid %2;"
+                " border-radius: 6px;"
+                " padding: 5px;"
+                "}"
+            ).arg(background, border));
+
+            return;
+        }
+
         if (isAssigned)
         {
             setStyleSheet(
@@ -671,7 +708,131 @@ private:
     }
 };
 
+namespace
+{
+    struct ExpectedAssignment
+    {
+        int slotId;
+        const char* inputType;
+        const char* inputColor; // Empty means that colour is not specified.
+    };
 
+    std::vector<ExpectedAssignment> intendedAssignmentsFor(
+        int programId,
+        int condition)
+    {
+        std::vector<ExpectedAssignment> mappings;
+
+        switch (programId)
+        {
+        case 1: // Set up experiment
+            mappings = {
+                { 1, "beaker", "green" },
+                { 2, "tray", "brown" }
+            };
+
+            if (condition == 4)
+            {
+                mappings.push_back({ 5, "thermometer", "red" });
+                mappings.push_back({ 3, "testTube", "red" });
+            }
+            break;
+
+        case 2: // Store samples
+            mappings = {
+                { 1, "beaker", "red" },
+                { 2, "tray", "grey" }
+            };
+
+            if (condition == 4)
+            {
+                mappings.push_back({ 3, "spoon", "blue" });
+                mappings.push_back({ 4, "spoon", "white" });
+            }
+            break;
+
+        case 3: // Clear table
+            mappings = {
+                { 4, "fork", "white" },
+                { 3, "cup", "white" }
+            };
+
+            if (condition == 4)
+            {
+                mappings.push_back({ 1, "smallPlate", "" });
+                mappings.push_back({ 2, "cuttingBoard", "" });
+            }
+            break;
+
+        case 4: // Set up table
+            mappings = {
+                { 3, "cup", "" },
+                { 1, "bowl", "" }
+            };
+
+            if (condition == 4)
+            {
+                mappings.push_back({ 5, "longSpoon", "" });
+                mappings.push_back({ 4, "chamomileTea", "" });
+            }
+            break;
+
+        case 5: // Return tools
+            mappings = {
+                { 1, "hammer", "green" },
+                { 2, "box", "blue" }
+            };
+
+            if (condition == 4)
+            {
+                mappings.push_back({ 3, "bolt", "blue" });
+                mappings.push_back({ 4, "tray", "red" });
+            }
+            break;
+
+        case 6: // Galvanize a gear
+            mappings = {
+                { 1, "bolt", "white" },
+                { 2, "box", "grey" }
+            };
+
+            if (condition == 4)
+            {
+                mappings.push_back({ 3, "box", "green" });
+                mappings.push_back({ 4, "box", "black" });
+            }
+            break;
+
+        case 7: // Connect conductors
+            mappings = {
+                { 1, "conductorLight", "red" },
+                { 4, "conductorLight", "green" }
+            };
+
+            if (condition == 4)
+            {
+                mappings.push_back({ 7, "conductorLight", "blue" });
+                mappings.push_back({ 8, "conductorLight", "black" });
+            }
+            break;
+
+        case 8: // Connect more conductors
+            mappings = {
+                { 1, "conductorLight", "orange" },
+                { 4, "conductorLight", "white" }
+            };
+
+            if (condition == 4)
+            {
+                mappings.push_back({ 6, "conductorLight", "yellow" });
+                mappings.push_back({ 8, "conductorLight", "grey" });
+            }
+            break;
+        }
+
+        return mappings;
+    }
+}
 //main window
 
 
@@ -828,6 +989,8 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
 
     leftPanel->addWidget(inputScroll, 1);
 
+
+   
     // VIDEOS
 
     videoContainer = new QWidget(this);
@@ -1210,9 +1373,23 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
 
     runButton->setObjectName("runButton");
 
+    auto* simulationButton = new QPushButton(
+        isGerman(this) ? "Simulation ausführen" : "Run Simulation",
+        this
+    );
+    simulationButton->setObjectName("simulateButton");
+
     actionLayout->addStretch();
     actionLayout->addWidget(runButton);
+    actionLayout->addWidget(simulationButton);
+    actionLayout->addStretch();
 
+    connect(
+        simulationButton,
+        &QPushButton::clicked,
+        this,
+        &ParametrizationPage::runSimulation
+    );
     mainLayout->addLayout(actionLayout);
 
     connect(
@@ -1263,8 +1440,8 @@ ParametrizationPage::ParametrizationPage(QWidget* parent)
 
             setWindowTitle(
                 explicitMode
-                ? "VerbBot - Explicit Parametrization"
-                : "VerbBot - Implicit Parametrization"
+                ? "Explicit Parametrization"
+                : "Implicit Parametrization"
             );
         }
     );
@@ -1470,9 +1647,34 @@ void ParametrizationPage::renderProgram(const Program& program)
             refreshSlotDisplays();
         };
 
-    auto getSlotImagePath = [&program](int slotId)
+    auto getSlotImagePath = [this, &program](int slotId)
         {
-            auto it = std::find_if(
+            // First, check whether this slot has an assigned input parameter.
+            auto assignmentIt = explicitAssignments.find(slotId);
+
+            if (assignmentIt != explicitAssignments.end())
+            {
+                const int inputId = assignmentIt->second;
+
+                auto inputIt = std::find_if(
+                    inputParameters.begin(),
+                    inputParameters.end(),
+                    [inputId](const Parameter& parameter)
+                    {
+                        return parameter.id == inputId;
+                    }
+                );
+
+                if (inputIt != inputParameters.end())
+                {
+                    return objectImagePath(
+                        QString::fromStdString(inputIt->type)
+                    );
+                }
+            }
+
+            // No assignment yet: use the original program parameter.
+            auto slotIt = std::find_if(
                 program.parameters.begin(),
                 program.parameters.end(),
                 [slotId](const ParameterSlot& slot)
@@ -1481,11 +1683,14 @@ void ParametrizationPage::renderProgram(const Program& program)
                 }
             );
 
-            if (it == program.parameters.end() || it->parameters.empty())
+            if (slotIt == program.parameters.end() ||
+                slotIt->parameters.empty())
+            {
                 return QString();
+            }
 
             return objectImagePath(
-                QString::fromStdString(it->parameters.front().type)
+                QString::fromStdString(slotIt->parameters.front().type)
             );
         };
 
@@ -1869,8 +2074,8 @@ bool ParametrizationPage::runParametrization(bool showMessage)
             for (const auto& entry : explicitAssignments)
             {
                 userAssignments.push_back({
-                    entry.first,
                     entry.second,
+                    entry.first,
                     0.0
                     });
             }
@@ -1894,7 +2099,71 @@ bool ParametrizationPage::runParametrization(bool showMessage)
         }
 
         // Display the parametrized program
+       // Display the parametrized program
         renderProgram(program);
+
+        // Evaluate correctness for study tasks
+        if (studyVariant.endsWith("2") || studyVariant.endsWith("4"))
+        {
+            const int condition = studyVariant.endsWith("4") ? 4 : 2;
+
+            const auto expectedMappings =
+                intendedAssignmentsFor(program.id, condition);
+
+            for (QLabel* label : findChildren<QLabel*>())
+            {
+                auto* slot = dynamic_cast<DropSlot*>(label);
+
+                if (!slot)
+                    continue;
+                const int slotId = slot->property("slotId").toInt();
+
+                const auto expectedIt = std::find_if(
+                    expectedMappings.begin(),
+                    expectedMappings.end(),
+                    [slotId](const ExpectedAssignment& expected)
+                    {
+                        return expected.slotId == slotId;
+                    }
+                );
+
+                // Leave slots outside the intended mappings unchanged.
+                if (expectedIt == expectedMappings.end())
+                    continue;
+
+                bool correct = false;
+
+                const auto assignmentIt = explicitAssignments.find(slotId);
+
+                if (assignmentIt != explicitAssignments.end())
+                {
+                    const int inputId = assignmentIt->second;
+
+                    const auto inputIt = std::find_if(
+                        inputParameters.begin(),
+                        inputParameters.end(),
+                        [inputId](const Parameter& parameter)
+                        {
+                            return parameter.id == inputId;
+                        }
+                    );
+
+                    if (inputIt != inputParameters.end())
+                    {
+                        const bool typeMatches =
+                            inputIt->type == expectedIt->inputType;
+
+                        const bool colorMatches =
+                            expectedIt->inputColor[0] == '\0' ||
+                            inputIt->color == expectedIt->inputColor;
+
+                        correct = typeMatches && colorMatches;
+                    }
+                }
+
+                slot->setCorrectness(correct);
+            }
+        }
 
         // Prepare response data
         QJsonObject response;
@@ -2147,6 +2416,7 @@ void ParametrizationPage::setStudyLanguage(const QString& language)
     auto* addButton = findChild<QPushButton*>("addButton");
     auto* clearButton = findChild<QPushButton*>("clearButton");
     auto* runButton = findChild<QPushButton*>("runButton");
+    auto* simulateButton = findChild<QPushButton*>("simulateButton");
 
     if (domainLabel)
         domainLabel->setText(german ? "Bereich:" : "Domain:");
@@ -2187,7 +2457,12 @@ void ParametrizationPage::setStudyLanguage(const QString& language)
             : "Run parametrization"
         );
 
-    // Video translations
+    if (simulateButton)
+        simulateButton->setText(
+            german
+            ? "Simulation ausführen"
+            : "Run simulation"
+        );
     if (programVideoLabel)
         programVideoLabel->setText(
             german ? "Programmvideo" : "Program video"
@@ -2271,11 +2546,11 @@ void ParametrizationPage::setStudyLanguage(const QString& language)
     setWindowTitle(
         explicitMode
         ? (german
-            ? "VerbBot - Explizite Parametrisierung"
-            : "VerbBot - Explicit Parametrization")
+            ? "Explizite Parametrisierung"
+            : "Explicit Parametrization")
         : (german
-            ? "VerbBot - Implizite Parametrisierung"
-            : "VerbBot - Implicit Parametrization")
+            ? "Implizite Parametrisierung"
+            : "Implicit Parametrization")
     );
 
     updateProgramList();
@@ -2388,4 +2663,142 @@ bool ParametrizationPage::eventFilter(QObject* watched, QEvent* event)
     }
 
     return QWidget::eventFilter(watched, event);
+}
+
+void ParametrizationPage::runSimulation()
+{
+    const bool german = isGerman(this);
+
+    if (programCombo->currentIndex() < 0)
+    {
+        QMessageBox::warning(
+            this,
+            german ? "Kein Programm ausgewählt" : "No program selected",
+            german
+            ? "Bitte wähle zuerst ein Programm aus."
+            : "Please select a program first."
+        );
+        return;
+    }
+
+    const int selectedId = programCombo->currentData().toInt();
+
+    const auto programIt = std::find_if(
+        programs.begin(),
+        programs.end(),
+        [selectedId](const Program& program)
+        {
+            return program.id == selectedId;
+        }
+    );
+
+    if (programIt == programs.end())
+    {
+        QMessageBox::critical(
+            this,
+            german ? "Fehler" : "Error",
+            german
+            ? "Das ausgewählte Programm konnte nicht gefunden werden."
+            : "The selected program could not be found."
+        );
+        return;
+    }
+
+    const Program& program = *programIt;
+    const QString mode = modeCombo->currentData().toString();
+
+    try
+    {
+        AssignmentResult result;
+
+        // Calculate assignments using the current UI state.
+        if (mode == "Implicit")
+        {
+            const std::vector<Parameter> programParameters =
+                getFirstParameters(program);
+
+            const std::string ontologyPath =
+                "ontologies/" + program.domain + ".json";
+
+            Ontology ontology(ontologyPath);
+            CostModel costModel(ontology);
+
+            CostMatrix costMatrix(
+                programParameters,
+                inputParameters,
+                costModel
+            );
+
+            GlobalImplicit method;
+
+            result = method.parametrize(
+                costMatrix,
+                programParameters,
+                inputParameters
+            );
+        }
+        else
+        {
+            std::vector<Assignment> userAssignments;
+            userAssignments.reserve(explicitAssignments.size());
+
+            for (const auto& entry : explicitAssignments)
+            {
+                userAssignments.push_back({
+                    entry.second, // inputParameterId
+                    entry.first,  // programParameterId
+                    0.0
+                    });
+            }
+
+            GlobalExplicit method;
+
+            result = method.applyUserAssignments(
+                program,
+                inputParameters,
+                userAssignments
+            );
+        }
+
+        // Instantiate the program with the current assignments.
+        ProgramInstantiator instantiator;
+
+        Program instantiatedProgram = instantiator.instantiate(
+            program,
+            inputParameters,
+            result
+        );
+
+        // Connect to Unity and execute.
+        QApplication::processEvents();
+
+        ursim::unity_simulation simulation;
+
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+
+        RobotController robotController(simulation);
+
+        if (!robotController.initializeScene(instantiatedProgram))
+        {
+            QMessageBox::warning(
+                this,
+                german ? "Szenenvalidierung fehlgeschlagen" : "Scene validation failed",
+                german
+                ? "Die Simulation wurde abgebrochen, da die Szenenvalidierung fehlgeschlagen ist."
+                : "Simulation aborted because scene validation failed."
+            );
+            return;
+        }
+
+        CommandExecutor executor(robotController);
+        executor.execute(instantiatedProgram);
+    }
+    catch (const std::exception& e)
+    {
+        QMessageBox::critical(
+            this,
+            german ? "Simulationsfehler" : "Simulation error",
+            QString::fromStdString(e.what())
+        );
+    }
 }

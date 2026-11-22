@@ -67,6 +67,7 @@ private:
     void clearInputObjects();
     void updateAvailableObjectTypes();
     void updateStudyVideos();
+    void runSimulation();
 
 protected:
     bool eventFilter(QObject* watched, QEvent* event) override;

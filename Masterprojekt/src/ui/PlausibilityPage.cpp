@@ -186,7 +186,8 @@ namespace
         static const std::map<QString, QString> colors = {
             {"red", "rot"}, {"blue", "blau"}, {"green", "grün"},
             {"white", "weiß"}, {"grey", "grau"}, {"gray", "grau"},
-            {"brown", "braun"}
+            {"brown", "braun"},{"yellow", "gelb"}, {"black", "schwarz"}, {"silver", "silber"},
+            {"glass", "glas"}, {"orange", "orange"}
         };
         const QString key = raw.toLower();
         const auto it = colors.find(key);

@@ -263,8 +263,12 @@ void MainWindow::showStudyTask()
         );
     }
 
+    const bool german = (studyLanguage == "German");
+
     nextStudyButton->setText(
-        studyTaskIndex == 19 ? "Finish" : "Next"
+        studyTaskIndex == 19
+        ? (german ? "Abschließen" : "Finish")
+        : (german ? "Weiter" : "Next")
     );
 }
 
