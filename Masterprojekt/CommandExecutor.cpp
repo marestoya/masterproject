@@ -178,7 +178,7 @@ void CommandExecutor::executeCommand(
                     placementPosition =
                         target.world_T_object.translation();
 
-                    placementPosition.y() += 0.05f;
+                    placementPosition.y() += 0.08f;
                 }
                 else if (object.type == "spoon" &&
                     target.type == "spoon")
@@ -340,6 +340,8 @@ void CommandExecutor::executeCommand(
                     case PlacementRelation::Beside:
                         placementPosition -= targetX * BESIDE_OFFSET;
                         placementPosition.z() += DROP_HEIGHT - 0.02f;
+                        if(object.type == "testTube" && target.type == "testTube")
+							placementPosition.y() += 0.03f;
                         break;
 
                     case PlacementRelation::NextTo2:
@@ -356,7 +358,7 @@ void CommandExecutor::executeCommand(
                         break;
 
                     case PlacementRelation::OnRIGHT:
-                        placementPosition.y() += 0.05f;
+                        placementPosition.y() += 0.07f;
                         placementPosition.z() += 0.1f;
 
                         if (object.type == "cup")
